@@ -1,3 +1,4 @@
+# 约定：此工作流需要保留在 fork 的默认分支 prod，GitHub 才会注册手动触发和串联触发
 name: Fork Deploy GCE
 
 on:
@@ -6,12 +7,14 @@ on:
       - Fork Publish GHCR
     types:
       - completed
+    branches:
+      - prod
   workflow_dispatch:
     inputs:
       image_ref:
         description: "要部署的镜像（完整引用）"
         required: true
-        default: "ghcr.io/amm10090/inventree:fix-backend-compilemessages-update"
+        default: "ghcr.io/amm10090/inventree:latest"
         type: string
       project_id:
         description: "GCP 项目 ID（可选）"
@@ -30,7 +33,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: fork-deploy-gce
+  group: fork-deploy-gce-prod
   cancel-in-progress: false
 
 jobs:
@@ -40,8 +43,7 @@ jobs:
     if: >
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'workflow_run' &&
-       github.event.workflow_run.conclusion == 'success' &&
-       github.event.workflow_run.head_branch == 'master')
+       github.event.workflow_run.conclusion == 'success')
 
     steps:
       - name: Checkout
@@ -81,10 +83,12 @@ jobs:
           if [[ -z "${ZONE}" ]]; then ZONE="${DEFAULT_ZONE}"; fi
           if [[ -z "${INSTANCE}" ]]; then INSTANCE="${DEFAULT_INSTANCE}"; fi
 
-          echo "image_ref=${IMAGE_REF}" >> "${GITHUB_OUTPUT}"
-          echo "project_id=${PROJECT_ID}" >> "${GITHUB_OUTPUT}"
-          echo "zone=${ZONE}" >> "${GITHUB_OUTPUT}"
-          echo "instance=${INSTANCE}" >> "${GITHUB_OUTPUT}"
+          {
+            echo "image_ref=${IMAGE_REF}"
+            echo "project_id=${PROJECT_ID}"
+            echo "zone=${ZONE}"
+            echo "instance=${INSTANCE}"
+          } >> "${GITHUB_OUTPUT}"
 
           echo "Deploy IMAGE_REF=${IMAGE_REF}"
           echo "Target ${PROJECT_ID}/${ZONE}/${INSTANCE}"

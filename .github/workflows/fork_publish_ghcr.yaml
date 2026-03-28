@@ -1,9 +1,10 @@
+# 约定：fork 的默认分支使用 prod，master 只用于跟随上游同步
 name: Fork Publish GHCR
 
 on:
   push:
     branches:
-      - master
+      - prod
       - fix/**
       - feat/**
       - chore/**
@@ -41,8 +42,8 @@ jobs:
 
           TAGS="${IMAGE_BASE}:${BRANCH_TAG},${IMAGE_BASE}:sha-${SHORT_SHA}"
 
-          # 在 master 分支额外推送 latest，便于生产环境跟随主线
-          if [[ "${GITHUB_REF_NAME}" == "master" ]]; then
+          # 在 prod 分支额外推送 latest，便于生产环境跟随生产分支
+          if [[ "${GITHUB_REF_NAME}" == "prod" ]]; then
             TAGS="${TAGS},${IMAGE_BASE}:latest"
           fi
 
@@ -52,9 +53,11 @@ jobs:
             TAGS="${TAGS},${IMAGE_BASE}:${EXTRA_TAG}"
           fi
 
-          echo "IMAGE_TAGS=${TAGS}" >> "${GITHUB_ENV}"
-          echo "COMMIT_HASH=${SHORT_SHA}" >> "${GITHUB_ENV}"
-          echo "COMMIT_DATE=$(git show -s --format=%ci)" >> "${GITHUB_ENV}"
+          {
+            echo "IMAGE_TAGS=${TAGS}"
+            echo "COMMIT_HASH=${SHORT_SHA}"
+            echo "COMMIT_DATE=$(git show -s --format=%ci)"
+          } >> "${GITHUB_ENV}"
 
           echo "将发布镜像标签:"
           echo "${TAGS}" | tr ',' '\n'

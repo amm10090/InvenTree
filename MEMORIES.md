@@ -35,3 +35,4 @@
 - `InvenTreeTable` 默认 `minHeight` 已从 300 提升到 460（`src/frontend/src/tables/InvenTreeTable.tsx`），用于提升 PanelGroup 场景下的有效内容高度，减少大面积空白观感。
 - QC 工作流的 `web_ui` job 会在 `invoke update` 中执行 `compilemessages`，该链路依赖 `msgfmt`。`apt-dependency` 需要包含 `gettext`，否则会报 `Can't find msgfmt` 并在 `Environment Setup` 失败。当前已在 `.github/workflows/qc_checks.yaml` 补齐 `gettext`。
 - About 模态框的链接区已下线。`src/frontend/src/components/modals/AboutInvenTreeModal.tsx` 不再渲染 `Links` 标题和外链表格，`fillTable` 也已移除仅供链接区使用的 `alwaysLink` 分支。
+- 登录页 `SplashScreen` 仍需兼容后端自定义开屏配置。`server.customize.splash` 现在会通过 `generateUrl` 注入到容器 `backgroundImage`，以保持 `INVENTREE_CUSTOM_SPLASH` 链路和 Playwright customization 用例可用。

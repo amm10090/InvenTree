@@ -1,6 +1,7 @@
 import { Box } from '@mantine/core';
 import { useEffect } from 'react';
 import { useShallow } from 'zustand/react/shallow';
+import { generateUrl } from '../functions/urls';
 import {
   authContent,
   authGlowBottom,
@@ -29,8 +30,24 @@ export default function SplashScreen({
     }
   }, [fetchServerApiState, server.server]);
 
+  const splashUrl = server.customize?.splash
+    ? generateUrl(server.customize.splash)
+    : null;
+
   return (
-    <Box className={authScreen}>
+    <Box
+      className={authScreen}
+      style={
+        splashUrl
+          ? {
+              backgroundImage: `url("${splashUrl}")`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }
+          : undefined
+      }
+    >
       <div className={authGlowTop} />
       <div className={authGlowBottom} />
       <div className={authGrid} />

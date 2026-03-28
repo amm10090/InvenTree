@@ -7,6 +7,11 @@
 ## IN_PROGRESS
 
 ## DONE
+- [x] 2026-03-28 修复 QC 自定义开屏测试找不到自定义 splash 图
+  - 完成时间：2026-03-28
+  - 验收结果：登录页 `SplashScreen` 已恢复读取 `server.customize.splash` 并写入容器背景样式，`playwright_custom_splash.png` 可出现在页面样式中供定制化测试断言
+  - 关联文件：`src/frontend/src/components/SplashScreen.tsx`
+  - 验证方式：`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过
 - [x] 2026-03-28 移除 About 模态框中的链接区域
   - 完成时间：2026-03-28
   - 验收结果：About 弹窗已仅保留版本信息区，不再渲染 `Links` 标题及 Documentation / Source Code / Mobile App / Submit Bug Report 链接表格

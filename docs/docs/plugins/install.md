@@ -1,94 +1,91 @@
 ---
-title: Installing Plugins
+title: 安装插件
 ---
 
+## 安装插件
 
-## Installing a Plugin
+插件可以通过 InvenTree 安装目录中的本地路径加载，也可以作为 PIP 包安装。更推荐 PIP 方式，因为升级和迁移都更省事。
 
-Plugins can either be loaded from paths in the InvenTree install directory or as a plugin installed via pip. We recommend installation via pip as this enables hassle-free upgrades.
+## 常见问题
 
-### Common Issues
+安装插件本身并不复杂，真正容易出问题的通常是运行环境和安装时机。下面这些点最常见。
 
-Installing plugins can be complex! Some common issues are outlined below:
+### 启用插件支持
 
-#### Enable Plugin Support
+在安装自定义插件之前，管理员需要先在 [服务端配置](../start/config.md#plugin-options) 中启用插件支持。
 
-To enable custom plugins, plugin support must be activated in the [server configuration](../start/config.md#plugin-options). This step must be performed by a system administrator before the InvenTree server is started.
+### 重启服务
 
-#### Restart Server
+插件只会在服务启动时被发现和加载。安装新插件并启用后，Web 服务和后台 worker 都需要重启。
 
-Plugins are discovered and loaded only when the server is started. When new plugins are installed (and activated), both the web server and background worker must be restarted.
+### 容器环境
 
-#### Container Environments
+在 Docker 这类容器环境里，插件往往会被安装到一个临时虚拟环境里。为了避免容器重建后插件丢失，InvenTree 提供了启动时自动检查和安装插件的能力。
 
-In certain container environments (such as docker), plugins are installed into an *ephemeral* virtual environment which persists only for the lifetime of the container. To allow for this, InvenTree provides a configurable setting which can automatically install plugins whenever the container is loaded.
-
-!!! tip "Check Plugins on Startup"
-    Ensure the **Check Plugins on Startup** option is enabled, when running InvenTree in a container environment!
+!!! tip "启动时检查插件"
+    如果你在容器里运行 InvenTree，建议启用 **Check Plugins on Startup**。
 
 {{ image("plugin/check_on_startup.png", "Check plugins on startup") }}
 
-### Installation Methods
+## 安装方式
 
-#### Builtin Plugins
+### 内置插件
 
-Builtin plugins ship in `src/backend/InvenTree/plugin/builtin`. To achieve full unit-testing for all mixins there are some sample implementations in `src/backend/InvenTree/plugin/samples`.
+内置插件位于 `src/backend/InvenTree/plugin/builtin`。为了完整覆盖各类 mixin，源码里还带有一批示例实现，位置在 `src/backend/InvenTree/plugin/samples`。
 
-!!! success "Builtin Plugins"
-    Builtin plugins are always enabled, as they are required for core InvenTree functionality
+!!! success "内置插件"
+    内置插件属于核心能力的一部分。
 
-!!! info "Debug Only"
-    The sample plugins are not loaded in production mode.
+!!! info "仅调试模式"
+    示例插件不会在生产模式下加载。
 
-#### Plugin Installation File (PIP)
+### 插件安装文件 { #plugin-installation-file-pip }
 
-Plugins installation can be simplified by providing a list of plugins in a plugin configuration file. This file (by default, *plugins.txt* in the same directory as the server configuration file) contains a list of required plugin packages.
+使用插件安装文件是最省心的方式。默认情况下，这个文件叫 `plugins.txt`，通常和服务端配置文件放在同一个目录中。文件里写入需要安装的插件列表后，可以直接运行 `invoke plugins` 完成安装。
 
-Plugins can be then installed from this file by simply running the command `invoke plugins`.
+这种方式有几个明显好处。
 
-Installation via PIP (using the *plugins.txt* file) provides a number of advantages:
+- 依赖会跟着一起安装
+- 可以通过版本号控制升级节奏
+- 系统迁移时更容易复用
+- 任何 PIP 支持的来源都能接入
 
-- Any required secondary packages are installed automatically
-- You can update plugins simply by specifying version numbers in *plugins.txt*
-- Migrating plugins between systems is simplified
-- You can install plugins via any source supported by PIP
+!!! success "自动更新"
+    如果你通过 `invoke update` 更新 InvenTree，`plugins.txt` 中声明的插件也会一起更新。
 
-!!! success "Auto Update"
-    When the server installation is updated via the `invoke update` command, the plugins (as specified in *plugins.txt*) will also be updated automatically.
+!!! info "插件文件位置"
+    `plugins.txt` 的实际位置会受到 [服务端配置](../start/config.md) 的影响。
 
-!!! info "Plugin File Location"
-    The location of your plugin configuration file will depend on your [server configuration](../start/config.md)
+### Web 界面安装
 
-#### Web Interface
-
-Admin users can install plugins directly from the web interface, via the "Plugin Settings" view:
+管理员也可以直接在 Web 界面的插件设置页安装插件。
 
 {{ image("plugin/plugin_install_web.png", "Install plugin via web interface") }}
 
-Enter the package name into the form as shown below. You can add a path and a version. Leave the version field empty for the latest version. In case the package is on pypi the path can be omitted. Pip will find it automatically.
+在表单中填入包名即可。如果插件不在 PyPI，也可以填写来源路径和版本号。版本留空时会安装最新版本。
 
 {{ image("plugin/plugin_install_git.png", "Install plugin from git") }}
 
-!!! success "Plugin File"
-    A plugin installed via the web interface is added to the [plugins.txt](#plugin-installation-file-pip) plugin file as shown below.
+!!! success "插件文件"
+    通过 Web 界面安装的插件，最终也会被写入 [plugins.txt](#plugin-installation-file-pip)。
 
 {{ image("plugin/plugin_install_txt.png", "Plugin.txt file") }}
 
-#### Local Directory
+### 本地目录
 
-Custom plugins can be placed in the `data/plugins/` directory, where they will be automatically discovered. This can be useful for developing and testing plugins, but can prove more difficult in production (e.g. when using Docker).
+也可以直接把插件放进 `data/plugins/` 目录，系统启动时会自动发现它们。这种方式适合开发和临时测试，但在生产环境里通常不够稳。
 
-!!! info "Git Tracking"
-    The `data/plugins/` directory is excluded from Git version tracking - any plugin files here will be hidden from Git
+!!! info "Git 跟踪"
+    `data/plugins/` 默认不会被 Git 跟踪，放在这里的插件文件不会进入版本管理。
 
-!!! warning "Not Recommended For Production"
-    Loading plugins via the local *plugins* directory is not recommended for production. If you cannot use PIP installation (above), specify a custom plugin directory (below) or use a [VCS](https://pip.pypa.io/en/stable/topics/vcs-support/) as a plugin install source.
+!!! warning "不推荐用于生产环境"
+    生产环境不建议依赖本地 `plugins` 目录。除非确实无法使用 PIP，否则更推荐插件安装文件、VCS 来源，或者下面的自定义插件目录。
 
-#### Custom Directory
+### 自定义目录
 
-If you wish to install plugins from local source, rather than PIP, it is better to place your plugins in a directory outside the InvenTree source directory.
+如果你想从本地源码安装插件，而不是走 PIP，可以把插件放到 InvenTree 源码目录之外的独立目录里。
 
-To achieve this, set the `INVENTREE_PLUGIN_DIR` environment variable to the directory where locally sourced plugins are located. Refer to the [configuration options](../start/config.md#plugin-options) for further information.
+做法是设置 `INVENTREE_PLUGIN_DIR` 环境变量，把它指向插件所在目录。相关配置见 [插件配置项](../start/config.md#plugin-options)。
 
 !!! info "Docker"
-    When running InvenTree in docker, a *plugins* directory is automatically created in the mounted data volume. Any plugins can be placed there, and will be automatically loaded when the server is started.
+    在 Docker 环境中，挂载的数据卷里会自动创建 `plugins` 目录。把插件放进去后，服务启动时就会自动发现。

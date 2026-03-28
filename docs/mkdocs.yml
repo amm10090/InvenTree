@@ -190,18 +190,18 @@ nav:
       - Background Tasks: settings/tasks.md
       - Error Logs: settings/logs.md
       - Error Codes: settings/error_codes.md
-  - Plugins:
-    - Overview: plugins/index.md
-    - Installation: plugins/install.md
-    - Developing a Plugin: plugins/develop.md
-    - Frontend Integration: plugins/frontend.md
+  - 插件:
+    - 概览: plugins/index.md
+    - 安装插件: plugins/install.md
+    - 开发插件: plugins/develop.md
+    - 前端集成: plugins/frontend.md
     - 自定义前端样式: plugins/fork_frontend_styling.md
-    - Plugin Creator: plugins/creator.md
-    - Plugin Walkthrough: plugins/walkthrough.md
-    - Model Metadata: plugins/metadata.md
-    - Tags: plugins/tags.md
-    - Unit Test: plugins/test.md
-    - Plugin Mixins:
+    - 插件脚手架: plugins/creator.md
+    - 插件实战: plugins/walkthrough.md
+    - 模型元数据: plugins/metadata.md
+    - 标签: plugins/tags.md
+    - 单元测试: plugins/test.md
+    - 插件 Mixins:
       - Action Mixin: plugins/mixins/action.md
       - API Mixin: plugins/mixins/api.md
       - App Mixin: plugins/mixins/app.md

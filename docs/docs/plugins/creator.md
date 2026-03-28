@@ -1,182 +1,174 @@
 ---
-title: Plugin Creator
+title: 插件脚手架
 ---
 
-## Plugin Creator Tool
+## 插件脚手架工具
 
-The plugin framework provided for InvenTree is powerful and flexible - which also means that it can be a bit complex to get started, especially for new developers.
+InvenTree 的插件框架能力很强，但起步配置也相对繁琐。为了降低门槛，官方提供了一个 [插件脚手架命令行工具](https://github.com/inventree/plugin-creator)。
 
-To assist in creating a new plugin, we provide a [plugin creator command line tool](https://github.com/inventree/plugin-creator).
+它可以快速生成一个可工作的 InvenTree 插件骨架，并按照你的选择把常用功能预先接进去。
 
-This tool allows developers to quickly scaffold a new InvenTree plugin, and provides a basic structure to build upon. The plugin creator tool allows the developer to select which plugin features they wish to include, and generates a basic plugin structure with the selected features.
+!!! warning "最低版本"
+    这个脚手架主要面向 InvenTree 1.0.0 及以上版本。更早版本虽然也可能勉强使用，但脚手架生成的前端能力不保证兼容。
 
-!!! warning "Minimum Version"
-    The plugin creator tool is designed to develop plugins targeting InvenTree version 1.0.0 or later. While the plugin creator tool can be used to develop plugins for earlier versions of InvenTree, the user interface features generated with the plugin creator tool will not work with earlier versions of InvenTree.
+### 功能特点
 
-### Features
+脚手架能帮你完成这些事。
 
-The plugin creator tool provides a number of features to help you get started with plugin development:
+- 录入插件元数据，比如名称、描述和作者
+- 选择许可证，默认是 MIT
+- 勾选需要的插件 mixin 和前端能力
+- 可选生成 Git、格式化和 CI 配置
+- 生成可发布到 PyPI 的基础结构
+- 生成支持热更新的前端开发环境
 
-- **Metadata Input**: Easily input metadata for your plugin, including name, description, and author information.
-- **License Selection**: Choose from a variety of licenses for your plugin, with "MIT" as the default.
-- **Feature Selection**: Select which plugin features you want to include, such as mixins and frontend features.
-- **Devops Integration**: Optionally set up Git version control, automatic code formatting, and other development tools.
-- **Deploy Support**: Generate a basic structure for your plugin that can be easily deployed to an InvenTree instance, and published to PyPI.
-- **Frontend Development**: Set up a development server for frontend features, including hot reloading and build tools.
+## 使用前提
 
-### Requirements
+这里默认你已经有一个可以运行的 InvenTree 开发环境，并且最好已经按 [devcontainer 文档](../develop/devcontainer.md) 把环境搭起来了。
 
-This page provides an overview of how to install and use the plugin creator tool, as well as some tips for creating your own plugins. The documentation here uses the "default" options as provided by the plugin creator tool, but you can customize the options to suit your needs.
+## 安装脚手架
 
-It is assumed that you have a working InvenTree instance, and you have a development environment setup using our [devcontainer guide](../develop/devcontainer.md).
-
-## Installation
-
-To get started using the creator tool, you will need to install it via PIP:
+先通过 PIP 安装：
 
 ```bash
 pip install -U inventree-plugin-creator
 ```
 
-## Create Plugin
+## 创建插件
 
-Begin the plugin creation process by running the following command:
+运行下面的命令开始生成插件：
 
 ```bash
 create-inventree-plugin
 ```
 
-### Plugin Metadata
+### 插件元数据
 
-Firstly, you will enter the metadata for the plugin:
+第一步是填写插件元数据。
 
 {{ image("plugin/plugin-creator-metadata.png", "Plugin Metadata") }}
 
-### License
+### 许可证
 
-Select the license for your plugin. The default is "MIT", but you can choose from a variety of licenses.
+接着选择许可证。默认是 MIT，也可以改成其他选项。
 
 {{ image("plugin/plugin-creator-license.png", "Plugin License") }}
 
-### Plugin Features
+### 选择插件能力
 
-Next, the creator tool will prompt you to select the features you wish to include in your plugin.
+接下来，脚手架会让你选择需要启用的能力。
 
-#### Select Mixins
+#### 选择 Mixin
 
-Select the [plugin mixins](./index.md/#plugin-mixins) you wish to use in your plugin:
+先选择需要的 [插件 mixin](./develop.md#plugin-mixins)。
 
 {{ image("plugin/plugin-creator-mixins.png", "Plugin Mixins") }}
 
-#### Select Frontend Features
+#### 选择前端能力
 
-If you selected the  *UserInterfaceMixin* in the previous step (as we did in this example), you will be prompted to select the frontend features you wish to include in your plugin:
+如果你前一步勾选了 `UserInterfaceMixin`，脚手架还会继续询问你需要哪些前端能力。
 
-The available frontend features include:
+可选内容包括。
 
-- **Custom dashboard items**: Create custom dashboard widgets for the InvenTree user interface.
-- **Custom panel items**: Add custom panels to the InvenTree interface.
-- **Custom settings display**: Create custom settings pages for your plugin.
+- 自定义仪表盘组件
+- 自定义面板组件
+- 自定义设置页面
 
 {{ image("plugin/plugin-creator-frontend.png", "Plugin Frontend Features") }}
 
-### Git Setup
+### Git 和 DevOps 配置
 
-If you wish to include Git integration in your plugin, you can select the options here. This will set up a Git repository for your plugin, and configure automatic code formatting using [pre-commit](https://pre-commit.com/).
-
-Additionally, you can choose to setup CI integration (for either GitHub or GitLab) to automatically run tests and checks on your plugin code.
+如果需要，脚手架还能顺手把 Git 仓库、pre-commit、GitHub Actions 或 GitLab CI 一起准备好。
 
 {{ image("plugin/plugin-creator-devops.png", "Plugin DevOps Features") }}
 
+## 安装插件
 
-## Install Plugin
+脚手架生成完成后，插件会出现在你指定的目录下。
 
-The plugin has now been created - it will be located in the directory you specified during the creation process.
-
-In the example above, we created a plugin called "MyCustomPlugin". We can verify that the plugin files have been created:
+如果示例插件叫 `MyCustomPlugin`，可以先进入目录看看：
 
 ```bash
 cd MyCustomPlugin
 ls -al
 ```
 
-You should see a directory structure similar to the following:
+默认目录结构大致如下。
 
-| File | Description |
+| 文件 | 说明 |
 | ---- | ----------- |
-| **.git** | The Git repository for your plugin (if you selected Git integration). |
-| **.github** | GitHub configuration files (if you selected GitHub integration). |
-| **.gitlab-ci.yml** | GitLab CI configuration file (if you selected GitLab integration). |
-| **.gitignore** | Git ignore file, specifying which files should be ignored by Git. |
-| **.pre-commit-config.yaml** | Configuration file for pre-commit hooks (if you selected pre-commit integration). |
-| **.editorconfig** | Editor configuration file
-| **LICENSE** | The license file for your plugin. |
-| **MANIFEST.in** | A file that specifies which files should be included in the plugin package. |
-| **README.md** | A README file for your plugin. |
-| **biome.json** | Configuration file for the Biome code formatter. |
-| **pyproject.toml** | The project configuration file for your plugin. |
-| **setup.cfg** | Rules for Python code formatting and linting. |
-| **setup.py** | The setup script for your plugin. |
-| **frontend/** | A directory containing the frontend code for your plugin (if you selected frontend features). |
-| **my_custom_plugin/** | The main plugin directory, containing the plugin code. *(Note: the name of this directory will match the name you provided during plugin creation)* |
+| **.git** | Git 仓库目录，如果你勾选了 Git |
+| **.github** | GitHub 配置目录 |
+| **.gitlab-ci.yml** | GitLab CI 配置 |
+| **.gitignore** | Git 忽略规则 |
+| **.pre-commit-config.yaml** | pre-commit 配置 |
+| **.editorconfig** | 编辑器配置 |
+| **LICENSE** | 许可证文件 |
+| **MANIFEST.in** | 控制哪些文件会进入插件包 |
+| **README.md** | 插件说明文档 |
+| **biome.json** | Biome 配置 |
+| **pyproject.toml** | 项目配置文件 |
+| **setup.cfg** | 代码格式和 lint 配置 |
+| **setup.py** | 打包脚本 |
+| **frontend/** | 前端代码目录 |
+| **my_custom_plugin/** | 插件核心代码目录 |
 
-### Editable Install
+### 可编辑安装
 
-We now need to *install* the plugin (within the active Python environment) so that it can be used by InvenTree. For development purposes, we can install the plugin in [editable install](https://setuptools.pypa.io/en/latest/userguide/development_mode.html) mode, which allows us to make changes to the plugin code without needing to reinstall it.
+开发阶段推荐使用 [editable install](https://setuptools.pypa.io/en/latest/userguide/development_mode.html)。这样改完代码以后，不需要重新安装插件。
 
 ```bash
 pip install -e .
 ```
 
-You should see output indicating that the plugin has been installed successfully:
-
-{{ image("plugin/plugin-creator-install.png", "Install Editable Plugin") }}
-
-You can also verify that the plugin has been installed by running the following command:
+安装完成后，也可以用下面的命令确认一下：
 
 ```bash
 pip show inventree-my-custom-plugin
 ```
 
+{{ image("plugin/plugin-creator-install.png", "Install Editable Plugin") }}
 {{ image("plugin/plugin-creator-verify.png", "Verify plugin installation") }}
 
-## Activate Plugin
+## 激活插件
 
-Now that the plugin has been installed, you can activate it in your InvenTree instance. If the InvenTree server is not already running, start it with:
+插件安装完以后，还需要在 InvenTree 里启用它。
+
+如果服务还没启动，可以先运行：
 
 ```bash
 invoke dev.server
 ```
 
-Then, navigate to the [plugin management page](http://localhost:8000/web/settings/admin/plugin) in your InvenTree instance. You can activate the plugin by clicking the "Activate" button next to your plugin in the list.
+然后打开 [插件管理页面](http://localhost:8000/web/settings/admin/plugin)，点击对应插件旁边的 Activate。
 
 {{ image("plugin/plugin-creator-activate.png", "Activate Plugin") }}
 
-!!! success "Plugin Activated"
-    Your plugin should now be active, and you can start developing it further!
+!!! success "插件已激活"
+    激活成功后，就可以继续开发和调试了。
 
-## Frontend Development
+## 前端开发
 
-In this example we have configured the plugin to include frontend features. In production, the frontend code will be built and served as static files. However, during development, it is often useful to run a development server which provides hot reloading and other features.
+如果你的插件包含前端能力，生产环境里它会以静态文件方式提供。但在开发时，更适合走本地开发服务器，这样可以获得热更新体验。
 
-### Backend Configuration
+### 后端配置 { #backend-configuration }
 
-To facilitate frontend plugin development, the InvenTree backend server needs to be configured to redirect requests for the plugin frontend to the development server. To achieve this, you need to add the following lines to your server configuration file (e.g. `./dev/config.yaml`, if you are using the default devcontainer setup):
+为了让 InvenTree 把插件前端请求转到开发服务器，需要在配置文件里加上 `plugin_dev`。如果你使用默认 devcontainer，通常配置文件就是 `./dev/config.yaml`。
 
 ```yaml
 plugin_dev:
-  slug: 'my-custom-plugin'  # Replace with your plugin slug
+  slug: 'my-custom-plugin'  # 替换成你的插件 slug
   host: "http://localhost:5174"
 ```
 
-!!! warning "Restart Required"
-    After making changes to the configuration file, you will need to restart the InvenTree server for the changes to take effect.
+!!! warning "需要重启"
+    配置改完以后，后端服务需要重启才能生效。
 
-This configuration tells the InvenTree server to redirect static file requests (for this particular plugin) to the development server running on port `5174`. This is only available in development mode, and will not be used in production.
+这段配置的意思是，把当前插件的静态资源请求转发到 `5174` 端口上的开发服务器。这个能力只在开发模式里使用，生产环境不会走这里。
 
-### Frontend Development Server
+### 前端开发服务器 { #frontend-development-server }
 
-The plugin creator tool provides a development setup to allow you to run a frontend development server. To install the required libraries and start the development server, run the following commands:
+脚手架已经帮你准备好了前端开发所需的结构。进入插件前端目录后，运行下面的命令：
 
 ```bash
 cd frontend
@@ -184,51 +176,51 @@ npm install
 npm run dev
 ```
 
-You should see output indicating that the development server is running on port `5174`:
+正常情况下，你会看到开发服务器跑在 `5174` 端口上。
 
 {{ image("plugin/plugin-creator-dev.png", "Frontend dev server") }}
 
-Let's test this out! The default plugin code has provided a custom "panel" which is display on the "part detail" page. Navigate to a part detail page in your InvenTree instance, and you should see the following custom panel displayed:
+默认示例会在零件详情页渲染一个自定义面板。打开对应页面后，你应该能看到它。
 
 {{ image("plugin/plugin-creator-panel.png", "Custom Panel") }}
 
-!!! success "Frontend Running"
-    Your frontend development server is now running, and you can start developing your plugin's frontend features!
+!!! success "前端开发环境已就绪"
+    现在就可以开始写你自己的前端界面了。
 
-## Plugin Editing
+## 编辑插件
 
-### Backend Code
+### 后端代码
 
-The backend code for your plugin is located in the `my_custom_plugin` directory. You can edit the Python files in this directory to implement the backend functionality of your plugin.
+后端代码位于 `my_custom_plugin` 目录。主要逻辑通常从 `core.py` 开始写。
 
-Refer to the `./my_custom_plugin/core.py` file as a starting point. This is where the main plugin logic is implemented. If you selected other mixin types during the plugin creation process, you may find additional files in the `my_custom_plugin` directory that correspond to those mixins.
+如果你在脚手架里勾选了其他 mixin，也会看到对应的 Python 文件一起生成。
 
-As you have installed the plugin in editable mode, any changes you make to the backend code will be immediately reflected in your InvenTree instance without needing to reinstall the plugin.
+因为插件是以 editable install 方式安装的，改完后端代码通常不需要重新安装。
 
-!!! info "Debug Server"
-    Note that live reload of the backend code only works when the InvenTree server is running in debug mode. If you are running the server in production mode, you will need to restart the server to see changes.
+!!! info "调试服务器"
+    后端代码的即时生效能力只在调试模式里可用。如果你跑的是生产模式，改完仍然需要重启服务。
 
-### Frontend Code
+### 前端代码
 
-The frontend code for your plugin is located in the `frontend/src` directory. You can edit the provided `.tsx` files to adjust the frontend functionality of your plugin.
+前端代码位于 `frontend/src`。生成出来的示例 `.tsx` 文件可以直接改。
 
-Refer to the `./frontend/src/Panel.tsx` file as a starting point. This is where the custom panel for the part detail page is implemented. You can modify this file to change the content and behavior of the panel.
+如果你选择了自定义面板，入口通常就是 `./frontend/src/Panel.tsx`。改这里就能调整界面内容和交互。
 
-While the `npm dev` server is running, any changes you make to the frontend code will be automatically reloaded allowing for rapid development and testing of your plugin's frontend features. This avoids the need to rebuild the frontend code every time you make a change.
+只要 `npm run dev` 还在跑，改动就会自动刷新到开发服务器上。
 
-!!! info "Page Reload"
-    Due to the way the InvenTree frontend is structured, you will need to manually refresh the page in your browser to see changes to the frontend code. The development server will automatically reload the frontend code, but the InvenTree server needs to be aware of the changes.
+!!! info "需要刷新页面"
+    由于 InvenTree 前端的加载方式，浏览器页面通常还需要手动刷新一次，才能看到最新效果。
 
-## Build Plugin
+## 构建插件
 
-The documentation provided above relates to the development of a plugin. Once you have completed your plugin development, you should build the plugin for distribution.
+上面的内容面向开发阶段。准备分发插件时，还需要执行构建。
 
-!!! info "CI Build"
-    If you have configured CI integration during the plugin creation process, the CI server will automatically build your plugin when you push changes to your repository. This is the recommended way to build and distribute your plugin.
+!!! info "CI 构建"
+    如果你在脚手架里开启了 CI，推送代码后通常就会自动构建插件。生产环境里更推荐走这条路。
 
-### Compile Frontend Assets
+### 编译前端资源
 
-The frontend assets for your plugin need to be compiled before the plugin can be distributed. The compiled assets (primarily `.js` files) need to be distributed with the plugin, so that they can be statically served by the InvenTree server. To achieve this, the compiled files need to be placed in the `./my_custom_plugin/static` directory. The frontend `build` step will automatically place the compiled files in this directory:
+插件前端最终要被打包进插件的 `static` 目录里。脚手架默认已经把输出路径接好了，所以只需要运行：
 
 ```bash
 cd frontend
@@ -237,28 +229,6 @@ npm run build
 
 {{ image("plugin/plugin-creator-npm-build.png", "Build Frontend") }}
 
-### Build Plugin
+### 构建插件包
 
-Now that the frontend assets have been compiled, you can build the plugin for distribution. This will create a distributable Python package that can be installed in other InvenTree instances.
-
-!!! info "Top Level Directory"
-    Ensure you are in the top-level directory of your plugin (the directory containing `setup.py`) before running the build command.
-
-```bash
-python -m build
-```
-
-You should see output indicating that the Python package has been built successfully.
-
-### Publish Plugin
-
-The plugin package can now be published (e.g. to PyPI), allowing it to be remotely installed into other InvenTree installations.
-
-Publishing to PyPI is outside the scope of this documentation, but you can refer to the [Python Packaging User Guide](https://packaging.python.org/tutorials/packaging-projects/) for more information on how to publish your plugin package.
-
-!!! info "Automated PyPI Publishing"
-    If you have configured CI integration during the plugin creation process, the CI server will automatically publish your plugin to PyPI when you create a new release. You just need to ensure that you have set up the necessary credentials in your CI environment.
-
-## Further Reading
-
-For a more complex walkthrough of developing a plugin, check out our [basic plugin walkthrough](../plugins/walkthrough.md).
+前端产物准备好以后，就可以继续用 Python 打包工具生成可分发的插件包，并通过 PyPI、私有源或 Git 仓库发布。

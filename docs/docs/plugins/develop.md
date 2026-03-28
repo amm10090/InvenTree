@@ -1,178 +1,181 @@
 ---
-title: Developing Plugins
+title: 开发插件
 ---
 
-## Plugin Development Guide
+## 插件开发指南
 
-This page serves as a short introductory guide for plugin beginners. It should be noted that there is an assumed level of familiarity with Python, Django, and the InvenTree source code.
+这是一份面向插件开发者的入门说明。默认你已经具备基础的 Python、Django 和 InvenTree 源码阅读能力。
 
-### Plugin Creator
+### 插件脚手架
 
-We strongly recommend that you use the [Plugin Creator](./creator.md) tool when first scaffolding your new plugin. This tool will help you to create a basic plugin structure, and will also provide you with a set of example files which can be used as a starting point for your own plugin development.
+如果你刚开始做新插件，优先使用 [插件脚手架](./creator.md)。它可以快速生成基础目录、打包配置和示例文件，能省掉一大半起步成本。
 
-## Determine Requirements
+## 先明确需求
 
-Before starting, you should have a clear understanding of what you want your plugin to do. In particular, consider the functionality provided by the available [plugin mixins](./index.md#plugin-mixins), and whether your plugin can be built using these mixins.
+开始写代码之前，先把插件到底要做什么讲清楚。最重要的是先看现有 [插件 mixin](#plugin-mixins) 能不能满足需求。能复用 mixin，就尽量不要自己重新造一套。
 
-Consider the use-case for your plugin and define the exact function of the plugin, maybe write it down in a short readme. Then pick the mixins you need (they help reduce custom code and keep the system reliable if internal calls change).
+建议先写一个很短的需求说明，再决定插件边界。常见判断方式如下。
 
-- Is it just a simple REST-endpoint that runs a function ([ActionMixin](./mixins/action.md)) or a parser for a custom barcode format ([BarcodeMixin](./mixins/barcode.md))?
-- How does the user interact with the plugin? Is it a UI separate from the main InvenTree UI ([UrlsMixin](./mixins/urls.md)), does it need multiple pages with navigation-links ([NavigationMixin](./mixins/navigation.md)).
-- Do you need to extend reporting functionality? Check out the [ReportMixin](./mixins/report.md).
-- Will it make calls to external APIs ([APICallMixin](./mixins/api.md) helps there)?
-- Do you need to run in the background ([ScheduleMixin](./mixins/schedule.md)) or when things in InvenTree change ([EventMixin](./mixins/event.md))?
-- Does the plugin need configuration that should be user changeable ([SettingsMixin](./mixins/settings.md)) or static (just use a yaml in the config dir)?
-- You want to receive webhooks? Do not code your own untested function, use the WebhookEndpoint model as a base and override the perform_action method.
-- Do you need the full power of Django with custom models and all the complexity that comes with that – welcome to the danger zone and [AppMixin](./mixins/app.md). The plugin will be treated as a app by django and can maybe rack the whole instance.
+- 如果只是提供一个简单动作或 REST 入口，优先考虑 [ActionMixin](./mixins/action.md)
+- 如果要解析特定条码，优先考虑 [BarcodeMixin](./mixins/barcode.md)
+- 如果需要自定义页面导航或附加页面，可以看 [NavigationMixin](./mixins/navigation.md) 和 [UrlsMixin](./mixins/urls.md)
+- 如果要增强报表能力，可以看 [ReportMixin](./mixins/report.md)
+- 如果需要访问外部 API，可以看 [APICallMixin](./mixins/api.md)
+- 如果要跑定时任务或后台任务，可以看 [ScheduleMixin](./mixins/schedule.md)
+- 如果要响应系统事件，可以看 [EventMixin](./mixins/event.md)
+- 如果需要用户可配置项，可以看 [SettingsMixin](./mixins/settings.md)
+- 如果要接入完整 Django app 和自定义模型，可以看 [AppMixin](./mixins/app.md)
 
-### Define Metadata
+!!! warning "慎用 AppMixin"
+    AppMixin 的能力最强，但风险也最高。它会把插件当成 Django app 处理，如果设计不好，整套实例都可能被带崩。
 
-Do not forget to [declare the metadata](./index.md#plugin-options) for your plugin, those will be used in the settings. At least provide a web link so users can file issues / reach you.
+### 定义元数据
 
-### Development Guidelines
+别忘了给插件声明 [元数据](./index.md)。这些内容会显示在插件设置界面里。至少建议提供一个可访问的项目地址，便于用户提交问题或查看说明。
 
-If you want to make your life easier, try to follow these guidelines; break where it makes sense for your use case.
+### 开发建议
 
-- Keep it simple - more that 1000 LOC are normally to much for a plugin
-- Use mixins where possible - we try to keep coverage high for them so they are not likely to break
-- Do not use internal functions - if a functions name starts with `_` it is internal and might change at any time
-- Keep you imports clean - the APIs for plugins and mixins are young and evolving (see [here](./index.md#imports)). Use
-```
+下面这些建议不是硬规则，但大多数场景都适用。
+
+- 插件尽量保持简单，功能越聚焦越稳
+- 能复用 mixin 就不要直接碰内部实现
+- 不要依赖名称以下划线开头的内部函数
+- 导入尽量走稳定入口
+- 尽量把插件做成标准包并通过打包安装
+- 如果依赖私有基础设施，优先用版本化发布而不是手工拷贝文件
+- 如果用了 AppMixin，最好明确绑定支持的 InvenTree 版本范围
+
+推荐的导入写法如下：
+
+```python
 from plugin import InvenTreePlugin, registry
 from plugin.mixins import APICallMixin, SettingsMixin, ScheduleMixin, BarcodeMixin
 ```
-- Feliver as a package (see [below](#packaging))
-- If you need to use a private infrastructure, use the 'Releases' functions in GitHub or Gitlab. Point to the 'latest' release endpoint when installing to make sure the update function works
-- Tag your GitHub repo with `inventree` and `inventreeplugins` to make discovery easier. A discovery mechanism using these tags is on the roadmap.
-- Use GitHub actions to test your plugin regularly (you can [schedule actions](https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#schedule)) against the 'latest' [docker-build](https://hub.docker.com/r/inventree/inventree) of InvenTree
-- If you use the AppMixin pin your plugin against the stable branch of InvenTree, your migrations might get messed up otherwise
 
+## 插件代码结构
 
-## Plugin Code Structure
+### 插件基类
 
-### Plugin Base Class
+自定义插件必须继承 [InvenTreePlugin 类]({{ sourcefile("src/backend/InvenTree/plugin/plugin.py") }})。只要插件通过受支持的方式安装，InvenTree 启动时就会自动发现它。
 
-Custom plugins must inherit from the [InvenTreePlugin class]({{ sourcefile("src/backend/InvenTree/plugin/plugin.py") }}). Any plugins installed via the methods outlined above will be "discovered" when the InvenTree server launches.
+### 导入路径
 
-### Imports
+代码库会持续演进，内部导入路径可能变化。为了降低破坏性改动，插件开发应尽量使用 `plugin` 命名空间下暴露的稳定接口。
 
-As the code base is evolving import paths might change. Therefore we provide stable import targets for important python APIs.
-Please read all release notes and watch out for warnings - we generally provide backports for depreciated interfaces for at least one minor release.
+#### 插件命名空间
 
-#### Plugins
-
-General classes and mechanisms are provided under the `plugin` [namespaces]({{ sourcefile("src/backend/InvenTree/plugin/__init__.py") }}). These include:
+`plugin` [命名空间]({{ sourcefile("src/backend/InvenTree/plugin/__init__.py") }}) 暴露了插件系统里最重要的公共对象。
 
 ```python
-# Management objects
-registry                    # Object that manages all plugin states and integrations
+# 管理对象
+registry                    # 管理插件状态和集成点
 
-# Base classes
-InvenTreePlugin             # Base class for all plugins
+# 基类
+InvenTreePlugin             # 所有插件的基类
 
-# Errors
-MixinImplementationError    # Is raised if a mixin is implemented wrong (default not overwritten for example)
-MixinNotImplementedError    # Is raised if a mixin was not implemented (core mechanisms are missing from the plugin)
+# 异常
+MixinImplementationError    # mixin 实现不正确时抛出
+MixinNotImplementedError    # 缺少核心 mixin 实现时抛出
 ```
 
 #### Mixins
 
-Plugin functionality is split between multiple "mixin" classes - each of which provides a specific set of features or behaviors that can be integrated into a plugin. These mixins are designed to be used in conjunction with the `InvenTreePlugin` base class, allowing developers to easily extend the functionality of their plugins. All public APIs that should be used are exposed under `plugin.mixins`. These include all built-in mixins and notification methods. An up-to-date reference can be found in the source code [can be found here]({{ sourcefile("src/backend/InvenTree/plugin/mixins/__init__.py") }}).
+插件能力由多个 mixin 拆分提供。每个 mixin 对应一类集成能力，可以和 `InvenTreePlugin` 组合使用。公共 API 会通过 `plugin.mixins` 暴露。
 
-Refer to the [mixin documentation](#plugin-mixins) for a list of available mixins, and their usage.
+可用接口的最新定义见 [源码]({{ sourcefile("src/backend/InvenTree/plugin/mixins/__init__.py") }})。
 
-#### Models and other internal InvenTree APIs
+#### 模型和其他内部 API
 
-!!! warning "Danger Zone"
-    The APIs outside of the `plugin` namespace are not structured for public usage and require a more in-depth knowledge of the Django framework. Please ask in GitHub discussions of the `InvenTree` org if you are not sure you are using something the intended way.
+!!! warning "危险区"
+    `plugin` 命名空间之外的大多数接口都不属于稳定公共 API。只有在你清楚理解 Django 和 InvenTree 内部实现时，才建议直接使用。
 
-We do not provide stable interfaces to models or any other internal python APIs. If you need to integrate into these parts please make yourself familiar with the codebase. We follow general Django patterns and only stray from them in limited, special cases.
-If you need to react to state changes please use the [EventMixin](./mixins/event.md).
+模型、内部工具函数和服务端内部实现没有长期稳定承诺。如果你只是要对数据变化做出响应，优先使用 [EventMixin](./mixins/event.md)。
 
-### Plugin Options
+### 插件元数据选项
 
-Some metadata options can be defined as constants in the plugins class.
+插件类可以声明一组常量，用于描述插件自身。
 
 ``` python
-NAME = '' # Used as a general reference to the plugin
-SLUG = None  # Used in URLs, setting-names etc. when a unique slug as a reference is needed -> the plugin name is used if not set
-TITLE = None  # A nice human friendly name for the plugin -> used in titles, as plugin name etc.
+NAME = '' # 插件通用名称
+SLUG = None  # URL、设置项等场景下使用的唯一标识
+TITLE = None  # 面向用户展示的友好名称
 
-AUTHOR = None  # Author of the plugin, git commit information is used if not present
-PUBLISH_DATE = None  # Publishing date of the plugin, git commit information is used if not present
-WEBSITE = None  # Website for the plugin, developer etc. -> is shown in plugin overview if set
+AUTHOR = None  # 作者
+PUBLISH_DATE = None  # 发布时间
+WEBSITE = None  # 项目或开发者主页
 
-VERSION = None  # Version of the plugin
-MIN_VERSION = None  # Lowest InvenTree version number that is supported by the plugin
-MAX_VERSION = None  # Highest InvenTree version number that is supported by the plugin
+VERSION = None  # 插件版本
+MIN_VERSION = None  # 支持的最低 InvenTree 版本
+MAX_VERSION = None  # 支持的最高 InvenTree 版本
 ```
 
-Refer to the [sample plugins]({{ sourcedir("src/backend/InvenTree/plugin/samples") }}) for further examples.
+更多示例可以参考 [示例插件]({{ sourcedir("src/backend/InvenTree/plugin/samples") }})。
 
-### Plugin Config
+### 插件配置
 
-A *PluginConfig* database entry will be created for each plugin "discovered" when the server launches. This configuration entry is used to determine if a particular plugin is enabled.
+服务启动时，每个被发现的插件都会自动创建一个 *PluginConfig* 数据库记录，用来保存插件是否启用等状态。
 
-The configuration entries must be enabled via the [InvenTree admin interface](../settings/admin.md).
+这些配置需要在 [管理后台](../settings/admin.md) 里启用。
 
-!!! warning "Disabled by Default"
-    Newly discovered plugins are disabled by default, and must be manually enabled (in the admin interface) by a user with staff privileges.
+!!! warning "默认禁用"
+    新发现的插件默认是禁用状态，需要由具有 staff 权限的用户手动启用。
 
-## Plugin Mixins
+## 插件 Mixins { #plugin-mixins }
 
-Common use cases are covered by pre-supplied modules in the form of *mixins* (similar to how [Django]({% include "django.html" %}/topics/class-based-views/mixins/) does it). Each mixin enables the integration into a specific area of InvenTree. Sometimes it also enhances the plugin with helper functions to supply often used functions out-of-the-box.
+很多常见需求都已经被抽成了现成 mixin。每个 mixin 都负责接入 InvenTree 的某一块能力，有些还会顺带提供一批常用辅助函数。
 
-Supported mixin classes are:
+当前支持的 mixin 如下。
 
-| Mixin | Description |
+| Mixin | 说明 |
 | --- | --- |
-| [ActionMixin](./mixins/action.md) | Run custom actions |
-| [APICallMixin](./mixins/api.md) | Perform calls to external APIs |
-| [AppMixin](./mixins/app.md) | Integrate additional database tables |
-| [BarcodeMixin](./mixins/barcode.md) | Support custom barcode actions |
-| [CurrencyExchangeMixin](./mixins/currency.md) | Custom interfaces for currency exchange rates |
-| [DataExport](./mixins/export.md) | Customize data export functionality |
-| [EventMixin](./mixins/event.md) | Respond to events |
-| [LabelPrintingMixin](./mixins/label.md) | Custom label printing support |
-| [LocateMixin](./mixins/locate.md) | Locate and identify stock items |
-| [MachineDriverMixin](./mixins/machine.md) | Integrate custom machine drivers
-| [MailMixin](./mixins/mail.md) | Send custom emails |
-| [NavigationMixin](./mixins/navigation.md) | Add custom pages to the web interface |
-| [NotificationMixin](./mixins/notification.md) | Send custom notifications in response to system events |
-| [ReportMixin](./mixins/report.md) | Add custom context data to reports |
-| [ScheduleMixin](./mixins/schedule.md) | Schedule periodic tasks |
-| [SettingsMixin](./mixins/settings.md) | Integrate user configurable settings |
-| [UserInterfaceMixin](./mixins/ui.md) | Add custom user interface features |
-| [UrlsMixin](./mixins/urls.md) | Respond to custom URL endpoints |
-| [ValidationMixin](./mixins/validation.md) | Provide custom validation of database models |
+| [ActionMixin](./mixins/action.md) | 执行自定义动作 |
+| [APICallMixin](./mixins/api.md) | 调用外部 API |
+| [AppMixin](./mixins/app.md) | 接入自定义数据库模型 |
+| [BarcodeMixin](./mixins/barcode.md) | 扩展条码能力 |
+| [CurrencyExchangeMixin](./mixins/currency.md) | 自定义汇率接口 |
+| [DataExport](./mixins/export.md) | 扩展数据导出 |
+| [EventMixin](./mixins/event.md) | 响应系统事件 |
+| [LabelPrintingMixin](./mixins/label.md) | 扩展标签打印 |
+| [LocateMixin](./mixins/locate.md) | 定位和识别库存项 |
+| [MachineDriverMixin](./mixins/machine.md) | 接入外部设备驱动 |
+| [MailMixin](./mixins/mail.md) | 发送自定义邮件 |
+| [NavigationMixin](./mixins/navigation.md) | 往 Web 界面加导航入口 |
+| [NotificationMixin](./mixins/notification.md) | 发送系统通知 |
+| [ReportMixin](./mixins/report.md) | 扩展报表上下文 |
+| [ScheduleMixin](./mixins/schedule.md) | 调度定时任务 |
+| [SettingsMixin](./mixins/settings.md) | 提供可配置设置项 |
+| [UserInterfaceMixin](./mixins/ui.md) | 扩展用户界面 |
+| [UrlsMixin](./mixins/urls.md) | 提供自定义 URL |
+| [ValidationMixin](./mixins/validation.md) | 扩展模型校验 |
 
-## Plugin Concepts
+## 插件概念
 
-### Backend vs Frontend Code
+### 后端代码和前端代码
 
-InvenTree plugins can contain both backend and frontend code. The backend code is written in Python, and is used to implement server-side functionality, such as database models, API endpoints, and background tasks.
+InvenTree 插件可以同时包含后端和前端代码。
 
-The frontend code is written in JavaScript (or TypeScript), and is used to implement user interface components, such as custom UI panels.
+后端代码使用 Python 编写，主要负责模型、API、定时任务和服务端逻辑。
 
-You can [read more about frontend integration](./frontend.md) to learn how to integrate custom UI components into the InvenTree web interface.
+前端代码使用 JavaScript 或 TypeScript 编写，主要负责界面组件，比如自定义面板、设置页和仪表盘组件。
 
-## Static Files
+如果要做界面扩展，继续看 [前端集成](./frontend.md)。
 
-If your plugin requires static files (e.g. CSS, JavaScript, images), these should be placed in the top level `static` directory within the distributed plugin package. These files will be automatically collected by InvenTree when the plugin is installed, and copied to an appropriate location.
+## 静态文件 { #static-files }
 
-These files will be available to the InvenTree web interface, and can be accessed via the URL `/static/plugins/<plugin_name>/<filename>`. Static files are served by the [proxy server](../start/processes.md#proxy-server).
+如果插件需要静态资源，比如 CSS、JavaScript 或图片，这些文件应该放在插件包顶层的 `static` 目录里。插件安装后，InvenTree 会自动收集这些文件并复制到合适的位置。
 
-For example, if the plugin is named `my_plugin`, and contains a file `CustomPanel.js`, it can be accessed via the URL `/static/plugins/my_plugin/CustomPanel.js`.
+这些静态资源会通过 `/static/plugins/<plugin_name>/<filename>` 暴露给 Web 界面使用，由 [代理服务](../start/processes.md#proxy-server) 提供访问。
 
-### Packaging
+例如，插件名如果是 `my_plugin`，并且包含 `CustomPanel.js`，那么它的访问路径就是 `/static/plugins/my_plugin/CustomPanel.js`。
 
-!!! tip "Package-Discovery can be tricky"
-    Most problems with packaging stem from problems with discovery. [This guide](https://setuptools.pypa.io/en/latest/userguide/package_discovery.html#automatic-discovery) by the PyPA contains a lot of information about discovery during packaging. These mechanisms generally apply to most discovery processes in InvenTree and the wider Django ecosystem.
+### 打包
 
-The recommended way of distribution is as a [PEP 561](https://peps.python.org/pep-0561/) compliant package. If you can use the official Package Index (PyPi - [official website](https://pypi.org/)) as a registry.
-Please follow PyPAs official [packaging guide](https://packaging.python.org/en/latest/tutorials/packaging-projects/) to ensure your package installs correctly suing InvenTrees install mechanisms.
+!!! tip "包发现经常是问题根源"
+    很多打包失败问题都来自 package discovery 配置不正确。可以参考 PyPA 的 [自动发现文档](https://setuptools.pypa.io/en/latest/userguide/package_discovery.html#automatic-discovery)。
 
-Your package must expose you plugin class as an [entrypoint](https://setuptools.pypa.io/en/latest/userguide/entry_point.html) with the name `inventree_plugins` to work with InvenTree.
+推荐按照 [PEP 561](https://peps.python.org/pep-0561/) 兼容的方式发布插件包。如果可以公开发布，优先使用 PyPI。打包方式建议遵循 PyPA 的 [官方打包教程](https://packaging.python.org/en/latest/tutorials/packaging-projects/)。
+
+要让 InvenTree 正常发现你的插件，包里必须声明 `inventree_plugins` entry point。
 
 ```setup.cfg
 # Example setup.cfg
@@ -195,88 +198,26 @@ setuptools.setup(
     entry_points={"inventree_plugins": ["ShopifyIntegrationPlugin = path.to.source:ShopifyIntegrationPluginClass"]}
 ```
 
-#### Including Extra Files
+#### 附带额外文件
 
-In some cases you may wish to copy across extra files when the package is installed. For example, you may have custom template files which need to be copied across to the installation directory.
+有时候你还需要在安装时把额外文件一起带进去，比如模板文件。
 
-In this case, you will need to include a `MANIFEST.in` file in the root directory of your plugin, and include the line `include_package_data=True` in your `setup.py` file.
+这种情况下，需要在插件根目录添加 `MANIFEST.in`，并在 `setup.py` 中设置 `include_package_data=True`。
 
-!!! tip "Setuptools Documentation"
-    Read more about `MANIFEST.in` in the [setuptools documentation](https://setuptools.pypa.io/en/latest/userguide/miscellaneous.html)
+!!! tip "setuptools 文档"
+    `MANIFEST.in` 的更多说明见 [setuptools 文档](https://setuptools.pypa.io/en/latest/userguide/miscellaneous.html)
 
-As an example, you have a plugin codebase with the following directory structure:
+假设你的插件目录结构如下：
 
 ```
-- my_plugin  # Core plugin code
-- my_plugin/templates/  # Template files
-- MANIFEST.in  # Manifest file
-- setup.py  # Setuptools script
+- my_plugin  # 插件核心代码
+- my_plugin/templates/  # 模板文件
+- MANIFEST.in  # Manifest 文件
+- setup.py  # Setuptools 脚本
 ```
 
-To ensure that the templates are copied into the installation directory, `MANIFEST.in` should look like:
+如果你想确保模板文件在安装时也被带上，`MANIFEST.in` 可以这样写：
 
 ```
 recursive-include my_plugin/templates *
-```
-
-Other files and directories can be copied in a similar manner.
-
-### Local Plugin Development
-
-If you are developing a plugin (either from scratch, or making changes to an existing plugin), it can be useful to install the plugin using an [editable install](https://setuptools.pypa.io/en/latest/userguide/development_mode.html).
-
-An *editable install* installs the plugin (via PIP) into your local python virtual environment, but does not *copy* the code into the environment. Instead, it loads the code directly from where it is located, and also monitors for live changes in the code. This means that you can make changes to the plugin on the fly, and the InvenTree development server will detect any code changes and re-load the plugin automatically.
-
-Note that to use an *editable install*, your plugin must be installable via PIP.
-
-#### Example
-
-To setup an editable install:
-
-- Download the source code for the plugin (or create a new plugin)
-- Ensure that your setup file (either `setup.py` or `pyproject.toml`) is valid
-- Launch a command line and activate your development virtual environment
-- `cd` into the top-level directory of your plugin project, where the setup file is located
-- Setup an editable install with the following command:
-
-```bash
-pip install --editable .
-```
-
-### Simple Example
-
-This example adds a new action under `/api/action/sample` using the ActionMixin.
-``` py
-# -*- coding: utf-8 -*-
-"""sample implementation for ActionPlugin"""
-from plugin import InvenTreePlugin
-from plugin.mixins import ActionMixin
-
-
-class SampleActionPlugin(ActionMixin, InvenTreePlugin):
-    """Use docstrings for everything."""
-
-    NAME = "SampleActionPlugin"
-    ACTION_NAME = "sample"
-
-    # metadata
-    AUTHOR = "Sample Author"
-    DESCRIPTION = "A very basic plugin with one mixin"
-    PUBLISH_DATE = "2222-02-22"
-    VERSION = "1.2.3"  # We recommend semver and increase the major version with each new major release of InvenTree
-    WEBSITE = "https://example.com/"
-    LICENSE = "MIT"  # use what you want - OSI approved is &hearts;
-
-    # Everything form here is for the ActionMixin
-    def perform_action(self):
-        print("Action plugin in action!")
-
-    def get_info(self):
-        return {
-            "user": self.user.username,
-            "hello": "world",
-        }
-
-    def get_result(self):
-        return True  # This is returned to the client
 ```

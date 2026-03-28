@@ -3,7 +3,7 @@ set -euo pipefail
 
 : "${IMAGE_REF:?IMAGE_REF is required}"
 COMPOSE_DIR="${COMPOSE_DIR:-/mnt/docker-data/inventree}"
-HEALTH_URL="${HEALTH_URL:-http://127.0.0.1:8086/web}"
+HEALTH_URL="${HEALTH_URL:-http://127.0.0.1:8086/api/system/health/}"
 
 SUDO=""
 if [[ "$(id -u)" -ne 0 ]]; then

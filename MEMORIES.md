@@ -18,3 +18,14 @@
 - 登录页浅色模式可读性问题已修正。`AuthLayout.css.ts` 不再依赖 `createVar` 做登录输入框换肤，改成按 `[data-mantine-color-scheme='light'|'dark']` 的 `globalStyle` 明确覆盖 label、input、placeholder 和输入区图标颜色，避免出现浅色界面下灰底灰字。
 - 全局字体已统一为中文友好栈，入口在 `src/frontend/src/theme.ts`，当前正文与标题统一使用以 `Noto Sans SC` 为首的字体链。
 - 品牌文案已收敛为 `库存管理系统`。前端入口标题、登录品牌名、导航/关于文案、插件提示与后端 `INVENTREE_INSTANCE` 默认值、`InfoView.server` 返回值、OpenAPI 标题已同步替换；对历史值 `InvenTree` 与 `InvenTree Demo` 分别保留兼容映射到 `库存管理系统` 和 `库存管理系统演示`。
+- 首页 Dashboard 顶部菜单样式已独立到 `src/frontend/src/components/dashboard/DashboardMenu.css.ts`，`Group` 根节点增加了分组容器皮肤和图标悬停反馈，后续首页菜单视觉调整优先改这里。
+- 首页快速上手模块已下线。`DashboardWidgetLibrary.tsx` 移除了 `gstart` 内置卡片，`DashboardLayout.tsx` 默认示例布局仅保留 `news`，避免空仪表盘时再次出现快速上手区块。
+- 主布局头部样式已升级。`src/frontend/src/main.css.ts` 新增了 Header 行、左右分组、消息区和导航按钮样式，`Header.tsx` 与 `NavHoverMenu.tsx` 已接入，当前 `main_layoutHeader` 采用圆角分区和高对比 Tabs 激活态。
+- Header 配色已按 UI 约束去蓝紫化。`main.css.ts` 中 Header 暗色背景与 Tabs 激活态不再使用蓝紫渐变，当前为中性灰 + 琥珀方案，并统一右侧 ActionIcon 的中性色。
+- `main.css.ts` 中 `Tabs` 文本样式必须用 `globalStyle(`${tabs} .mantine-Tabs-tabLabel`, ...)`，不能写在 `style({ selectors: { '& .child': ... } })`，否则 vanilla-extract 在 Vite HMR 会直接报 `Invalid selector` 覆盖层。
+- `NewsWidget.tsx` 不能在 `Table.Tbody` 里直接放 `Alert`。空态必须包在 `Table.Tr > Table.Td` 里，否则 React 控制台会报 `tbody cannot contain div`。
+- React Router 已在 `src/frontend/src/views/DesktopAppView.tsx` 的 `BrowserRouter` 启用 `future.v7_relativeSplatPath`，用于提前对齐 v7 的 splat 相对路径解析并消除对应 Future Flag 警告。
+- React Router 已在 `src/frontend/src/views/DesktopAppView.tsx` 的 `BrowserRouter` 启用 `future.v7_startTransition`，用于提前对齐 v7 的 `React.startTransition` 更新调度并消除对应 Future Flag 警告。
+- 简体中文术语已将“零件”统一替换为“货物”，覆盖 `src/frontend/src/locales/zh_Hans/messages.po` 与 `src/backend/InvenTree/locale/zh_Hans/LC_MESSAGES/django.po`；前端需执行 `yarn run compile` 生成最新 `messages.ts`。
+- `InvenTreeTableHeader.tsx` 的 `activeFilters` 渲染循环必须提供 `key`，否则 React 19 会在控制台报 `Each child in a list should have a unique "key" prop`，当前已用 `active-filter-${filter.name}-${idx}` 修复。
+- 货币名称显示逻辑已改到 `src/backend/InvenTree/common/currency.py` 的 `currency_display_name`。当前按请求语言动态调用 Babel 的 `get_currency_name`，简体中文界面会显示 `USD - 美元` 这类中文币种名称，失败时回退英文名。

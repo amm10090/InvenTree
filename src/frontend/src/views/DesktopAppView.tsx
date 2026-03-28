@@ -22,7 +22,12 @@ export default function DesktopAppView() {
   return (
     <ApiProvider client={queryClient} api={api}>
       <ThemeContext>
-        <BrowserRouter basename={getBaseUrl()}>{routes}</BrowserRouter>
+        <BrowserRouter
+          basename={getBaseUrl()}
+          future={{ v7_relativeSplatPath: true, v7_startTransition: true }}
+        >
+          {routes}
+        </BrowserRouter>
       </ThemeContext>
     </ApiProvider>
   );

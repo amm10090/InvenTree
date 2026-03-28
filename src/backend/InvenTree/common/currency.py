@@ -5,15 +5,33 @@ import math
 from typing import Optional
 
 from django.core.exceptions import ValidationError
+from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
 import structlog
+from babel import Locale
+from babel.numbers import get_currency_name
 from moneyed import CURRENCIES
 
 import InvenTree.helpers
 import InvenTree.ready
 
 logger = structlog.get_logger('inventree')
+
+
+def currency_display_name(code: str) -> str:
+    """返回与当前语言一致的货币显示名称."""
+    locale_code = get_language() or 'en'
+
+    try:
+        locale = Locale.parse(locale_code, sep='-')
+        name = get_currency_name(code, locale=locale)
+        if name:
+            return str(name)
+    except Exception:
+        pass
+
+    return CURRENCIES[code].name
 
 
 def currency_code_default(create: bool = True):
@@ -44,7 +62,7 @@ def currency_code_default(create: bool = True):
 
 def all_currency_codes() -> list:
     """Returns a list of all currency codes."""
-    return [(a, CURRENCIES[a].name) for a in CURRENCIES]
+    return [(a, currency_display_name(a)) for a in CURRENCIES]
 
 
 def currency_codes_default_list() -> str:
@@ -90,7 +108,7 @@ def currency_codes() -> list:
 
 def currency_code_mappings() -> list:
     """Returns the current currency choices."""
-    return [(a, f'{a} - {CURRENCIES[a].name}') for a in currency_codes()]
+    return [(a, f'{a} - {currency_display_name(a)}') for a in currency_codes()]
 
 
 def after_change_currency(setting) -> None:

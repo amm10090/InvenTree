@@ -5,7 +5,6 @@ import { useGlobalSettingsState } from '../../states/SettingsStates';
 import { useUserState } from '../../states/UserState';
 import type { DashboardWidgetProps } from './DashboardWidget';
 import ColorToggleDashboardWidget from './widgets/ColorToggleWidget';
-import GetStartedWidget from './widgets/GetStartedWidget';
 import LanguageSelectDashboardWidget from './widgets/LanguageSelectWidget';
 import NewsWidget from './widgets/NewsWidget';
 import QueryCountDashboardWidget from './widgets/QueryCountDashboardWidget';
@@ -189,14 +188,6 @@ function BuiltinQueryCountWidgets(): DashboardWidgetProps[] {
 
 function BuiltinGettingStartedWidgets(): DashboardWidgetProps[] {
   return [
-    {
-      label: 'gstart',
-      title: t`Getting Started`,
-      description: t`Getting started with 库存管理系统`,
-      minWidth: 5,
-      minHeight: 4,
-      render: () => <GetStartedWidget />
-    },
     {
       label: 'news',
       title: t`News Updates`,

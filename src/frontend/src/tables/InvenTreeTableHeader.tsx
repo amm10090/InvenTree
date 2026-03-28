@@ -270,12 +270,15 @@ export default function InvenTreeTableHeader({
                       <Stack gap='xs'>
                         <StylishText size='md'>{t`Active Filters`}</StylishText>
                         <Divider />
-                        {tableState.filterSet.activeFilters?.map((filter) => (
-                          <FilterPreview
-                            filter={filter}
-                            filters={tableProps.tableFilters}
-                          />
-                        ))}
+                        {tableState.filterSet.activeFilters?.map(
+                          (filter, idx) => (
+                            <FilterPreview
+                              key={`active-filter-${filter.name}-${idx}`}
+                              filter={filter}
+                              filters={tableProps.tableFilters}
+                            />
+                          )
+                        )}
                       </Stack>
                     </Paper>
                   </HoverCard.Dropdown>

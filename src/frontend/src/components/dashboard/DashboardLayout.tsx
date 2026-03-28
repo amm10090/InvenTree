@@ -224,20 +224,9 @@ export default function DashboardLayout() {
   const defaultLayouts = {
     lg: [
       {
-        w: 6,
+        w: 12,
         h: 4,
         x: 0,
-        y: 0,
-        i: 'gstart',
-        minW: 5,
-        minH: 4,
-        moved: false,
-        static: false
-      },
-      {
-        w: 6,
-        h: 4,
-        x: 6,
         y: 0,
         i: 'news',
         minW: 5,
@@ -247,7 +236,7 @@ export default function DashboardLayout() {
       }
     ]
   };
-  const loadWigs = ['news', 'gstart'];
+  const loadWigs = ['news'];
   const defaultWidgets = useMemo(() => {
     return loadWigs
       .map((lwid: string) =>

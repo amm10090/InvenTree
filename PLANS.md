@@ -7,6 +7,51 @@
 ## IN_PROGRESS
 
 ## DONE
+- [x] 2026-03-28 将系统货币名称统一改为中文显示
+  - 完成时间：2026-03-28
+  - 验收结果：货币选项标签已由英文名称切换为中文名称，`INVENTREE_DEFAULT_CURRENCY` 下拉选项显示为 `CAD - 加拿大元` 等中文文案
+  - 关联文件：`src/backend/InvenTree/common/currency.py`
+  - 验证方式：`python -m compileall src/backend/InvenTree/common/currency.py` 通过；webmcp 复查 `http://localhost:5173/web/settings/admin/currencies` 的货币下拉选项为中文
+- [x] 2026-03-28 修复 InvenTreeTableHeader 列表渲染缺失 key 的 React 警告
+  - 完成时间：2026-03-28
+  - 验收结果：`InvenTreeTableHeader` 中 `activeFilters` 列表渲染已补充稳定 `key`，控制台不再出现该组件触发的 key 警告
+  - 关联文件：`src/frontend/src/tables/InvenTreeTableHeader.tsx`
+  - 验证方式：`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过；webmcp 页面重载后 `console messages` 为 0
+- [x] 2026-03-28 将系统中的中文“零件”统一翻译为“货物”
+  - 完成时间：2026-03-28
+  - 验收结果：前端与后端简体中文翻译源文件中“零件”均已替换为“货物”；`/web/home` 导航标签已显示为“货物”
+  - 关联文件：`src/frontend/src/locales/zh_Hans/messages.po`、`src/frontend/src/locales/zh_Hans/messages.ts`、`src/backend/InvenTree/locale/zh_Hans/LC_MESSAGES/django.po`
+  - 验证方式：`cd src/frontend && yarn run compile`、`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过；webmcp 复查 `http://localhost:5173/web/home` 导航文案已生效
+- [x] 2026-03-28 修复 React Router v7_startTransition 未来标志警告
+  - 完成时间：2026-03-28
+  - 验收结果：`BrowserRouter` 已启用 `future.v7_startTransition`，`/web/home` 页面控制台不再出现 `React Router will begin wrapping state updates in React.startTransition in v7` 警告
+  - 关联文件：`src/frontend/src/views/DesktopAppView.tsx`
+  - 验证方式：`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过；webmcp 重载 `http://localhost:5173/web/home` 后 `console messages` 为 0
+- [x] 2026-03-28 修复 /web/home 的 React Router v7_relativeSplatPath 未来标志警告
+  - 完成时间：2026-03-28
+  - 验收结果：`BrowserRouter` 已启用 `future.v7_relativeSplatPath`，`/web/home` 页面控制台不再出现 `Relative route resolution within Splat routes is changing in v7` 警告
+  - 关联文件：`src/frontend/src/views/DesktopAppView.tsx`
+  - 验证方式：`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过；webmcp 重载 `http://localhost:5173/web/home` 后 `console messages` 为 0
+- [x] 2026-03-28 修复 Header 去蓝紫配色未生效并清理控制台报错
+  - 完成时间：2026-03-28
+  - 验收结果：主导航 Tabs 激活态已稳定应用灰黑/琥珀非渐变配色；右侧图标去蓝紫已生效；`NewsWidget` 的 `tbody > div` 非法结构已修复，页面控制台错误清零
+  - 关联文件：`src/frontend/src/main.css.ts`、`src/frontend/src/components/dashboard/widgets/NewsWidget.tsx`
+  - 验证方式：`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过；webmcp 页面重载后 `console messages` 为 0
+- [x] 2026-03-28 按 UI 规范移除 Header 的蓝色紫色与渐变色
+  - 完成时间：2026-03-28
+  - 验收结果：主导航 Header 与 Tabs 激活态已切换为中性灰 + 琥珀配色，去除蓝色、紫色和蓝紫渐变；右侧图标颜色也统一为中性方案
+  - 关联文件：`src/frontend/src/main.css.ts`
+  - 验证方式：`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过
+- [x] 2026-03-28 优化主布局 Header 整体样式
+  - 完成时间：2026-03-28
+  - 验收结果：`main_layoutHeader` 已升级为玻璃拟态导航条，左侧导航与右侧操作区形成圆角分组，Tabs 激活态改为高对比渐变胶囊风格，消息区在小屏自动收起
+  - 关联文件：`src/frontend/src/main.css.ts`、`src/frontend/src/components/nav/Header.tsx`、`src/frontend/src/components/nav/NavHoverMenu.tsx`
+  - 验证方式：`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过
+- [x] 2026-03-28 优化首页顶部 Group 样式并移除快速上手模块
+  - 完成时间：2026-03-28
+  - 验收结果：首页 Dashboard 顶部菜单的 `mantine-Group-root` 已落地统一圆角分组皮肤；首页不再渲染 `Getting Started / 快速上手` 组件与示例布局入口
+  - 关联文件：`src/frontend/src/components/dashboard/DashboardMenu.tsx`、`src/frontend/src/components/dashboard/DashboardMenu.css.ts`、`src/frontend/src/components/dashboard/DashboardWidgetLibrary.tsx`、`src/frontend/src/components/dashboard/DashboardLayout.tsx`
+  - 验证方式：`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过
 - [x] 2026-03-28 统一系统字体并将品牌名替换为库存管理系统
   - 完成时间：2026-03-28
   - 验收结果：全局字体已切换到以 `Noto Sans SC` 为首的中文友好字体栈；登录页、页面标题、关于弹窗、导航文案、插件提示、后端默认实例名与信息接口已改为 `库存管理系统`

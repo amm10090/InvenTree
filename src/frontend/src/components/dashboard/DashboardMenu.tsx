@@ -20,6 +20,7 @@ import { useMemo } from 'react';
 import useInstanceName from '../../hooks/UseInstanceName';
 import { useUserState } from '../../states/UserState';
 import { StylishText } from '../items/StylishText';
+import * as classes from './DashboardMenu.css';
 
 /**
  * A menu for editing the dashboard layout
@@ -53,11 +54,19 @@ export default function DashboardMenu({
   }, [user, instanceName]);
 
   return (
-    <Paper p='sm' pr={0}>
-      <Group justify='space-between' wrap='nowrap'>
+    <Paper p='sm' pr={0} className={classes.menuPaper}>
+      <Group
+        justify='space-between'
+        wrap='nowrap'
+        className={classes.menuMainGroup}
+      >
         {title}
 
-        <Group justify='right' wrap='nowrap'>
+        <Group
+          justify='right'
+          wrap='nowrap'
+          className={classes.menuActionGroup}
+        >
           {(editing || removing) && (
             <Tooltip label={t`Accept Layout`} onClick={onAcceptLayout}>
               <ActionIcon

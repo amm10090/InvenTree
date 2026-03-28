@@ -154,18 +154,18 @@ export function Header() {
         }}
       />
       <Container className={classes.layoutHeaderSection} size='100%'>
-        <Group justify='space-between'>
-          <Group>
+        <Group justify='space-between' className={classes.layoutHeaderRow}>
+          <Group className={classes.layoutHeaderLeft}>
             <NavHoverMenu openDrawer={openNavDrawer} />
             <NavTabs />
           </Group>
           {navbar_message && (
-            <Text>
+            <Text className={classes.layoutHeaderNavbarMessage}>
               {/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
               <span dangerouslySetInnerHTML={{ __html: navbar_message }} />
             </Text>
           )}
-          <Group>
+          <Group className={classes.layoutHeaderRight}>
             <Tooltip position='bottom-end' label={t`Search`}>
               <ActionIcon
                 onClick={openSearchDrawer}

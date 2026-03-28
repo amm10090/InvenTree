@@ -127,7 +127,7 @@ msgstr "否"
 #: src/tables/stock/StockTrackingTable.tsx:119
 #: src/tables/stock/StockTrackingTable.tsx:237
 msgid "Part"
-msgstr "零件"
+msgstr "货物"
 
 #: lib/enums/ModelInformation.tsx:30
 #: lib/enums/Roles.tsx:35
@@ -140,7 +140,7 @@ msgstr "零件"
 #: src/pages/part/CategoryDetail.tsx:371
 #: src/pages/part/PartDetail.tsx:989
 msgid "Parts"
-msgstr "零件"
+msgstr "货物"
 
 #: lib/enums/ModelInformation.tsx:37
 #: src/pages/Index/Settings/AdminCenter/PartParameterPanel.tsx:13
@@ -176,11 +176,11 @@ msgstr "参数模板"
 
 #: lib/enums/ModelInformation.tsx:52
 msgid "Part Test Template"
-msgstr "零件测试模板"
+msgstr "货物测试模板"
 
 #: lib/enums/ModelInformation.tsx:53
 msgid "Part Test Templates"
-msgstr "零件测试模板"
+msgstr "货物测试模板"
 
 #: lib/enums/ModelInformation.tsx:59
 #: src/components/wizards/OrderPartsWizard.tsx:290
@@ -192,12 +192,12 @@ msgstr "零件测试模板"
 #: src/tables/purchasing/SupplierPartTable.tsx:106
 #: src/tables/stock/StockItemTable.tsx:99
 msgid "Supplier Part"
-msgstr "供应商零件"
+msgstr "供应商货物"
 
 #: lib/enums/ModelInformation.tsx:60
 #: src/pages/purchasing/PurchasingIndex.tsx:129
 msgid "Supplier Parts"
-msgstr "供应商零件"
+msgstr "供应商货物"
 
 #: lib/enums/ModelInformation.tsx:69
 #: src/pages/company/ManufacturerPartDetail.tsx:289
@@ -205,18 +205,18 @@ msgstr "供应商零件"
 #: src/tables/part/PartPurchaseOrdersTable.tsx:56
 #: src/tables/stock/StockItemTable.tsx:106
 msgid "Manufacturer Part"
-msgstr "制造商零件"
+msgstr "制造商货物"
 
 #: lib/enums/ModelInformation.tsx:70
 #: src/pages/purchasing/PurchasingIndex.tsx:179
 msgid "Manufacturer Parts"
-msgstr "制造商零件"
+msgstr "制造商货物"
 
 #: lib/enums/ModelInformation.tsx:79
 #: src/pages/part/CategoryDetail.tsx:371
 #: src/tables/Filter.tsx:449
 msgid "Part Category"
-msgstr "零件类别"
+msgstr "货物类别"
 
 #: lib/enums/ModelInformation.tsx:80
 #: lib/enums/Roles.tsx:37
@@ -224,7 +224,7 @@ msgstr "零件类别"
 #: src/pages/part/CategoryDetail.tsx:362
 #: src/pages/part/PartDetail.tsx:1232
 msgid "Part Categories"
-msgstr "零件类别"
+msgstr "货物类别"
 
 #: lib/enums/ModelInformation.tsx:88
 #: src/forms/BuildForms.tsx:512
@@ -1002,11 +1002,11 @@ msgstr "面板没有更多的组件"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:25
 msgid "Subscribed Parts"
-msgstr "已订购零件"
+msgstr "已订购货物"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:26
 msgid "Show the number of parts which you have subscribed to"
-msgstr "显示订阅的零件数量"
+msgstr "显示订阅的货物数量"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:32
 msgid "Subscribed Categories"
@@ -1014,7 +1014,7 @@ msgstr "已订阅类别"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:33
 msgid "Show the number of part categories which you have subscribed to"
-msgstr "显示订阅的零件类别数量"
+msgstr "显示订阅的货物类别数量"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:42
 msgid "Invalid BOMs"
@@ -1031,7 +1031,7 @@ msgstr "低库存"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:56
 msgid "Show the number of parts which are low on stock"
-msgstr "显示低库存的零件数量"
+msgstr "显示低库存的货物数量"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:65
 msgid "Required for Build Orders"
@@ -1039,7 +1039,7 @@ msgstr "生产订单所需的"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:67
 msgid "Show parts which are required for active build orders"
-msgstr "显示当前生产订单所需的零件"
+msgstr "显示当前生产订单所需的货物"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:72
 msgid "Expired Stock Items"
@@ -3711,7 +3711,7 @@ msgstr "完全匹配"
 
 #: src/components/wizards/ImportPartWizard.tsx:112
 msgid "Current part"
-msgstr "当前的零件"
+msgstr "当前的货物"
 
 #: src/components/wizards/ImportPartWizard.tsx:118
 msgid "Already Imported"
@@ -3753,11 +3753,11 @@ msgstr "找到 {0} 个结果"
 
 #: src/components/wizards/ImportPartWizard.tsx:259
 msgid "Import this part"
-msgstr "导入此零件"
+msgstr "导入此货物"
 
 #: src/components/wizards/ImportPartWizard.tsx:313
 msgid "Are you sure you want to import this part into the selected category now?"
-msgstr "你确定你要将这个零件载入选择的类别里吗？"
+msgstr "你确定你要将这个货物载入选择的类别里吗？"
 
 #: src/components/wizards/ImportPartWizard.tsx:326
 msgid "Import Now"
@@ -3765,7 +3765,7 @@ msgstr "立即导入"
 
 #: src/components/wizards/ImportPartWizard.tsx:372
 msgid "Select and edit the parameters you want to add to this part."
-msgstr "选择并编辑你想要给这个零件添加的参数。"
+msgstr "选择并编辑你想要给这个货物添加的参数。"
 
 #: src/components/wizards/ImportPartWizard.tsx:379
 msgid "Default category parameters"
@@ -3789,7 +3789,7 @@ msgstr "创建参数"
 
 #: src/components/wizards/ImportPartWizard.tsx:493
 msgid "Create initial stock for the imported part."
-msgstr "为添加的零件创建初始库存。"
+msgstr "为添加的货物创建初始库存。"
 
 #: src/components/wizards/ImportPartWizard.tsx:511
 msgid "Next"
@@ -3799,19 +3799,19 @@ msgstr "下一个"
 #: src/pages/part/PartDetail.tsx:1081
 #: src/tables/part/PartTable.tsx:418
 msgid "Edit Part"
-msgstr "编辑零件"
+msgstr "编辑货物"
 
 #: src/components/wizards/ImportPartWizard.tsx:567
 msgid "Part imported successfully!"
-msgstr "零件添加成功！"
+msgstr "货物添加成功！"
 
 #: src/components/wizards/ImportPartWizard.tsx:576
 msgid "Failed to import part: "
-msgstr "零件添加失败： "
+msgstr "货物添加失败： "
 
 #: src/components/wizards/ImportPartWizard.tsx:641
 msgid "Are you sure, you want to import the supplier and manufacturer part into this part?"
-msgstr "您确定要将供应商和制造商零件引入到这个零件吗？"
+msgstr "您确定要将供应商和制造商货物引入到这个货物吗？"
 
 #: src/components/wizards/ImportPartWizard.tsx:655
 msgid "Import"
@@ -3828,19 +3828,19 @@ msgstr "参数创建失败，请修复错误后重试"
 #. placeholder {0}: supplierPart?.supplier
 #: src/components/wizards/ImportPartWizard.tsx:740
 msgid "Part imported successfully from supplier {0}."
-msgstr "从供应商 {0} 成功导入零件。"
+msgstr "从供应商 {0} 成功导入货物。"
 
 #: src/components/wizards/ImportPartWizard.tsx:753
 msgid "Open Part"
-msgstr "打开零件"
+msgstr "打开货物"
 
 #: src/components/wizards/ImportPartWizard.tsx:760
 msgid "Open Supplier Part"
-msgstr "打开供应商零件"
+msgstr "打开供应商货物"
 
 #: src/components/wizards/ImportPartWizard.tsx:767
 msgid "Open Manufacturer Part"
-msgstr "打开制造商零件"
+msgstr "打开制造商货物"
 
 #: src/components/wizards/ImportPartWizard.tsx:797
 #: src/tables/part/PartTable.tsx:499
@@ -3849,11 +3849,11 @@ msgstr "打开制造商零件"
 
 #: src/components/wizards/ImportPartWizard.tsx:803
 msgid "Import Supplier Part"
-msgstr "导入供应商零件"
+msgstr "导入供应商货物"
 
 #: src/components/wizards/ImportPartWizard.tsx:805
 msgid "Search Supplier Part"
-msgstr "搜索供应商零件"
+msgstr "搜索供应商货物"
 
 #: src/components/wizards/ImportPartWizard.tsx:807
 msgid "Confirm import"
@@ -3865,7 +3865,7 @@ msgstr "完成"
 
 #: src/components/wizards/OrderPartsWizard.tsx:75
 msgid "Error fetching part requirements"
-msgstr "获取零件要求时出错"
+msgstr "获取货物要求时出错"
 
 #: src/components/wizards/OrderPartsWizard.tsx:113
 msgid "Requirements"
@@ -3911,13 +3911,13 @@ msgstr "采购订单已创建"
 
 #: src/components/wizards/OrderPartsWizard.tsx:217
 msgid "New Supplier Part"
-msgstr "新增供应商零件"
+msgstr "新增供应商货物"
 
 #: src/components/wizards/OrderPartsWizard.tsx:219
 #: src/tables/purchasing/SupplierPartTable.tsx:213
 #: src/tables/purchasing/SupplierPartTable.tsx:301
 msgid "Supplier part created"
-msgstr "供应商零件已更新"
+msgstr "供应商货物已更新"
 
 #: src/components/wizards/OrderPartsWizard.tsx:247
 msgid "Add to Purchase Order"
@@ -3925,19 +3925,19 @@ msgstr "添加到采购订单中"
 
 #: src/components/wizards/OrderPartsWizard.tsx:259
 msgid "Part added to purchase order"
-msgstr "零件已添加到采购订单中"
+msgstr "货物已添加到采购订单中"
 
 #: src/components/wizards/OrderPartsWizard.tsx:303
 msgid "Select supplier part"
-msgstr "选择供应商零件"
+msgstr "选择供应商货物"
 
 #: src/components/wizards/OrderPartsWizard.tsx:323
 msgid "Copy supplier part number"
-msgstr "复制供应商零件编号"
+msgstr "复制供应商货物编号"
 
 #: src/components/wizards/OrderPartsWizard.tsx:326
 msgid "New supplier part"
-msgstr "新增供应商零件"
+msgstr "新增供应商货物"
 
 #: src/components/wizards/OrderPartsWizard.tsx:350
 msgid "Select purchase order"
@@ -3954,27 +3954,27 @@ msgstr "添加到已选的采购订单中"
 #: src/components/wizards/OrderPartsWizard.tsx:432
 #: src/components/wizards/OrderPartsWizard.tsx:545
 msgid "No parts selected"
-msgstr "没有选定零件"
+msgstr "没有选定货物"
 
 #: src/components/wizards/OrderPartsWizard.tsx:433
 msgid "No purchaseable parts selected"
-msgstr "未选择可购买的零件"
+msgstr "未选择可购买的货物"
 
 #: src/components/wizards/OrderPartsWizard.tsx:469
 msgid "Parts Added"
-msgstr "零件已添加"
+msgstr "货物已添加"
 
 #: src/components/wizards/OrderPartsWizard.tsx:470
 msgid "All selected parts added to a purchase order"
-msgstr "所有选中的零件添加到采购订单中"
+msgstr "所有选中的货物添加到采购订单中"
 
 #: src/components/wizards/OrderPartsWizard.tsx:546
 msgid "You must select at least one part to order"
-msgstr "您必须至少选择一个零件才能下单"
+msgstr "您必须至少选择一个货物才能下单"
 
 #: src/components/wizards/OrderPartsWizard.tsx:557
 msgid "Supplier part is required"
-msgstr "供应商零件为必填项"
+msgstr "供应商货物为必填项"
 
 #: src/components/wizards/OrderPartsWizard.tsx:561
 msgid "Quantity is required"
@@ -3982,18 +3982,18 @@ msgstr "数量为必填项"
 
 #: src/components/wizards/OrderPartsWizard.tsx:574
 msgid "Invalid part selection"
-msgstr "无效的零件选择"
+msgstr "无效的货物选择"
 
 #: src/components/wizards/OrderPartsWizard.tsx:576
 msgid "Please correct the errors in the selected parts"
-msgstr "请修正所选零件中的错误"
+msgstr "请修正所选货物中的错误"
 
 #: src/components/wizards/OrderPartsWizard.tsx:587
 #: src/tables/build/BuildLineTable.tsx:844
 #: src/tables/part/PartTable.tsx:532
 #: src/tables/sales/SalesOrderLineItemTable.tsx:365
 msgid "Order Parts"
-msgstr "订购零件"
+msgstr "订购货物"
 
 #: src/contexts/LanguageContext.tsx:22
 #~ msgid "Arabic"
@@ -4529,7 +4529,7 @@ msgstr ""
 
 #: src/forms/BomForms.tsx:114
 msgid "Substitute Part"
-msgstr "替代零件"
+msgstr "替代货物"
 
 #: src/forms/BomForms.tsx:131
 msgid "Edit BOM Substitutes"
@@ -4658,7 +4658,7 @@ msgstr "生产已完成"
 #: src/tables/ColumnRenderers.tsx:116
 #: src/tables/part/RelatedPartTable.tsx:73
 msgid "IPN"
-msgstr "内部零件编码 IPN"
+msgstr "内部货物编码 IPN"
 
 #: src/forms/BuildForms.tsx:671
 #: src/forms/BuildForms.tsx:835
@@ -4752,7 +4752,7 @@ msgstr "已订阅"
 
 #: src/forms/PartForms.tsx:102
 msgid "Subscribe to notifications for this part"
-msgstr "订阅此零件的通知"
+msgstr "订阅此货物的通知"
 
 #: src/forms/PartForms.tsx:108
 #~ msgid "Part created"
@@ -4764,7 +4764,7 @@ msgstr "订阅此零件的通知"
 
 #: src/forms/PartForms.tsx:217
 msgid "Parent part category"
-msgstr "上级零件类别"
+msgstr "上级货物类别"
 
 #: src/forms/PartForms.tsx:232
 msgid "Subscribe to notifications for this category"
@@ -4793,7 +4793,7 @@ msgstr "已选择项目目的地"
 
 #: src/forms/PurchaseOrderForms.tsx:467
 msgid "Part category default location selected"
-msgstr "已选择零件类别默认位置"
+msgstr "已选择货物类别默认位置"
 
 #: src/forms/PurchaseOrderForms.tsx:477
 msgid "Received stock location selected"
@@ -5022,7 +5022,7 @@ msgstr "编辑库存项"
 
 #: src/forms/StockForms.tsx:368
 msgid "Select the part to install"
-msgstr "选择要安装的零件"
+msgstr "选择要安装的货物"
 
 #: src/forms/StockForms.tsx:494
 msgid "Confirm Stock Transfer"
@@ -7253,7 +7253,7 @@ msgstr "生产详情"
 
 #: src/pages/build/BuildDetail.tsx:435
 msgid "Required Parts"
-msgstr "所需零件"
+msgstr "所需货物"
 
 #: src/pages/build/BuildDetail.tsx:447
 #: src/pages/sales/SalesOrderDetail.tsx:417
@@ -7525,7 +7525,7 @@ msgstr "公司详细信息"
 
 #: src/pages/company/CompanyDetail.tsx:188
 msgid "Supplied Parts"
-msgstr "已提供的零件"
+msgstr "已提供的货物"
 
 #: src/pages/company/CompanyDetail.tsx:189
 #~ msgid "Delete company"
@@ -7533,7 +7533,7 @@ msgstr "已提供的零件"
 
 #: src/pages/company/CompanyDetail.tsx:195
 msgid "Manufactured Parts"
-msgstr "制成零件"
+msgstr "制成货物"
 
 #: src/pages/company/CompanyDetail.tsx:242
 msgid "Assigned Stock"
@@ -7555,11 +7555,11 @@ msgstr "公司操作"
 #: src/pages/company/ManufacturerPartDetail.tsx:77
 #: src/pages/company/SupplierPartDetail.tsx:90
 msgid "Internal Part"
-msgstr "内部零件"
+msgstr "内部货物"
 
 #: src/pages/company/ManufacturerPartDetail.tsx:111
 msgid "Manufacturer Part Number"
-msgstr "制造商零件编号"
+msgstr "制造商货物编号"
 
 #: src/pages/company/ManufacturerPartDetail.tsx:128
 #: src/pages/company/SupplierPartDetail.tsx:114
@@ -7570,7 +7570,7 @@ msgstr "外部链接"
 #: src/pages/company/SupplierPartDetail.tsx:233
 #: src/pages/part/PartDetail.tsx:797
 msgid "Part Details"
-msgstr "零件详情"
+msgstr "货物详情"
 
 #: src/pages/company/ManufacturerPartDetail.tsx:150
 msgid "Manufacturer Details"
@@ -7578,7 +7578,7 @@ msgstr "制造商详情"
 
 #: src/pages/company/ManufacturerPartDetail.tsx:159
 msgid "Manufacturer Part Details"
-msgstr "制造商零件详情"
+msgstr "制造商货物详情"
 
 #: src/pages/company/ManufacturerPartDetail.tsx:165
 #: src/pages/company/SupplierPartDetail.tsx:253
@@ -7589,23 +7589,23 @@ msgstr "接收库存"
 #: src/pages/company/ManufacturerPartDetail.tsx:212
 #: src/tables/purchasing/ManufacturerPartTable.tsx:127
 msgid "Edit Manufacturer Part"
-msgstr "编辑制造商零件"
+msgstr "编辑制造商货物"
 
 #: src/pages/company/ManufacturerPartDetail.tsx:219
 #: src/tables/purchasing/ManufacturerPartTable.tsx:115
 #: src/tables/purchasing/ManufacturerPartTable.tsx:134
 #: src/tables/purchasing/ManufacturerPartTable.tsx:175
 msgid "Add Manufacturer Part"
-msgstr "添加制造商零件"
+msgstr "添加制造商货物"
 
 #: src/pages/company/ManufacturerPartDetail.tsx:231
 #: src/tables/purchasing/ManufacturerPartTable.tsx:145
 msgid "Delete Manufacturer Part"
-msgstr "删除制造商零件"
+msgstr "删除制造商货物"
 
 #: src/pages/company/ManufacturerPartDetail.tsx:246
 msgid "Manufacturer Part Actions"
-msgstr "制造商零件操作"
+msgstr "制造商货物操作"
 
 #: src/pages/company/ManufacturerPartDetail.tsx:281
 #~ msgid "ManufacturerPart"
@@ -7614,7 +7614,7 @@ msgstr "制造商零件操作"
 #: src/pages/company/SupplierPartDetail.tsx:105
 #: src/tables/part/RelatedPartTable.tsx:82
 msgid "Part Description"
-msgstr "零件描述"
+msgstr "货物描述"
 
 #: src/pages/company/SupplierPartDetail.tsx:180
 #: src/tables/part/PartPurchaseOrdersTable.tsx:73
@@ -7638,7 +7638,7 @@ msgstr "可用性"
 
 #: src/pages/company/SupplierPartDetail.tsx:247
 msgid "Supplier Part Details"
-msgstr "供应商零件详情"
+msgstr "供应商货物详情"
 
 #: src/pages/company/SupplierPartDetail.tsx:280
 #: src/pages/part/PartPricingPanel.tsx:113
@@ -7648,23 +7648,23 @@ msgstr "供应商价格"
 
 #: src/pages/company/SupplierPartDetail.tsx:314
 msgid "Supplier Part Actions"
-msgstr "供应商零件操作"
+msgstr "供应商货物操作"
 
 #: src/pages/company/SupplierPartDetail.tsx:338
 #: src/tables/purchasing/SupplierPartTable.tsx:282
 msgid "Edit Supplier Part"
-msgstr "编辑供应商零件"
+msgstr "编辑供应商货物"
 
 #: src/pages/company/SupplierPartDetail.tsx:346
 #: src/tables/purchasing/SupplierPartTable.tsx:307
 msgid "Delete Supplier Part"
-msgstr "删除供应商零件"
+msgstr "删除供应商货物"
 
 #: src/pages/company/SupplierPartDetail.tsx:354
 #: src/tables/purchasing/SupplierPartTable.tsx:203
 #: src/tables/purchasing/SupplierPartTable.tsx:291
 msgid "Add Supplier Part"
-msgstr "添加供应商零件"
+msgstr "添加供应商货物"
 
 #: src/pages/company/SupplierPartDetail.tsx:394
 #: src/pages/part/PartDetail.tsx:1029
@@ -7747,13 +7747,13 @@ msgstr "默认位置"
 
 #: src/pages/part/CategoryDetail.tsx:173
 msgid "Top level part category"
-msgstr "最高级零件类别"
+msgstr "最高级货物类别"
 
 #: src/pages/part/CategoryDetail.tsx:183
 #: src/pages/part/CategoryDetail.tsx:251
 #: src/tables/part/PartCategoryTable.tsx:122
 msgid "Edit Part Category"
-msgstr "编辑零件类别"
+msgstr "编辑货物类别"
 
 #: src/pages/part/CategoryDetail.tsx:192
 msgid "Move items to parent category"
@@ -7767,15 +7767,15 @@ msgstr "删除项"
 #: src/pages/part/CategoryDetail.tsx:204
 #: src/pages/part/CategoryDetail.tsx:256
 msgid "Delete Part Category"
-msgstr "删除零件类别"
+msgstr "删除货物类别"
 
 #: src/pages/part/CategoryDetail.tsx:207
 msgid "Parts Action"
-msgstr "零件操作"
+msgstr "货物操作"
 
 #: src/pages/part/CategoryDetail.tsx:208
 msgid "Action for parts in this category"
-msgstr "对此类别中零件的操作"
+msgstr "对此类别中货物的操作"
 
 #: src/pages/part/CategoryDetail.tsx:214
 msgid "Child Categories Action"
@@ -7783,7 +7783,7 @@ msgstr "子类别操作"
 
 #: src/pages/part/CategoryDetail.tsx:215
 msgid "Action for child categories in this category"
-msgstr "对此类别中零件的操作"
+msgstr "对此类别中货物的操作"
 
 #: src/pages/part/CategoryDetail.tsx:247
 #: src/tables/part/PartCategoryTable.tsx:143
@@ -7834,7 +7834,7 @@ msgstr "物料清单已验证"
 
 #: src/pages/part/PartDetail.tsx:223
 msgid "The Bill of Materials for this part has been validated"
-msgstr "该零件的物料清单已完成验证"
+msgstr "该货物的物料清单已完成验证"
 
 #: src/pages/part/PartDetail.tsx:227
 #: src/pages/part/PartDetail.tsx:232
@@ -7843,11 +7843,11 @@ msgstr "物料清单未验证"
 
 #: src/pages/part/PartDetail.tsx:228
 msgid "The Bill of Materials for this part has previously been checked, but requires revalidation"
-msgstr "该零件的物料清单已通过历史检验，但需重新验证"
+msgstr "该货物的物料清单已通过历史检验，但需重新验证"
 
 #: src/pages/part/PartDetail.tsx:233
 msgid "The Bill of Materials for this part has not yet been validated"
-msgstr "该零件的物料清单尚未完成验证"
+msgstr "该货物的物料清单尚未完成验证"
 
 #: src/pages/part/PartDetail.tsx:264
 msgid "Validated On"
@@ -7947,41 +7947,41 @@ msgstr "已锁定"
 
 #: src/pages/part/PartDetail.tsx:643
 msgid "Template Part"
-msgstr "模板零件"
+msgstr "模板货物"
 
 #: src/pages/part/PartDetail.tsx:648
 #: src/tables/bom/BomTable.tsx:433
 msgid "Assembled Part"
-msgstr "组装零件"
+msgstr "组装货物"
 
 #: src/pages/part/PartDetail.tsx:653
 msgid "Component Part"
-msgstr "组件零件"
+msgstr "组件货物"
 
 #: src/pages/part/PartDetail.tsx:658
 #: src/tables/bom/BomTable.tsx:418
 msgid "Testable Part"
-msgstr "可测试零件"
+msgstr "可测试货物"
 
 #: src/pages/part/PartDetail.tsx:664
 #: src/tables/bom/BomTable.tsx:423
 msgid "Trackable Part"
-msgstr "可追溯零件"
+msgstr "可追溯货物"
 
 #: src/pages/part/PartDetail.tsx:669
 msgid "Purchaseable Part"
-msgstr "可购买零件"
+msgstr "可购买货物"
 
 #: src/pages/part/PartDetail.tsx:675
 msgid "Saleable Part"
-msgstr "可销售零件"
+msgstr "可销售货物"
 
 #: src/pages/part/PartDetail.tsx:680
 #: src/pages/part/PartDetail.tsx:1065
 #: src/tables/bom/BomTable.tsx:149
 #: src/tables/bom/BomTable.tsx:438
 msgid "Virtual Part"
-msgstr "虚拟零件"
+msgstr "虚拟货物"
 
 #: src/pages/part/PartDetail.tsx:695
 #: src/pages/purchasing/PurchaseOrderDetail.tsx:272
@@ -8022,7 +8022,7 @@ msgstr "最新序列号"
 
 #: src/pages/part/PartDetail.tsx:767
 msgid "Select Part Revision"
-msgstr "选择零件版本"
+msgstr "选择货物版本"
 
 #: src/pages/part/PartDetail.tsx:822
 msgid "Variants"
@@ -8043,7 +8043,7 @@ msgstr "用于"
 
 #: src/pages/part/PartDetail.tsx:855
 msgid "Part Pricing"
-msgstr "零件价格"
+msgstr "货物价格"
 
 #: src/pages/part/PartDetail.tsx:925
 msgid "Test Templates"
@@ -8051,7 +8051,7 @@ msgstr "测试模板"
 
 #: src/pages/part/PartDetail.tsx:947
 msgid "Related Parts"
-msgstr "关联零件"
+msgstr "关联货物"
 
 #: src/pages/part/PartDetail.tsx:956
 #~ msgid "Count part stock"
@@ -8062,11 +8062,11 @@ msgstr "关联零件"
 #: src/tables/bom/BomTable.tsx:661
 #: src/tables/part/PartTestTemplateTable.tsx:258
 msgid "Part is Locked"
-msgstr "零件已锁定"
+msgstr "货物已锁定"
 
 #: src/pages/part/PartDetail.tsx:964
 msgid "Part parameters cannot be edited, as the part is locked"
-msgstr "零件参数无法编辑，因为零件已锁定"
+msgstr "货物参数无法编辑，因为货物已锁定"
 
 #: src/pages/part/PartDetail.tsx:967
 #~ msgid "Transfer part stock"
@@ -8086,15 +8086,15 @@ msgstr ""
 #: src/tables/part/PartTable.tsx:406
 #: src/tables/part/PartTable.tsx:459
 msgid "Add Part"
-msgstr "添加零件"
+msgstr "添加货物"
 
 #: src/pages/part/PartDetail.tsx:1107
 msgid "Delete Part"
-msgstr "删除零件"
+msgstr "删除货物"
 
 #: src/pages/part/PartDetail.tsx:1116
 msgid "Deleting this part cannot be reversed"
-msgstr "删除此零件无法撤销"
+msgstr "删除此货物无法撤销"
 
 #: src/pages/part/PartDetail.tsx:1179
 #: src/pages/stock/StockDetail.tsx:885
@@ -8114,7 +8114,7 @@ msgstr "按序列号搜索"
 #: src/pages/part/PartDetail.tsx:1200
 #: src/tables/part/PartTable.tsx:516
 msgid "Part Actions"
-msgstr "零件选项"
+msgstr "货物选项"
 
 #: src/pages/part/PartIndex.tsx:29
 #~ msgid "Categories"
@@ -8122,7 +8122,7 @@ msgstr "零件选项"
 
 #: src/pages/part/PartPricingPanel.tsx:72
 msgid "No pricing data found for this part."
-msgstr "未找到此零件的定价数据"
+msgstr "未找到此货物的定价数据"
 
 #: src/pages/part/PartPricingPanel.tsx:87
 #: src/pages/part/pricing/PricingOverviewPanel.tsx:332
@@ -8440,7 +8440,7 @@ msgstr "供应商价格"
 #: src/pages/part/pricing/VariantPricingPanel.tsx:29
 #: src/pages/part/pricing/VariantPricingPanel.tsx:94
 msgid "Variant Part"
-msgstr "变体零件"
+msgstr "变体货物"
 
 #: src/pages/purchasing/PurchaseOrderDetail.tsx:90
 msgid "Edit Purchase Order"
@@ -8798,7 +8798,7 @@ msgstr "位置详细信息"
 
 #: src/pages/stock/LocationDetail.tsx:225
 msgid "Default Parts"
-msgstr "默认零件"
+msgstr "默认货物"
 
 #: src/pages/stock/LocationDetail.tsx:243
 #~ msgid "Child Locations Action"
@@ -8885,7 +8885,7 @@ msgstr "扫描容器到此位置"
 
 #: src/pages/stock/StockDetail.tsx:147
 msgid "Base Part"
-msgstr "基础零件"
+msgstr "基础货物"
 
 #: src/pages/stock/StockDetail.tsx:155
 #~ msgid "Link custom barcode to stock item"
@@ -9088,11 +9088,11 @@ msgstr "服务器图标包加载错误"
 
 #: src/tables/ColumnRenderers.tsx:68
 msgid "Part is not active"
-msgstr "零件未激活"
+msgstr "货物未激活"
 
 #: src/tables/ColumnRenderers.tsx:78
 msgid "You are subscribed to notifications for this part"
-msgstr "您已订阅此零件的通知"
+msgstr "您已订阅此货物的通知"
 
 #: src/tables/ColumnRenderers.tsx:93
 #~ msgid "No location set"
@@ -9383,7 +9383,7 @@ msgstr "包含变体"
 
 #: src/tables/Filter.tsx:325
 msgid "Include results for part variants"
-msgstr "包含零件变体结果"
+msgstr "包含货物变体结果"
 
 #: src/tables/Filter.tsx:335
 #: src/tables/part/PartPurchaseOrdersTable.tsx:133
@@ -9422,7 +9422,7 @@ msgstr "按订单签发人筛选"
 
 #: src/tables/Filter.tsx:450
 msgid "Filter by part category"
-msgstr "按零件类别筛选"
+msgstr "按货物类别筛选"
 
 #: src/tables/Filter.tsx:461
 msgid "Filter by stock location"
@@ -9586,7 +9586,7 @@ msgstr "此物料清单项目是为另一个上级定义的"
 
 #: src/tables/bom/BomTable.tsx:119
 msgid "Part Information"
-msgstr "零件信息"
+msgstr "货物信息"
 
 #: src/tables/bom/BomTable.tsx:122
 msgid "This BOM item has not been validated"
@@ -9601,7 +9601,7 @@ msgstr "替代料"
 #: src/tables/sales/SalesOrderLineItemTable.tsx:193
 #: src/tables/sales/SalesOrderLineItemTable.tsx:210
 msgid "Virtual part"
-msgstr "虚拟零件"
+msgstr "虚拟货物"
 
 #: src/tables/bom/BomTable.tsx:301
 #~ msgid "Create BOM Item"
@@ -9681,7 +9681,7 @@ msgstr "显示可跟踪项目"
 #: src/tables/purchasing/ManufacturerPartTable.tsx:153
 #: src/tables/purchasing/SupplierPartTable.tsx:258
 msgid "Active Part"
-msgstr "激活的零件"
+msgstr "激活的货物"
 
 #: src/tables/bom/BomTable.tsx:429
 msgid "Show active items"
@@ -9808,7 +9808,7 @@ msgstr "验证物料清单行"
 
 #: src/tables/bom/BomTable.tsx:604
 msgid "Edit Substitutes"
-msgstr "编辑替代零件"
+msgstr "编辑替代货物"
 
 #: src/tables/bom/BomTable.tsx:629
 msgid "Add BOM Items"
@@ -9830,7 +9830,7 @@ msgstr "从文件导入物料清单项目"
 
 #: src/tables/bom/BomTable.tsx:666
 msgid "Bill of materials cannot be edited, as the part is locked"
-msgstr "无法编辑材料清单，因为零件已锁定"
+msgstr "无法编辑材料清单，因为货物已锁定"
 
 #: src/tables/bom/UsedInTable.tsx:41
 #: src/tables/build/BuildLineTable.tsx:213
@@ -10081,7 +10081,7 @@ msgstr "生产库存"
 #: src/tables/build/BuildLineTable.tsx:813
 #: src/tables/sales/SalesOrderLineItemTable.tsx:482
 msgid "View Part"
-msgstr "查看零件"
+msgstr "查看货物"
 
 #: src/tables/build/BuildOrderTable.tsx:116
 #~ msgid "Cascade"
@@ -10498,7 +10498,7 @@ msgstr "重复参数模板"
 
 #: src/tables/general/ParameterTemplateTable.tsx:78
 msgid "Delete Parameter Template"
-msgstr "删除零件参数模板"
+msgstr "删除货物参数模板"
 
 #: src/tables/general/ParameterTemplateTable.tsx:85
 msgid "Edit Parameter Template"
@@ -10788,15 +10788,15 @@ msgstr "信息"
 
 #: src/tables/part/ParametricPartTable.tsx:20
 msgid "Show active parts"
-msgstr "显示活动零件"
+msgstr "显示活动货物"
 
 #: src/tables/part/ParametricPartTable.tsx:25
 msgid "Show locked parts"
-msgstr "显示锁定的零件"
+msgstr "显示锁定的货物"
 
 #: src/tables/part/ParametricPartTable.tsx:30
 msgid "Show assembly parts"
-msgstr "显示已装配的零件"
+msgstr "显示已装配的货物"
 
 #: src/tables/part/ParametricPartTable.tsx:82
 #~ msgid "Edit parameter"
@@ -10814,11 +10814,11 @@ msgstr "显示已装配的零件"
 
 #: src/tables/part/PartBuildAllocationsTable.tsx:64
 msgid "Assembly IPN"
-msgstr "装配内部零件号"
+msgstr "装配内部货物号"
 
 #: src/tables/part/PartBuildAllocationsTable.tsx:73
 msgid "Part IPN"
-msgstr "零件的内部零件号"
+msgstr "货物的内部货物号"
 
 #: src/tables/part/PartBuildAllocationsTable.tsx:91
 msgid "Required Stock"
@@ -10852,7 +10852,7 @@ msgstr "显示用户订阅的类别"
 
 #: src/tables/part/PartCategoryTable.tsx:104
 msgid "New Part Category"
-msgstr "新建零件类别"
+msgstr "新建货物类别"
 
 #: src/tables/part/PartCategoryTable.tsx:130
 msgid "Set Parent Category"
@@ -10869,7 +10869,7 @@ msgstr "为所选项目设置父类别"
 
 #: src/tables/part/PartCategoryTable.tsx:161
 msgid "Add Part Category"
-msgstr "增加零件类别"
+msgstr "增加货物类别"
 
 #: src/tables/part/PartCategoryTemplateTable.tsx:49
 #: src/tables/part/PartCategoryTemplateTable.tsx:143
@@ -10929,11 +10929,11 @@ msgstr "最低库存数"
 
 #: src/tables/part/PartTable.tsx:199
 msgid "Filter by part active status"
-msgstr "按零件活动状态筛选"
+msgstr "按货物活动状态筛选"
 
 #: src/tables/part/PartTable.tsx:205
 msgid "Filter by part locked status"
-msgstr "按零件锁定状态筛选"
+msgstr "按货物锁定状态筛选"
 
 #: src/tables/part/PartTable.tsx:211
 msgid "Filter by assembly attribute"
@@ -10945,11 +10945,11 @@ msgstr "物料清单有效性"
 
 #: src/tables/part/PartTable.tsx:217
 msgid "Filter by parts with a valid BOM"
-msgstr "筛选具有有效物料清单的零件"
+msgstr "筛选具有有效物料清单的货物"
 
 #: src/tables/part/PartTable.tsx:223
 msgid "Include parts in subcategories"
-msgstr "包括子类别中的零件"
+msgstr "包括子类别中的货物"
 
 #: src/tables/part/PartTable.tsx:229
 msgid "Filter by component attribute"
@@ -10965,15 +10965,15 @@ msgstr "按可跟踪属性筛选"
 
 #: src/tables/part/PartTable.tsx:247
 msgid "Filter by parts which have units"
-msgstr "按拥有单位的零件筛选"
+msgstr "按拥有单位的货物筛选"
 
 #: src/tables/part/PartTable.tsx:252
 msgid "Has IPN"
-msgstr "有内部零件编码"
+msgstr "有内部货物编码"
 
 #: src/tables/part/PartTable.tsx:253
 msgid "Filter by parts which have an internal part number"
-msgstr "按具有内部零件编号的零件筛选"
+msgstr "按具有内部货物编号的货物筛选"
 
 #: src/tables/part/PartTable.tsx:258
 msgid "Has Stock"
@@ -10981,11 +10981,11 @@ msgstr "有库存"
 
 #: src/tables/part/PartTable.tsx:259
 msgid "Filter by parts which have stock"
-msgstr "按有库存的零件筛选"
+msgstr "按有库存的货物筛选"
 
 #: src/tables/part/PartTable.tsx:265
 msgid "Filter by parts which have low stock"
-msgstr "按库存少的零件筛选"
+msgstr "按库存少的货物筛选"
 
 #: src/tables/part/PartTable.tsx:270
 msgid "Purchaseable"
@@ -10993,7 +10993,7 @@ msgstr "可购买"
 
 #: src/tables/part/PartTable.tsx:271
 msgid "Filter by parts which are purchaseable"
-msgstr "按可购买的零件筛选"
+msgstr "按可购买的货物筛选"
 
 #: src/tables/part/PartTable.tsx:276
 msgid "Salable"
@@ -11001,11 +11001,11 @@ msgstr "可销售"
 
 #: src/tables/part/PartTable.tsx:277
 msgid "Filter by parts which are salable"
-msgstr "按可出售的零件筛选"
+msgstr "按可出售的货物筛选"
 
 #: src/tables/part/PartTable.tsx:283
 msgid "Filter by parts which are virtual"
-msgstr "按虚拟零件筛选"
+msgstr "按虚拟货物筛选"
 
 #: src/tables/part/PartTable.tsx:287
 msgid "Not Virtual"
@@ -11017,7 +11017,7 @@ msgstr "是模板"
 
 #: src/tables/part/PartTable.tsx:293
 msgid "Filter by parts which are templates"
-msgstr "按模板部分筛选零件"
+msgstr "按模板部分筛选货物"
 
 #: src/tables/part/PartTable.tsx:298
 msgid "Is Variant"
@@ -11025,7 +11025,7 @@ msgstr "是变体"
 
 #: src/tables/part/PartTable.tsx:299
 msgid "Filter by parts which are variants"
-msgstr "按变体零件筛选"
+msgstr "按变体货物筛选"
 
 #: src/tables/part/PartTable.tsx:304
 msgid "Is Revision"
@@ -11033,7 +11033,7 @@ msgstr "是否修订"
 
 #: src/tables/part/PartTable.tsx:305
 msgid "Filter by parts which are revisions"
-msgstr "按修订零件筛选"
+msgstr "按修订货物筛选"
 
 #: src/tables/part/PartTable.tsx:309
 msgid "Has Revisions"
@@ -11041,15 +11041,15 @@ msgstr "有修订"
 
 #: src/tables/part/PartTable.tsx:310
 msgid "Filter by parts which have revisions"
-msgstr "按有修订的零件筛选"
+msgstr "按有修订的货物筛选"
 
 #: src/tables/part/PartTable.tsx:315
 msgid "Filter by parts which have pricing information"
-msgstr "按有定价信息的零件筛选"
+msgstr "按有定价信息的货物筛选"
 
 #: src/tables/part/PartTable.tsx:321
 msgid "Filter by parts which have available stock"
-msgstr "按有可用库存的零件筛选"
+msgstr "按有可用库存的货物筛选"
 
 #: src/tables/part/PartTable.tsx:322
 #~ msgid "Has Stocktake"
@@ -11061,11 +11061,11 @@ msgstr "按有可用库存的零件筛选"
 
 #: src/tables/part/PartTable.tsx:327
 msgid "Filter by parts to which the user is subscribed"
-msgstr "按用户订阅的零件筛选"
+msgstr "按用户订阅的货物筛选"
 
 #: src/tables/part/PartTable.tsx:387
 msgid "Import Parts"
-msgstr "导入零件"
+msgstr "导入货物"
 
 #: src/tables/part/PartTable.tsx:474
 #: src/tables/part/PartTable.tsx:522
@@ -11074,27 +11074,27 @@ msgstr "设置类别"
 
 #: src/tables/part/PartTable.tsx:524
 msgid "Set category for selected parts"
-msgstr "设置所选零件的类别"
+msgstr "设置所选货物的类别"
 
 #: src/tables/part/PartTable.tsx:534
 msgid "Order selected parts"
-msgstr "订购选定的零件"
+msgstr "订购选定的货物"
 
 #: src/tables/part/PartTable.tsx:544
 msgid "Add Parts"
-msgstr "添加零件"
+msgstr "添加货物"
 
 #: src/tables/part/PartTable.tsx:550
 msgid "Create Part"
-msgstr "创建零件"
+msgstr "创建货物"
 
 #: src/tables/part/PartTable.tsx:552
 msgid "Create a new part"
-msgstr "创建一个新零件"
+msgstr "创建一个新货物"
 
 #: src/tables/part/PartTable.tsx:558
 msgid "Import parts from a file"
-msgstr "从文件导入零件"
+msgstr "从文件导入货物"
 
 #: src/tables/part/PartTable.tsx:563
 msgid "Import from Supplier"
@@ -11102,7 +11102,7 @@ msgstr "从供应商导入"
 
 #: src/tables/part/PartTable.tsx:565
 msgid "Import parts from a supplier plugin"
-msgstr "从供应商插件导入零件"
+msgstr "从供应商插件导入货物"
 
 #: src/tables/part/PartTestResultTable.tsx:103
 #: src/tables/part/PartTestResultTable.tsx:181
@@ -11252,7 +11252,7 @@ msgstr "显示可跟踪变体"
 #: src/tables/part/RelatedPartTable.tsx:104
 #: src/tables/part/RelatedPartTable.tsx:137
 msgid "Add Related Part"
-msgstr "添加关联零件"
+msgstr "添加关联货物"
 
 #: src/tables/part/RelatedPartTable.tsx:109
 #~ msgid "Add related part"
@@ -11260,11 +11260,11 @@ msgstr "添加关联零件"
 
 #: src/tables/part/RelatedPartTable.tsx:119
 msgid "Delete Related Part"
-msgstr "删除关联零件"
+msgstr "删除关联货物"
 
 #: src/tables/part/RelatedPartTable.tsx:126
 msgid "Edit Related Part"
-msgstr "编辑关联零件"
+msgstr "编辑关联货物"
 
 #: src/tables/part/SelectionListTable.tsx:64
 #: src/tables/part/SelectionListTable.tsx:115
@@ -11522,7 +11522,7 @@ msgstr "已安装"
 #: src/tables/purchasing/ManufacturerPartTable.tsx:100
 #: src/tables/purchasing/SupplierPartTable.tsx:122
 msgid "MPN"
-msgstr "制造商零件编号 (MPN)"
+msgstr "制造商货物编号 (MPN)"
 
 #: src/tables/purchasing/ManufacturerPartParametricTable.tsx:43
 #: src/tables/purchasing/ManufacturerPartTable.tsx:154
@@ -11608,15 +11608,15 @@ msgstr "基础单位"
 
 #: src/tables/purchasing/SupplierPartTable.tsx:225
 msgid "Add supplier part"
-msgstr "添加供应商零件"
+msgstr "添加供应商货物"
 
 #: src/tables/purchasing/SupplierPartTable.tsx:233
 msgid "Import supplier part"
-msgstr "导入供应商零件"
+msgstr "导入供应商货物"
 
 #: src/tables/purchasing/SupplierPartTable.tsx:249
 msgid "Show active supplier parts"
-msgstr "显示活动供应商零件"
+msgstr "显示活动供应商货物"
 
 #: src/tables/purchasing/SupplierPartTable.tsx:254
 msgid "Show primary supplier parts"
@@ -11624,7 +11624,7 @@ msgstr ""
 
 #: src/tables/purchasing/SupplierPartTable.tsx:259
 msgid "Show active internal parts"
-msgstr "显示活动内部零件"
+msgstr "显示活动内部货物"
 
 #: src/tables/purchasing/SupplierPartTable.tsx:263
 msgid "Active Supplier"
@@ -11636,7 +11636,7 @@ msgstr "显示活跃供应商"
 
 #: src/tables/purchasing/SupplierPartTable.tsx:269
 msgid "Show supplier parts with stock"
-msgstr "显示供应商零件库存"
+msgstr "显示供应商货物库存"
 
 #: src/tables/sales/ReturnOrderLineItemTable.tsx:155
 msgid "Received Date"
@@ -12406,11 +12406,11 @@ msgstr "盘点日期"
 
 #: src/tables/stock/StockItemTable.tsx:177
 msgid "Show stock for active parts"
-msgstr "显示激活零件的库存"
+msgstr "显示激活货物的库存"
 
 #: src/tables/stock/StockItemTable.tsx:188
 msgid "Show stock for assembled parts"
-msgstr "显示已组装零件的库存"
+msgstr "显示已组装货物的库存"
 
 #: src/tables/stock/StockItemTable.tsx:193
 msgid "Show items which have been allocated"

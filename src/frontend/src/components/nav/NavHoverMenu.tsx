@@ -1,5 +1,6 @@
 import { UnstyledButton } from '@mantine/core';
 
+import * as classes from '../../main.css';
 import { InvenTreeLogo } from '../items/InvenTreeLogo';
 
 export function NavHoverMenu({
@@ -8,7 +9,11 @@ export function NavHoverMenu({
   openDrawer: () => void;
 }>) {
   return (
-    <UnstyledButton onClick={() => openDrawer()} aria-label='navigation-menu'>
+    <UnstyledButton
+      className={classes.layoutHeaderNavButton}
+      onClick={() => openDrawer()}
+      aria-label='navigation-menu'
+    >
       <InvenTreeLogo />
     </UnstyledButton>
   );

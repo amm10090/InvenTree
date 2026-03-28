@@ -136,6 +136,8 @@ export function AuthenticationForm() {
               label={t`Username`}
               aria-label='login-username'
               placeholder={t`Your username`}
+              radius='md'
+              size='md'
               {...classicForm.getInputProps('username')}
             />
             <PasswordInput
@@ -143,6 +145,8 @@ export function AuthenticationForm() {
               label={t`Password`}
               aria-label='login-password'
               placeholder={t`Your password`}
+              radius='md'
+              size='md'
               {...classicForm.getInputProps('password')}
             />
             <VisuallyHidden>
@@ -173,26 +177,22 @@ export function AuthenticationForm() {
               label={t`Email`}
               description={t`We will send you a link to login - if you are registered`}
               placeholder='email@example.org'
+              radius='md'
+              size='md'
               {...simpleForm.getInputProps('email')}
             />
           </Stack>
         )}
 
-        <Group justify='space-between' mt='xl'>
-          <Anchor
-            component='button'
-            type='button'
-            c='dimmed'
-            size='xs'
-            onClick={() => setMode.toggle()}
+        <Stack gap='sm' mt='xl'>
+          <Button
+            type='submit'
+            disabled={isLoggingIn}
+            onClick={handleLogin}
+            fullWidth
+            radius='xl'
+            size='md'
           >
-            {classicLoginMode ? (
-              <Trans>Send me an email</Trans>
-            ) : (
-              <Trans>Use username and password</Trans>
-            )}
-          </Anchor>
-          <Button type='submit' disabled={isLoggingIn} onClick={handleLogin}>
             {isLoggingIn ? (
               <Loader size='sm' />
             ) : (
@@ -205,7 +205,21 @@ export function AuthenticationForm() {
               </>
             )}
           </Button>
-        </Group>
+          <Anchor
+            component='button'
+            type='button'
+            c='dimmed'
+            size='xs'
+            ta='center'
+            onClick={() => setMode.toggle()}
+          >
+            {classicLoginMode ? (
+              <Trans>Send me an email</Trans>
+            ) : (
+              <Trans>Use username and password</Trans>
+            )}
+          </Anchor>
+        </Stack>
       </form>
     </>
   );

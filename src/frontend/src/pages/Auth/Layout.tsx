@@ -7,18 +7,47 @@ import {
   Group,
   Loader,
   Paper,
-  Stack
+  Stack,
+  Text
 } from '@mantine/core';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { useShallow } from 'zustand/react/shallow';
 import SplashScreen from '../../components/SplashScreen';
-import { StylishText } from '../../components/items/StylishText';
+import { InvenTreeLogo } from '../../components/items/InvenTreeLogo';
 import { doLogout } from '../../functions/auth';
+import { useServerApiState } from '../../states/ServerApiState';
+import {
+  authBrand,
+  authBrandMeta,
+  authBrandName,
+  authCard,
+  authCardStack,
+  authCardTitle,
+  authCenter,
+  authContainer,
+  authDivider,
+  authLogoFrame,
+  authLogoImage
+} from './AuthLayout.css';
 
 export default function LoginLayoutComponent() {
+  const [server] = useServerApiState(useShallow((state) => [state.server]));
+
   return (
     <SplashScreen>
-      <Center mih='100vh' p='lg'>
-        <Container>
+      <Center className={authCenter}>
+        <Container className={authContainer}>
+          <div className={authBrand}>
+            <div className={authLogoFrame}>
+              <InvenTreeLogo height={44} className={authLogoImage} />
+            </div>
+            <Text className={authBrandName}>
+              {server.instance || 'InvenTree'}
+            </Text>
+            {server.version && (
+              <Text className={authBrandMeta}>{server.version}</Text>
+            )}
+          </div>
           <Outlet />
         </Container>
       </Center>
@@ -42,10 +71,10 @@ export function Wrapper({
   const navigate = useNavigate();
 
   return (
-    <Paper p='xl' withBorder miw={425} shadow='lg'>
-      <Stack gap={smallPadding ? 0 : 'md'}>
-        <StylishText size='xl'>{titleText}</StylishText>
-        <Divider p='xs' />
+    <Paper p='xl' className={authCard}>
+      <Stack gap={smallPadding ? 0 : 'md'} className={authCardStack}>
+        <Text className={authCardTitle}>{titleText}</Text>
+        <Divider className={authDivider} />
         {loader && (
           <Group justify='center'>
             <Loader />
@@ -54,7 +83,7 @@ export function Wrapper({
         {children}
         {logOff && (
           <>
-            <Divider p='xs' />
+            <Divider className={authDivider} />
             <Button onClick={() => doLogout(navigate)} color='red'>
               <Trans>Log off</Trans>
             </Button>

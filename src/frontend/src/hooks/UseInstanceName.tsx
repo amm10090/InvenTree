@@ -9,6 +9,10 @@ export default function useInstanceName(): string {
   const globalSettings = useGlobalSettingsState();
 
   return useMemo(() => {
-    return globalSettings.getSetting('INVENTREE_INSTANCE', '库存管理系统');
+    const instanceName = globalSettings.getSetting(
+      'INVENTREE_INSTANCE',
+      '库存管理系统'
+    );
+    return instanceName === 'InvenTree' ? '库存管理系统' : instanceName;
   }, [globalSettings]);
 }

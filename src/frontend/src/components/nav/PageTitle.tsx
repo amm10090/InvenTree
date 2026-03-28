@@ -14,10 +14,12 @@ export default function PageTitle({
   const globalSettings = useGlobalSettingsState();
 
   const pageTitle = useMemo(() => {
-    const instanceName = globalSettings.getSetting(
+    const rawInstanceName = globalSettings.getSetting(
       'INVENTREE_INSTANCE',
       '库存管理系统'
     );
+    const instanceName =
+      rawInstanceName === 'InvenTree' ? '库存管理系统' : rawInstanceName;
     const useInstanceName = globalSettings.isSet(
       'INVENTREE_INSTANCE_TITLE',
       false

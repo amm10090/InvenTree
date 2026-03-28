@@ -96,7 +96,8 @@ def inventreeInstanceName() -> str:
     """Returns the InstanceName settings for the current database."""
     from common.settings import get_global_setting
 
-    return get_global_setting('INVENTREE_INSTANCE')
+    instance_name = get_global_setting('INVENTREE_INSTANCE')
+    return '库存管理系统' if instance_name == 'InvenTree' else instance_name
 
 
 def inventreeInstanceTitle() -> str:

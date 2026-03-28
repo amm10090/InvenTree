@@ -11,12 +11,16 @@ export const layoutHeader = style({
   transition: 'background-color 160ms ease, border-color 160ms ease',
 
   [vars.lightSelector]: {
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    borderBottomColor: 'rgba(148, 163, 184, 0.24)'
+    backgroundColor:
+      'color-mix(in srgb, var(--santas-gray-50) 92%, transparent)',
+    borderBottomColor:
+      'color-mix(in srgb, var(--santas-gray-300) 72%, transparent)'
   },
   [vars.darkSelector]: {
-    backgroundColor: 'rgba(24, 24, 27, 0.78)',
-    borderBottomColor: 'rgba(148, 163, 184, 0.14)'
+    backgroundColor:
+      'color-mix(in srgb, var(--santas-gray-1200) 84%, transparent)',
+    borderBottomColor:
+      'color-mix(in srgb, var(--santas-gray-900) 72%, transparent)'
   }
 });
 
@@ -49,12 +53,14 @@ export const layoutHeaderRight = style({
   padding: `${rem(4)} ${rem(8)}`,
   backdropFilter: 'blur(10px)',
   [vars.lightSelector]: {
-    backgroundColor: 'rgba(248, 250, 252, 0.96)',
-    borderColor: 'rgba(148, 163, 184, 0.34)'
+    backgroundColor:
+      'color-mix(in srgb, var(--santas-gray-50) 96%, transparent)',
+    borderColor: 'color-mix(in srgb, var(--santas-gray-300) 84%, transparent)'
   },
   [vars.darkSelector]: {
-    backgroundColor: 'rgba(39, 39, 42, 0.68)',
-    borderColor: 'rgba(148, 163, 184, 0.22)'
+    backgroundColor:
+      'color-mix(in srgb, var(--santas-gray-1200) 78%, transparent)',
+    borderColor: 'color-mix(in srgb, var(--santas-gray-900) 74%, transparent)'
   }
 });
 
@@ -66,10 +72,10 @@ export const layoutHeaderNavbarMessage = style({
   fontSize: vars.fontSizes.sm,
   fontWeight: 500,
   [vars.lightSelector]: {
-    color: vars.colors.gray[7]
+    color: 'var(--santas-gray-900)'
   },
   [vars.darkSelector]: {
-    color: vars.colors.dark[0]
+    color: 'var(--santas-gray-200)'
   },
   [vars.smallerThan('lg')]: {
     display: 'none'
@@ -88,12 +94,14 @@ export const layoutHeaderUser = style({
   transition: 'background-color 120ms ease, color 120ms ease',
 
   [vars.lightSelector]: {
-    color: vars.colors.black,
-    backgroundColor: 'rgba(255, 255, 255, 0.96)'
+    color: 'var(--santas-gray-1200)',
+    backgroundColor:
+      'color-mix(in srgb, var(--santas-gray-50) 98%, transparent)'
   },
   [vars.darkSelector]: {
-    color: vars.colors.dark[0],
-    backgroundColor: 'rgba(39, 39, 42, 0.72)'
+    color: 'var(--santas-gray-100)',
+    backgroundColor:
+      'color-mix(in srgb, var(--santas-gray-1100) 86%, transparent)'
   },
 
   [vars.smallerThan('xs')]: {
@@ -166,12 +174,14 @@ export const tabsList = style({
   border: `${rem(1)} solid`,
   padding: rem(4),
   [vars.lightSelector]: {
-    backgroundColor: 'rgba(248, 250, 252, 0.96)',
-    borderColor: 'rgba(148, 163, 184, 0.34)'
+    backgroundColor:
+      'color-mix(in srgb, var(--santas-gray-50) 96%, transparent)',
+    borderColor: 'color-mix(in srgb, var(--santas-gray-300) 84%, transparent)'
   },
   [vars.darkSelector]: {
-    backgroundColor: 'rgba(39, 39, 42, 0.68)',
-    borderColor: 'rgba(148, 163, 184, 0.22)'
+    backgroundColor:
+      'color-mix(in srgb, var(--santas-gray-1200) 78%, transparent)',
+    borderColor: 'color-mix(in srgb, var(--santas-gray-900) 74%, transparent)'
   }
 });
 
@@ -182,12 +192,18 @@ export const tab = style({
   letterSpacing: '0.01em',
   transition: 'all 140ms ease',
   [vars.lightSelector]: {
-    color: '#18181b',
-    ':hover': { backgroundColor: 'rgba(226, 232, 240, 0.9)' }
+    color: 'var(--santas-gray-1200)',
+    ':hover': {
+      backgroundColor:
+        'color-mix(in srgb, var(--santas-gray-200) 80%, transparent)'
+    }
   },
   [vars.darkSelector]: {
-    color: '#e4e4e7',
-    ':hover': { backgroundColor: 'rgba(63, 63, 70, 0.9)' }
+    color: 'var(--santas-gray-200)',
+    ':hover': {
+      backgroundColor:
+        'color-mix(in srgb, var(--santas-gray-900) 88%, transparent)'
+    }
   }
 });
 
@@ -221,7 +237,7 @@ export const navigationDrawer = style({
 });
 
 globalStyle(`${layoutHeaderNavButton}:hover`, {
-  backgroundColor: 'rgba(148, 163, 184, 0.18)'
+  backgroundColor: 'color-mix(in srgb, var(--santas-gray-300) 46%, transparent)'
 });
 
 globalStyle(`${layoutHeaderRight} .mantine-ActionIcon-root`, {
@@ -229,7 +245,7 @@ globalStyle(`${layoutHeaderRight} .mantine-ActionIcon-root`, {
   width: rem(34),
   height: rem(34),
   transition: 'background-color 120ms ease, transform 120ms ease',
-  color: '#3f3f46 !important'
+  color: 'var(--santas-gray-900) !important'
 });
 
 globalStyle(`${layoutHeaderRight} .mantine-ActionIcon-root:hover`, {
@@ -255,24 +271,26 @@ globalStyle(`${tab}[data-active]`, {
 });
 
 globalStyle(`[data-mantine-color-scheme='light'] ${tab}[data-active]`, {
-  color: '#fafafa !important',
-  backgroundColor: '#27272a !important',
-  boxShadow: '0 8px 20px rgba(24, 24, 27, 0.24) !important'
+  color: 'var(--santas-gray-50) !important',
+  backgroundColor: 'var(--santas-gray-900) !important',
+  boxShadow:
+    '0 8px 20px color-mix(in srgb, var(--santas-gray-1100) 30%, transparent) !important'
 });
 
 globalStyle(`[data-mantine-color-scheme='dark'] ${tab}[data-active]`, {
-  color: '#18181b !important',
-  backgroundColor: '#f59e0b !important',
-  boxShadow: '0 8px 20px rgba(245, 158, 11, 0.28) !important'
+  color: 'var(--santas-gray-50) !important',
+  backgroundColor: 'var(--santas-gray-700) !important',
+  boxShadow:
+    '0 8px 20px color-mix(in srgb, var(--santas-gray-1200) 46%, transparent) !important'
 });
 
 globalStyle(`${layoutHeaderRight} .mantine-ActionIcon-root`, {
-  color: '#3f3f46'
+  color: 'var(--santas-gray-900)'
 });
 
 globalStyle(
   `[data-mantine-color-scheme='dark'] ${layoutHeaderRight} .mantine-ActionIcon-root`,
   {
-    color: '#e4e4e7 !important'
+    color: 'var(--santas-gray-200) !important'
   }
 );

@@ -7,6 +7,21 @@
 ## IN_PROGRESS
 
 ## DONE
+- [x] 2026-03-28 提升 PanelGroup 内表格区域默认高度
+  - 完成时间：2026-03-28
+  - 验收结果：`part/category/index/parts` 等面板页的表格内容区默认高度已提升，不再只有较小固定空框
+  - 关联文件：`src/frontend/src/tables/InvenTreeTable.tsx`
+  - 验证方式：`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过；webmcp 复查 `http://localhost:5173/web/part/category/index/parts` 页面显示高度提升且控制台为 0
+- [x] 2026-03-28 将全局主题配色切换为 Santas Gray 调色板
+  - 完成时间：2026-03-28
+  - 验收结果：系统全局样式和导航样式已切换为 Santas Gray 14 阶中性色，输入框/下拉/按钮/面板/标签页等组件配色统一
+  - 关联文件：`src/frontend/src/styles/overrides.css`、`src/frontend/src/theme.ts`、`src/frontend/src/main.css.ts`、`src/frontend/src/contexts/ThemeContext.tsx`
+  - 验证方式：`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过；webmcp 重载 `http://localhost:5173/web/settings/admin/currencies` 后控制台为 0
+- [x] 2026-03-28 统一系统组件样式到简洁流畅的自定义设计
+  - 完成时间：2026-03-28
+  - 验收结果：全局输入框、下拉、按钮、图标按钮、面板、弹层、标签页与表格已统一到同一套圆角/边框/阴影/动效语言；样式控制台异常已清零
+  - 关联文件：`src/frontend/src/theme.ts`、`src/frontend/src/styles/overrides.css`
+  - 验证方式：`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过；webmcp 复查 `http://localhost:5173/web/settings/admin/currencies` 与 `http://localhost:5173/web/stock/location/index/stock-items` 页面控制台为 0
 - [x] 2026-03-28 将系统货币名称统一改为中文显示
   - 完成时间：2026-03-28
   - 验收结果：货币选项标签已由英文名称切换为中文名称，`INVENTREE_DEFAULT_CURRENCY` 下拉选项显示为 `CAD - 加拿大元` 等中文文案

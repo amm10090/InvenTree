@@ -136,6 +136,14 @@ export function InvenTreeTable<T extends Record<string, any>>({
     };
   }, [props]);
 
+  const tableMinHeight = useMemo(() => {
+    if (tableProps.minHeight !== undefined) {
+      return tableProps.minHeight;
+    }
+
+    return 460;
+  }, [tableProps.minHeight]);
+
   // Request OPTIONS data from the API, before we load the table
   const tableOptionQuery = useQuery({
     enabled: !!url && !tableData,
@@ -832,7 +840,7 @@ export function InvenTreeTable<T extends Record<string, any>>({
               loaderType={userTheme.loader}
               pinLastColumn={tableProps.rowActions != undefined}
               idAccessor={tableState.idAccessor ?? 'pk'}
-              minHeight={tableProps.minHeight ?? 300}
+              minHeight={tableMinHeight}
               sortStatus={sortStatus}
               onSortStatusChange={handleSortStatusChange}
               selectedRecords={

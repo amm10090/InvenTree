@@ -29,3 +29,7 @@
 - 简体中文术语已将“零件”统一替换为“货物”，覆盖 `src/frontend/src/locales/zh_Hans/messages.po` 与 `src/backend/InvenTree/locale/zh_Hans/LC_MESSAGES/django.po`；前端需执行 `yarn run compile` 生成最新 `messages.ts`。
 - `InvenTreeTableHeader.tsx` 的 `activeFilters` 渲染循环必须提供 `key`，否则 React 19 会在控制台报 `Each child in a list should have a unique "key" prop`，当前已用 `active-filter-${filter.name}-${idx}` 修复。
 - 货币名称显示逻辑已改到 `src/backend/InvenTree/common/currency.py` 的 `currency_display_name`。当前按请求语言动态调用 Babel 的 `get_currency_name`，简体中文界面会显示 `USD - 美元` 这类中文币种名称，失败时回退英文名。
+- 全局组件统一样式入口定在 `src/frontend/src/styles/overrides.css`，覆盖 Input/Select/Combobox/Button/ActionIcon/Paper/Card/Modal/Tabs/Table/Notification。`src/frontend/src/theme.ts` 只保留稳定 defaultProps 和基础视觉参数，避免在 theme styles 里写伪类选择器引发 React 控制台 `Unsupported style property` 报警。
+- 系统主配色已切换为 Santas Gray 调色板。14 阶色值定义在 `src/frontend/src/styles/overrides.css` 的 `:root` 变量，`theme.ts` 与 `main.css.ts` 已改为优先消费这些变量，后续视觉迭代按这套色阶推进。
+- `src/frontend/src/contexts/ThemeContext.tsx` 已将 `primaryColor` 固定为 `santasGray`，避免用户本地主题色把全局配色拉回蓝色，确保 Santas Gray 方案在实际界面稳定生效。
+- `InvenTreeTable` 默认 `minHeight` 已从 300 提升到 460（`src/frontend/src/tables/InvenTreeTable.tsx`），用于提升 PanelGroup 场景下的有效内容高度，减少大面积空白观感。

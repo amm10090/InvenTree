@@ -121,7 +121,7 @@ jobs:
             "${INSTANCE}:/tmp/deploy_inventree_remote.sh"
 
           REMOTE_CMD="$(printf "chmod +x /tmp/deploy_inventree_remote.sh && IMAGE_REF=%q COMPOSE_DIR=%q HEALTH_URL=%q /tmp/deploy_inventree_remote.sh" \
-            "${IMAGE_REF}" "/mnt/docker-data/inventree" "http://127.0.0.1:8086/web")"
+            "${IMAGE_REF}" "/mnt/docker-data/inventree" "http://127.0.0.1:8086/api/system/health/")"
 
           gcloud compute ssh \
             "${INSTANCE}" \

@@ -1,35 +1,29 @@
 ---
-title: High level roadmap
+title: 高层路线图
 ---
 
-## General goals
+## 总体目标
 
-## High level Epics
+这一页记录的是 InvenTree 的高层规划方向，用来说明当前版本线和未来版本线关注的重点。
+
+## 主要 Epic
 
 ### 1.0
 
-Smaller items can be viewed [on the milestone](https://github.com/inventree/InvenTree/issues?q=is%3Aissue%20milestone%3A1.0.0).
+更细的任务可以在 [1.0 里程碑](https://github.com/inventree/InvenTree/issues?q=is%3Aissue%20milestone%3A1.0.0) 中查看。
 
-Aiming to stabelise several aspects of the software:
-
-- Only shipping the new frontend and removing reliance on templating
-- Stabelize API for client generation
-- Making data import- / export-mechanisms more stable
-- Updating and Re-Organising documentation to enable CII best practices compliance
+1.0 阶段主要目标是把几块基础能力稳定下来，包括只保留新前端并逐步去掉对模板渲染的依赖，稳定用于客户端生成的 API，提升数据导入导出机制的稳定性，以及重整文档来更好满足 CII 最佳实践要求。
 
 ### 2.0
 
-Smaller items can be viewed [on the milestone](https://github.com/inventree/InvenTree/issues?q=is%3Aissue%20milestone%3A2.0.0).
+更细的任务可以在 [2.0 里程碑](https://github.com/inventree/InvenTree/issues?q=is%3Aissue%20milestone%3A2.0.0) 中查看。
 
-*Proposed* goals:
+当前提出的目标主要有两个，一个是重构权限系统，让它更适合企业级组织结构，同时减少不必要的权限项，见 [EPIC](https://github.com/inventree/InvenTree/issues/7466)。另一个是加入更通用的文件处理能力，见 [EPIC](https://github.com/inventree/InvenTree/issues/5703)。
 
-- Reorganise permission system to support more entrerprise structures and reduce unneeded permissions [EPIC](https://github.com/inventree/InvenTree/issues/7466)
-- Add generalised file handling [EPIC](https://github.com/inventree/InvenTree/issues/5703)
+### 更远期
 
-### Future
+还有一些更长期的 Epic 会持续推进，可以在 [未来规划列表](https://github.com/inventree/InvenTree/issues?q=is%3Aissue%20state%3Aopen%20type%3AEpic) 中查看。
 
-There are several epics that target [the horizion](https://github.com/inventree/InvenTree/issues?q=is%3Aissue%20state%3Aopen%20type%3AEpic).
+## 非目标
 
-## Non-Goals
-
-TBD
+暂未明确。

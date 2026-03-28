@@ -1,24 +1,23 @@
 ---
-title: Contribution Guide
+title: 贡献指南
 ---
 
+在第一次向 InvenTree 提交 Pull Request 之前，建议先完整阅读这一页。
 
-Please read the contribution guidelines below, before submitting your first pull request to the InvenTree codebase.
+## 快速开始
 
-## Quickstart
-
-The following commands will get you quickly configure and run a development server, complete with a demo dataset to work with:
+下面这些命令可以帮助你尽快拉起一个可用的开发环境，并导入一套演示数据。
 
 ### Devcontainer
 
-The recommended method for getting up and running with an InvenTree development environment is to use our [devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) setup in [vscode](https://code.visualstudio.com/).
+如果你要开始 InvenTree 开发，最推荐的方法是使用 [devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) 并配合 [vscode](https://code.visualstudio.com/) 使用。
 
-!!! success "Devcontainer Guide"
-    Refer to the [devcontainer guide](./devcontainer.md) for more information!
+!!! success "Devcontainer 指南"
+    具体步骤见 [devcontainer 文档](./devcontainer.md)。
 
 ### Docker
 
-To setup a development environment using [docker](../start/docker.md), run the following instructions:
+如果你想基于 [docker](../start/docker.md) 搭开发环境，可以运行下面这些命令：
 
 ```bash
 git clone https://github.com/inventree/InvenTree.git && cd InvenTree
@@ -27,9 +26,9 @@ docker compose --project-directory . -f contrib/container/dev-docker-compose.yml
 docker compose --project-directory . -f contrib/container/dev-docker-compose.yml up -d
 ```
 
-### Bare Metal
+### 裸机环境
 
-A "bare metal" development setup can be installed as follows:
+如果你想直接在本机上搭建开发环境，可以这样做：
 
 ```bash
 git clone https://github.com/inventree/InvenTree.git && cd InvenTree
@@ -40,181 +39,156 @@ invoke update
 invoke dev.setup-dev --tests
 ```
 
-Read the [InvenTree setup documentation](../start/index.md) for a complete installation reference guide.
+完整安装参考见 [InvenTree 安装文档](../start/index.md)。
 
-!!! note "Required Packages"
-    Depending on your system, you may need to install additional software packages as required.
+!!! note "依赖包"
+    视你的系统环境而定，可能还需要手动安装一些额外软件包。
 
-### Setup Devtools
+### 开发工具
 
-Run the following command to set up the tools required for development.
+执行下面的命令可以安装开发所需工具。
 
 ```bash
 invoke dev.setup-dev
 ```
 
-*We recommend you run this command before starting to contribute. This will install and set up `pre-commit` to run some checks before each commit and help reduce errors.*
+建议在正式开始贡献之前先跑一次。它会安装并配置 `pre-commit`，让你在每次提交前自动执行一批检查，减少低级错误。
 
-## Branches and Versioning
+## 分支和版本策略
 
-InvenTree roughly follow the [GitLab flow](https://about.gitlab.com/topics/version-control/what-are-gitlab-flow-best-practices/) branching style, to allow simple management of multiple tagged releases, short-lived branches, and development on the main branch.
+InvenTree 大体遵循 [GitLab flow](https://about.gitlab.com/topics/version-control/what-are-gitlab-flow-best-practices/) 的分支思路，用来兼顾主线开发、短生命周期功能分支和多个已发布版本的维护。
 
-There are nominally 5 active branches:
-- `master` - The main development branch
-- `stable` - The latest stable release
-- `next-breaking` - The next breaking release (e.g. 2.0, 3.0) with all deprecated features removed
-- `l10n` - Translation branch: Source to Crowdin
-- `l10_crowdin` - Translation branch: Source from Crowdin
-- `y.y.x` - Release branch for the currently supported version (e.g. `0.5.x`)
+当前常见的活动分支包括这些。
 
-All other branches are removed periodically by maintainers or core team members. This includes old release branches.
-Do not use them as base for feature development or forks as patches from them might not be accepted without rebasing.
+`master` 是主开发分支。`stable` 是最新稳定分支。`next-breaking` 用来承接下一个大版本的破坏性变更。`l10n` 和 `l10_crowdin` 用于翻译同步。`y.y.x` 形式的分支用于维护当前仍受支持的发布版本线。
 
-### Version Numbering
+其他历史分支会被维护者定期清理，包括旧的发布分支。不要基于它们做新功能开发，否则后续补丁往往还得重做 rebase。
 
-InvenTree version numbering follows the [semantic versioning](https://semver.org/) specification.
+### 版本号
 
-### Main Development Branch
+InvenTree 的版本号遵循 [语义化版本](https://semver.org/)。
 
-The HEAD of the "master" branch of InvenTree represents the current "latest" state of code development.
+### 主开发分支
 
-- All feature branches are merged into master
-- All bug fixes are merged into master
+`master` 的 HEAD 代表当前最新开发状态。
 
-**No pushing to master:** New features must be submitted as a pull request from a separate branch (one branch per feature).
+所有新功能和 bug 修复都会并入 `master`。不要直接向 `master` 推送。新功能必须从独立分支发起 Pull Request，并且每个分支只做一件主要事情。
 
-### Feature Branches
+### 功能分支
 
-Feature branches should be branched *from* the *master* branch.
+功能分支应当从 `master` 切出，并最终通过 Pull Request 合回 `master`。
 
-- One major feature per branch / pull request
-- Feature pull requests are merged back *into* the master branch
+### 稳定分支
 
-### Stable Branch
+`stable` 的 HEAD 代表最新稳定版本代码。
 
-The HEAD of the "stable" branch represents the latest stable release code.
+带版本号的正式发布会合并到 `stable`。修复分支也通常从 `stable` 派生。
 
-- Versioned releases are merged into the "stable" branch
-- Bug fix branches are made *from* the "stable" branch
+### 修复分支
 
+如果某个已经打过标签的版本发现了 bug，应当从该发布版本切出修复分支或热修复分支。修复获批后，会合回 `stable`，并提升 PATCH 版本号，比如从 0.4.1 升到 0.4.2。
 
-### Bugfix Branches
+同一个修复也必须被 cherry-pick 到 `master`。如果修复在 `master` 上完成，并且带了 `backport` 标签，也有可能被自动回灌到 `stable`。
 
-- If a bug is discovered in a tagged release version of InvenTree, a "bugfix" or "hotfix" branch should be made *from* that tagged release
-- When approved, the branch is merged back *into* stable, with an incremented PATCH number (e.g. 0.4.1 -> 0.4.2)
-- The bugfix *must* also be cherry picked into the *master* branch.
-- A bugfix *might* also be backported from *master* to the *stable* branch automatically if marked with the `backport` label.
+### 翻译分支
 
-### Translation Branches
+翻译通过 Crowdin 管理，相关流程是全自动的。`l10n` 和 `l10_crowdin` 专门用于翻译同步，不应该手工修改。
 
-Crowdin is used for web-based translation management. The handling of files is fully automated, the `l10n` and `l10_crowdin` branches are used to manage the translation process and are not meant to be touched manually by anyone.
+流程大致是这样。提交进入 `master` 后，GitHub Actions 会生成翻译源文件并推送到 `l10n`。Crowdin 会从 `l10n` 拉取这些源文件供翻译。审核通过后的翻译会被自动推回 `l10_crowdin`。最后由维护者定期把 `l10_crowdin` 合回 `master`。
 
-The translation process is as follows:
-1. Commits to `master` trigger CI by GitHub Actions
-2. Translation source files are created and automatically pushed to the `l10n` branch - this is the source branch for Crowdin
-3. Crowdin picks up on the new source files and makes them available for translation
-4. Translations made in Crowdin are automatically pushed back to the `l10_crowdin` branch by Crowdin once they are approved
-5. The `l10_crowdin` branch is merged back into `master` by a maintainer periodically
+### `next-breaking` 分支
 
-### `next-breaking` Branch
+这个分支主要用于让插件作者和集成方提前适配下一个大版本。它会在大版本线切出后从 `master` 派生，并在每次次版本发布时同步更新。
 
-Used for easier testing of plugins and integrations against the next major release. It is branched from master when a major release is cut and updated on minor release. The branch is not build into docker images or packages and not meant to be run in production.
+这个分支不会被构建成官方 Docker 镜像或安装包，也不应该用于生产环境。
 
+所有已弃用功能的真正移除通常都发生在这里，主要包括 REST API 和 Python API 的破坏性清理。这样插件开发者就能在大版本正式发布前，提前发现兼容性问题。
 
-All deprecated features (REST or python API endpoints mostly) are removed from this branch after each minor release. This allows plugin developers to test their plugins against the next major release early and identify any extensive changes before the major release is cut.
+这个分支只接收破坏性删除或调整，不应该承载新功能。
 
-Only breaking changes are added to this branch. No new features should be added at any point to this branch, only breaking removals / changes.
+大版本发布前，比如从 1.12.5 进入 2.0.0，`next-breaking` 会被合回 `master`。
 
-Before a major release is cut (1.12.5 > 2.0.0), this branch is merged back into `master`.
+在一个大版本生命周期内，所有弃用清理都会先集中到这个分支。每次次版本发布后，`master` 会 rebase 到 `next-breaking`。每当某个带弃用项的改动进入 `master`，后续通常还会有一个跟进 PR，把对应的弃用内容移除并投向 `next-breaking`。
 
+## API 版本 { #api-versioning }
 
-During the life-time of a major release line (1.0.1, 1.1.x, 1.2.x, 1.3.x, ..., 1.12.5) all deprecation removals are collected in this branch.
-On every minor release (1.11.8 > 1.12.0) the `master` is rebased onto the `next-breaking` branch.
+每当 API 发生变化时，都要同步提升 [API version]({{ sourcefile("src/backend/InvenTree/InvenTree/api_version.py") }})。
 
-Every time a change with depreations is merged into `master`, a follow up PR that removes the newly-introduced deprecation is created targeting the `next-breaking` branch. After the next minor is released and `master` was rebased into `next-breaking` all the PRs from the previous minor release line can be merged into the `next-breaking` branch. Deprecation removals for the - possibly - long running major release line can be collected this way without having a large number of deprecation removals PRs open.
+### 理解 API 结构
 
-## API versioning
+默认生成的 OpenAPI schema 已经能很好地展示 API 端点，但它并不会直接告诉你底层 serializer 和视图的结构。
 
-The [API version]({{ sourcefile("src/backend/InvenTree/InvenTree/api_version.py") }}) needs to be bumped every time when the API is changed.
+如果你希望看到更详细的形状信息，可以在配置文件里设置 schema 生成等级，或者通过 [调试环境变量和配置项](../start/config.md#debugging-and-logging-options) `INVENTREE_SCHEMA_LEVEL` 来增强 `invoke dev.schema` 和 `/api/schema/` 的输出。
 
-### Understanding API shape
+等级 1 会在 `x-inventree-meta` 下增加一些基础属性，用来描述端点背后的 Django Rest Framework 视图信息。
 
-While the default Open API schema generation provides a good overview of the API endpoints, it does not provide insights into the shape of the underlying API (serializer) code.
+等级 2 会继续增加视图继承信息 `x-inventree-components` 和模型信息 `x-inventree-model`。这样可以追溯到具体 serializer 和 model，也更容易检查端点命名是否与数据模型一致。
 
-The default schema generation cli command `invoke dev.schema` / endpoint `/api/schema/` can be enhanced by setting the schema generation level in the config file or via the [debugging environment variable or config value](../start/config.md#debugging-and-logging-options) `INVENTREE_SCHEMA_LEVEL`.
+!!! note "实验用途"
+    这些附加属性目前还没有 CI 或系统级校验逻辑，主要用于帮助开发者更好理解 API 结构以及它的演进。
 
-At level 1 only simple attributes describing the underlying Django Rest Framework API view of a endpoint are added under the `x-inventree-meta` key.
+## 环境
 
-At level 2 details about the inheritance of the view (key `x-inventree-components`) and model (key `x-inventree-model`) are added. This allows to trace back the view to the underlying serializer and model and ensure naming of endpoints is consistent with the data model.
+### 软件版本
 
-!!! note "For experiments only"
-    There are no CI or system checks to use these additional attributes yet. This is an experimental feature to help developers understand the API shape and how it changes better.
+核心开发环境主要面向下面这些版本。
 
-
-## Environment
-
-### Software Versions
-
-The core software modules are targeting the following versions:
-
-| Name | Minimum version | Note |
+| 名称 | 最低版本 | 说明 |
 |---|---| --- |
-| Python | {{ config.extra.min_python_version }} | Minimum required version |
-| Invoke | {{ config.extra.min_invoke_version }} | Minimum required version |
-| Django | {{ config.extra.django_version }} | Pinned version |
-| Node | 20 | Only needed for frontend development |
+| Python | {{ config.extra.min_python_version }} | 最低要求版本 |
+| Invoke | {{ config.extra.min_invoke_version }} | 最低要求版本 |
+| Django | {{ config.extra.django_version }} | 当前固定版本 |
+| Node | 20 | 仅前端开发需要 |
 
-Any other software dependencies are handled by the project package config.
+其他依赖由项目自己的打包配置负责管理。
 
-### Auto creating updates
+### 自动升级语法
 
-The following tools can be used to auto-upgrade syntax that was depreciated in new versions:
+如果你需要批量处理新版 Python 或 Django 带来的已弃用语法，可以用下面这些工具：
+
 ```bash
 pip install pyupgrade
 pip install django-upgrade
 ```
 
-To update the codebase run the following script.
+然后执行：
+
 ```bash
 pyupgrade `find . -name "*.py"`
 django-upgrade --target-version {{ config.extra.django_version }} `find . -name "*.py"`
 ```
 
-## Migration Files
+## 迁移文件
 
-Any required migration files **must** be included in the commit, or the pull-request will be rejected. If you change the underlying database schema, make sure you run `invoke migrate` and commit the migration files before submitting the PR.
+只要数据库结构有变化，对应 migration 文件就必须进提交，否则 PR 会被拒绝。修改模型后，记得运行 `invoke migrate` 并把 migration 文件一起提交。
 
-*Note: A github action checks for unstaged migration files and will reject the PR if it finds any!*
+GitHub Actions 会检查是否存在未提交的 migration 文件，如果发现缺失，就会直接让 PR 失败。
 
-## Unit Testing
+## 单元测试 { #unit-testing }
 
-Any new code should be covered by unit tests - a submitted PR may not be accepted if the code coverage for any new features is insufficient, or the overall code coverage is decreased.
+新增代码应该尽量配套单元测试。如果新功能覆盖率不足，或者整体覆盖率下降，PR 很可能不会被接受。
 
-The InvenTree code base makes use of [GitHub actions](https://github.com/features/actions) to run a suite of automated tests against the code base every time a new pull request is received. These actions include (but are not limited to):
+InvenTree 使用 [GitHub Actions](https://github.com/features/actions) 在每次收到新的 PR 时自动跑一套检查，其中包括 Python 和 JavaScript 代码风格检查、单元测试、Docker 镜像构建推送，以及翻译文件生成等。
 
-- Checking Python and Javascript code against standard style guides
-- Running unit test suite
-- Automated building and pushing of docker images
-- Generating translation files
+相关工作流位于 `./github/workflows` 目录。
 
-The various github actions can be found in the `./github/workflows` directory
+### 本地运行测试
 
-### Run tests locally
+在本地运行全部测试可以直接使用：
 
-To run test locally, use:
-
-```
+```bash
 invoke dev.test
 ```
 
-To run only partial tests, for example for a module use:
-```
+如果你只想跑某个模块，比如订单模块，可以这样写：
+
+```bash
 invoke dev.test --runtest order
 ```
 
-To see all the available options:
+想查看完整参数列表，可以执行：
 
-```
+```bash
 invoke dev.test --help
 ```
 
@@ -222,31 +196,34 @@ invoke dev.test --help
 {{ invoke_commands('dev.test --help') }}
 ```
 
-#### Database Permission Issues
+#### 数据库权限问题
 
-For local testing django creates a test database and removes it after testing. If you encounter permission issues while running unit test, ensure that your database user has permission to create new databases.
+Django 在本地测试时会临时创建测试数据库，测试完成后再删除它。如果你运行单元测试时遇到权限问题，先确认数据库用户拥有创建数据库的权限。
 
-For example, in PostgreSQL, run:
+比如 PostgreSQL 可以执行：
 
-```
+```sql
 alter user myuser createdb;
 ```
 
 !!! info "Devcontainer"
-    The default database container which is provided in the devcontainer is already setup with the required permissions
+    默认 devcontainer 自带的数据库容器已经预先配置好了这类权限。
 
-### Trace coverage to specific tests
+### 追踪覆盖率对应的测试
 
-Sometimes it is valuable to get insights how many tests cover a specific statement and which ones do. coverage.py calls this information contexts. Contexts are automatically captured by the invoke task test (with coverage enabled) and can be rendered with below command into a HTML report.
+有时候你可能想知道某一行代码到底被多少测试覆盖，或者具体是哪些测试覆盖到了它。coverage.py 把这类信息叫做 contexts。
+
+如果你通过带 coverage 的 invoke 测试任务运行测试，contexts 会被自动收集。之后可以用下面的命令生成 HTML 报告：
+
 ```bash
 coverage html -i
 ```
 
-The coverage database is also generated in the CI-pipeline and exposd for 14 days as a artifact named `coverage`.
+CI 流水线里也会生成 coverage 数据库，并作为名为 `coverage` 的 artifact 保留 14 天。
 
-### Database Query Profiling
+### 数据库查询分析
 
-It may be useful during development to profile parts of the backend code to see how many database queries are executed. To that end, the `count_queries` context manager can be used to count the number of queries executed in a specific code block.
+开发时，统计某一段后端代码执行了多少数据库查询有时会很有帮助。可以使用 `count_queries` 上下文管理器来做这件事。
 
 ```python
 from InvenTree.helpers import count_queries
@@ -256,30 +233,30 @@ with count_queries("My code block"):
     ...
 ```
 
-A developer can use this to profile a specific code block, and the number of queries executed will be printed to the console.
+运行后，查询数量会被打印到控制台。
 
+## 代码风格
 
-## Code Style
+代码风格会在 GitHub CI 中自动检查。不符合规范的 PR 会直接导致 CI 失败。
 
-Code style is automatically checked as part of the project's CI pipeline on GitHub. This means that any pull requests which do not conform to the style guidelines will fail CI checks.
+### 后端代码
 
-### Backend Code
+后端 Python 代码会按 [PEP 规范](https://peps.python.org/pep-0008/) 检查。函数和类建议都写 docstring。项目默认遵循 [Google Python docstring 风格](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings)。
 
-Backend code (Python) is checked against the [PEP style guidelines](https://peps.python.org/pep-0008/). Please write docstrings for each function and class - we follow the [google doc-style](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings) for python.
+### 前端代码
 
-### Frontend Code
+前端 JavaScript 代码使用 [eslint](https://eslint.org/) 检查。虽然前端不强制要求 docstring，但仍然鼓励写清楚必要说明。
 
-Frontend code (Javascript) is checked using [eslint](https://eslint.org/). While docstrings are not enforced for front-end code, good code documentation is encouraged!
+### 本地检查
 
-### Running Checks Locally
+如果你已经执行过开发工具安装流程，这些代码风格检查会在每次提交时通过 pre-commit 自动运行。
 
-If you have followed the setup devtools procedure, then code style checking is performend automatically whenever you commit changes to the code.
+### Django 模板
 
-### Django templates
+Django 模板通过 pre-commit 里的 [djlint](https://github.com/Riverside-Healthcare/djlint) 检查。
 
-Django are checked by [djlint](https://github.com/Riverside-Healthcare/djlint) through pre-commit.
+默认规则集中，下面这些规则被排除了：
 
-The following rules out of the [default set](https://djlint.com/docs/linter/) are not applied:
 ```bash
 D018: (Django) Internal links should use the { % url ... % } pattern
 H006: Img tag should have height and width attributes
@@ -292,30 +269,28 @@ H031: Consider adding meta keywords
 T002: Double quotes should be used in tags
 ```
 
+## 文档 { #documentation }
 
-## Documentation
+只要新增了功能，或者现有功能有明显变化，就应该同步补上用户文档。
 
-New features or updates to existing features should be accompanied by user documentation.
+### 稳定链接引用
 
-### Stable link references
+文档系统支持做重定向，用来给外部引用提供稳定链接。
 
-The documentation framework enables addition of redirections. This is used to build stable references for linking in external resources.
+新的引用可以加在 `docs/mkdocs.yml` 的 `redirect_maps` 部分。目标既可以是站内文档，也可以是外部地址。所有引用都会在文档 CI 中做校验。
 
-New references can be added in `docs/mkdocs.yml` in the `redirect_maps` section. Both external targets and documentation pages are possible targets. All references are linted in the docs CI pipeline.
+## 翻译 { #translations }
 
-## Translations
+所有面向用户的字符串都必须接入翻译引擎。
 
-Any user-facing strings *must* be passed through the translation engine.
+InvenTree 代码主语言是英文。可翻译字符串也以英文作为主语言，然后再通过 [Crowdin](https://crowdin.com/project/inventree) 提供其他语言翻译。
 
-- InvenTree code is written in English
-- User translatable strings are provided in English as the primary language
-- Secondary language translations are provided [via Crowdin](https://crowdin.com/project/inventree)
+!!! note "翻译文件"
+    翻译文件由 GitHub Actions 自动更新。提交 PR 之前不需要自己手动编译翻译文件。
 
-*Note: Translation files are updated via GitHub actions - you do not need to compile translations files before submitting a pull request!*
+### Python 代码
 
-### Python Code
-
-For strings exposed via Python code, use the following format:
+Python 里暴露给用户的字符串应该这样写：
 
 ```python
 from django.utils.translation import gettext_lazy as _
@@ -323,9 +298,9 @@ from django.utils.translation import gettext_lazy as _
 user_facing_string = _('This string will be exposed to the translation engine!')
 ```
 
-### Templated Strings
+### 模板字符串
 
-HTML and javascript files are passed through the django templating engine. Translatable strings are implemented as follows:
+HTML 和 JavaScript 文件都会经过 Django 模板引擎处理。可翻译字符串可以这样写：
 
 ```html
 { % load i18n % }
@@ -333,50 +308,50 @@ HTML and javascript files are passed through the django templating engine. Trans
 <span>{ % trans "This string will be translated" % } - this string will not!</span>
 ```
 
-## Github use
+## GitHub 使用
 
-### Tags
+### 标签
 
-The tags describe issues and PRs in multiple areas:
+标签会从多个维度标记 issue 和 PR。
 
-| Area | Name | Description |
+| 区域 | 名称 | 说明 |
 | --- | --- | --- |
 | Triage Labels |  |  |
-|  | triage:not-checked | Item was not checked by the core team  |
-|  | triage:not-approved | Item is not green-light by maintainer |
+|  | triage:not-checked | 尚未被核心团队检查 |
+|  | triage:not-approved | 维护者尚未批准 |
 | Type Labels |  |  |
-|  | breaking | Indicates a major update or change which breaks compatibility |
-|  | bug | Identifies a bug which needs to be addressed |
-|  | dependency | Relates to a project dependency |
-|  | duplicate | Duplicate of another issue or PR |
-|  | enhancement | This is an suggested enhancement, extending the functionality of an existing feature |
-|  | experimental | This is a new *experimental* feature which needs to be enabled manually |
-|  | feature | This is a new feature, introducing novel functionality |
-|  | help wanted | Assistance required |
-|  | invalid | This issue or PR is considered invalid |
-|  | inactive | Indicates lack of activity |
-|  | migration | Database migration, requires special attention |
-|  | question | This is a question |
-|  | roadmap | This is a roadmap feature with no immediate plans for implementation |
-|  | security | Relates to a security issue |
-|  | starter | Good issue for a developer new to the project |
-|  | wontfix | No work will be done against this issue or PR |
+|  | breaking | 表示会破坏兼容性的重大更新 |
+|  | bug | 问题修复 |
+|  | dependency | 依赖相关 |
+|  | duplicate | 与其他 issue 或 PR 重复 |
+|  | enhancement | 对现有功能的增强建议 |
+|  | experimental | 需要手动启用的实验性功能 |
+|  | feature | 新功能 |
+|  | help wanted | 需要外部协助 |
+|  | invalid | 该 issue 或 PR 被判定为无效 |
+|  | inactive | 长时间无活动 |
+|  | migration | 数据库迁移，需特别留意 |
+|  | question | 问题咨询 |
+|  | roadmap | 路线图项目，暂时没有立即实现计划 |
+|  | security | 安全相关 |
+|  | starter | 适合新贡献者上手 |
+|  | wontfix | 明确不会处理 |
 | Feature Labels |  |  |
-|  | API | Relates to the API |
-|  | barcode | Barcode scanning and integration |
-|  | build | Build orders |
-|  | importer | Data importing and processing |
-|  | order | Purchase order and sales orders |
-|  | part | Parts |
-|  | plugin | Plugin ecosystem |
-|  | pricing | Pricing functionality |
-|  | report | Report generation |
-|  | stock | Stock item management |
-|  | user interface | User interface |
+|  | API | API 相关 |
+|  | barcode | 条码扫描与集成 |
+|  | build | 生产工单 |
+|  | importer | 数据导入和处理 |
+|  | order | 采购单与销售单 |
+|  | part | 零件相关 |
+|  | plugin | 插件生态 |
+|  | pricing | 价格功能 |
+|  | report | 报表生成 |
+|  | stock | 库存项管理 |
+|  | user interface | 用户界面 |
 | Ecosystem Labels |  |  |
-|  | backport | Tags that the issue will be backported to a stable branch as a bug-fix |
-|  | demo | Relates to the InvenTree demo server or dataset |
-|  | docker | Docker / docker-compose |
-|  | CI | CI / unit testing ecosystem |
-|  | refactor | Refactoring existing code |
-|  | setup | Relates to the InvenTree setup / installation process |
+|  | backport | 会被回灌到稳定分支的修复 |
+|  | demo | 演示服务器或数据集相关 |
+|  | docker | Docker 或 docker-compose 相关 |
+|  | CI | CI 和单元测试生态相关 |
+|  | refactor | 既有代码重构 |
+|  | setup | 安装和部署相关 |

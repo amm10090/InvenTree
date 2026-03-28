@@ -1,71 +1,70 @@
 ---
-title: React Frontend Development
+title: React 前端开发
 ---
 
-## Setup
+## 环境准备
 
-The following documentation details how to setup and run a development installation of the InvenTree frontend user interface. It is assumed that you are using the [InvenTree devcontainer setup](./devcontainer.md).
+这一页说明如何搭建并运行 InvenTree 前端开发环境。默认你已经在使用 [InvenTree devcontainer](./devcontainer.md)。
 
-!!! warning "This guide assumes you already have a running devcontainer"
+!!! warning "默认你已经有可用的 devcontainer"
 
-!!! info "All these steps are performed within Visual Studio Code"
+!!! info "以下步骤默认都在 Visual Studio Code 中完成"
 
 !!! note "Devcontainer"
-    The [devcontainer](./devcontainer.md) setup already includes all prerequisite packages, and is ready to run the frontend server.
+    [devcontainer](./devcontainer.md) 已经包含前端开发所需的大部分依赖，可以直接用来启动前端服务。
 
-### Install Packages
+### 安装前端依赖
 
-First, ensure that all the required frontend packages are installed:
+先确认前端依赖已经安装好。
 
 ```bash
 invoke int.frontend-install
 ```
 
-## Server Processes
+## 需要运行的服务
 
-The development environment requires two server processes to be running -  the backend server and the frontend server.
+前端开发时需要同时启动两个服务，一个是后端服务，一个是前端服务。
 
-### Backend Server
+### 后端服务
 
-Ensure that the backend server is running, before launching the frontend server. The backend server is responsible for serving the API endpoints that the frontend will connect to.
+先启动后端，再启动前端。因为前端会依赖后端提供的 API。
 
 ```bash
 invoke dev.server
 ```
 
-This will launch the backend server in the foreground, and will occupy the terminal window it is run in.
+这个命令会以前台方式启动后端，并占用当前终端窗口。
 
-### Frontend Server
+### 前端服务
 
-Now that the backend server is running, you can launch the frontend server. The frontend server is responsible for serving the React-based user interface, and provides a development environment for building and testing the frontend code.
-
-In a *separate terminal window*, run the following command to start the frontend server:
+等后端起来以后，在另一个终端窗口里启动前端服务。
 
 ```bash
 invoke dev.frontend-server
 ```
 
-When the frontend server is running, it will be available at https://localhost:5173/
+前端服务启动后，可以通过 https://localhost:5173/ 访问。
 
-## Live Reloading
+## 热更新
 
-Any changes made to the frontend code will automatically trigger a live reload of the frontend server. This means that you can make changes to the code, and see the results immediately in your browser without needing to manually refresh the page.
+当前端代码发生变化时，前端开发服务器会自动触发热更新。这样你可以边改边看效果，不需要每次都手动重新构建。
 
-## Debugging
+## 调试
 
-You can attach the vscode debugger to the frontend server to debug the frontend code. With the frontend server running, open the `Run and Debug` view in vscode and select `InvenTree Frontend - Vite` from the dropdown. Click the play button to start debugging. This will attach the debugger to the running vite server, and allow you to place breakpoints in the frontend code.
+前端服务跑起来以后，可以直接用 VS Code 的调试器附加到它上面。
 
-!!! info "Backend Server"
-    To debug the frontend code, the backend server must be running (in a separate process). Note that you cannot debug the backend server and the frontend server in the same vscode instance.
+打开 `Run and Debug` 视图，选择 `InvenTree Frontend - Vite`，点击启动按钮即可。这样就能对正在运行的 Vite 服务打断点。
 
+!!! info "后端服务"
+    调试前端时，后端服务必须已经在另一个进程中运行。不能在同一个 VS Code 调试会话里同时调试前端服务和后端服务。
 
-## Testing
+## 测试
 
-The frontend codebase it tested using [Playwright](https://playwright.dev/). There are a large number of tests that cover the frontend codebase, which are run automatically as part of the CI pipeline.
+InvenTree 前端测试使用 [Playwright](https://playwright.dev/)。CI 流水线里也会自动运行这套测试。
 
-### Install Playwright
+### 安装 Playwright { #install-playwright }
 
-To install the required packages to run the tests, you can use the following commands:
+如果你要在本地跑前端测试，需要先安装 Playwright 依赖。
 
 ```bash
 cd src/frontend
@@ -73,78 +72,79 @@ sudo npx playwright install-deps
 npx playwright install
 ```
 
-### Dataset
+### 准备测试数据
 
-The playwright tests assume that the [InvenTree test dataset](../demo.md#local-setup) is loaded into the InvenTree installation. This dataset provides a known set of data that the tests can run against.
+Playwright 测试默认假设 InvenTree 里已经导入了 [测试数据集](../demo.md#local-setup)。
 
-Before running the frontend tests, ensure that a clean copy of the test dataset is loaded into your InvenTree instance, by running the following command:
+在运行测试之前，先执行下面的命令，确保测试数据处于干净状态。
 
 ```bash
 invoke dev.setup-test -i
 ```
 
-### Running Tests
+### 本地运行测试
 
-To run the tests locally, in an interactive editor, you can use the following command:
+如果你想在本地交互式运行测试，可以执行下面的命令。
 
 ```bash
 cd src/frontend
 npx playwright test --ui
 ```
 
-This will first launch the backend server (at http://localhost:8000), and then run the tests against the frontend server (at http://localhost:5173). An interactive browser window will open, and you can run the tests individually or as a group.
+这个命令会先启动后端服务，然后把测试跑在前端开发服务上。浏览器会打开一个交互式窗口，你可以逐条运行或观察测试。
 
-### Viewing Reports
+### 查看报告
 
-The playwright tests are run automatically as part of the project's CI pipeline, and the results are stored as a downloadable report. The report file can be "replayed" using playwright, to view the results of the test run, as well as closely inspect any failed tests.
-
-To view the report, you can use the following command, after downloading the report and extracting from the zipped file:
+Playwright 测试结果会在 CI 中作为可下载报告保存。下载并解压报告后，可以用下面的命令回放结果，查看失败用例细节。
 
 ```bash
 npx playwright show-report path/to/report
 ```
 
-### No Tests Found
+### 没有找到测试
 
-If there is any problem in the testing launch sequence, the playwright UI will display the message "No Tests". In this case, an error has occurred, likely launching the InvenTree server process (which runs in the background).
+如果 Playwright UI 里显示 `No Tests`，通常不是测试文件没了，而是启动链路中某个环节报错了，最常见的是后台 InvenTree 服务没有成功拉起。
 
-To debug this situation, and determine what error needs to be resolved, run the following command:
+这时可以运行下面的命令来排查。
 
 ```bash
 npx playwright test --debug
 ```
 
-This will print out any errors to the console, allowing you to resolve issues before continuing. In all likelihood, your InvenTree installation needs to be updated, and simply running `invoke update` will allow you to continue.
+它会把错误信息直接打印到控制台。很多情况下，只是本地 InvenTree 环境过旧，执行一次 `invoke update` 就能继续。
 
-## Tips and Tricks
+## 提示和注意事项
 
 ### WSL
 
-On Windows, any Docker interaction is run via WSL. Naturally, all containers and devcontainers run through WSL.
-The default configuration for the frontend server sets up file polling to enable hot reloading.
-This is in itself a huge performance hit. If you're running an older system, it might just be enough to block anything from running in the container.
+在 Windows 上，Docker 相关操作都会通过 WSL 执行，devcontainer 也是一样。
 
-If you're having issues running the Frontend server, have a look at your Docker Desktop app.
-If you routinely see the container using almost ALL available CPU capacity, you need to turn off file polling.
+前端开发服务器的默认配置会开启文件轮询来支持热更新，但这会明显增加性能开销。机器比较旧时，甚至可能把容器直接拖慢到无法使用。
 
-!!! warning "Turning off file polling requires you to restart the frontend server process upon each file change"
+如果你发现前端服务几乎跑不起来，先看 Docker Desktop 的资源占用。如果容器长期吃满 CPU，通常就要考虑关闭文件轮询。
 
-Head to the following path: `src/frontend/vite.config.ts` and change:
+!!! warning "关闭文件轮询后，每次改文件都需要重启前端服务"
 
-```const IS_IN_WSL = platform().includes('WSL') || release().includes('WSL');```
+做法是打开 `src/frontend/vite.config.ts`，把下面这行：
 
-to
+```typescript
+const IS_IN_WSL = platform().includes('WSL') || release().includes('WSL');
+```
 
-```const IS_IN_WSL = false;```
+改成：
 
-!!! tip "Make sure to not commit this change to Git!"
+```typescript
+const IS_IN_WSL = false;
+```
 
-!!! warning "This change will require you to restart the frontend server for every change you make in the frontend code"
+!!! tip "这个改动不要提交到 Git"
 
-### Caveats
+!!! warning "改完以后，每次前端文件有变化，你都需要手动重启前端服务"
 
-When running the frontend development server, some features may not work entirely as expected! Please take the time to understand the flow of data when running the frontend development server, and how it interacts with the backend server!
+### 运行边界
 
-#### SSO Login
+前端开发服务器模式下，有些功能表现不会和生产环境完全一致。使用前最好先理解前端开发服务器和后端服务之间的数据流关系。
 
-When logging into the frontend dev server via SSO, the redirect URL may not redirect correctly.
+#### SSO 登录
+
+如果你通过 SSO 登录前端开发服务器，重定向地址可能不会完全按预期工作。

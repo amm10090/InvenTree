@@ -1,56 +1,58 @@
 ---
-title: InvenTree Development
+title: InvenTree 开发
 ---
 
-## Introduction
+## 介绍
 
-If you are interested in contributing to InvenTree, then this section is for you! Here you will find information about the architecture of InvenTree, how to set up a development environment, and guidelines for contributing code or documentation.
+如果你准备为 InvenTree 贡献代码或文档，这一节就是入口。这里会介绍 InvenTree 的整体架构、开发环境搭建方式，以及参与开发时需要遵循的基本约定。
 
-### Architecture Overview
+### 架构概览
 
-Read the [architecture overview](./architecture.md) to understand the high-level architecture of InvenTree, including how requests are processed, the backend and frontend architecture, and various components of the system.
+先看 [架构概览](./architecture.md)，了解 InvenTree 的高层结构，包括请求处理流程、前后端架构，以及系统里的主要组成部分。
 
-### Contribution Guide
+### 贡献指南
 
-Start with the [contribution guide](./contributing.md) to understand how to get involved with the InvenTree project.
+接着看 [贡献指南](./contributing.md)，了解如何参与 InvenTree 项目开发。
 
-### Devcontainer Setup
+### Devcontainer 环境
 
-We provide a [devcontainer](./devcontainer.md) configuration to help you quickly set up a development environment using vscode.
+项目提供了 [devcontainer](./devcontainer.md) 配置，方便你直接在 VS Code 里快速拉起开发环境。
 
-### Frontend Development
+### 前端开发
 
-For information on developing the InvenTree frontend, refer to the [frontend development guide](./react-frontend.md).
+如果你要开发 InvenTree 前端，请继续看 [前端开发指南](./react-frontend.md)。
 
-## Profiling Tools
+## 性能分析工具 { #profiling-tools }
 
-The InvenTree project supports integrated profiling tools to help developers analyze and optimize performance. Note that the following tools are intended for development use only and should not be enabled in production environments. In fact, they are explicitly disabled unless the server is running in [debug mode](../start/index.md#debug-mode).
+InvenTree 集成了一些性能分析工具，方便开发者排查性能瓶颈和做优化。这些工具只应该在开发环境中使用，不应该在生产环境启用。实际上，除非服务端运行在 [调试模式](../start/index.md#debug-mode)，否则这些工具默认不会开启。
 
-### Django Silk
+### Django Silk { #django-silk }
 
-[django-silk](https://silk.readthedocs.io/en/latest/) is a profiling tool that can be used to monitor and analyze the performance of Django applications. It provides insights into SQL queries, request/response times, and more.
+[django-silk](https://silk.readthedocs.io/en/latest/) 是一个 Django 性能分析工具，可以帮助你观察 SQL 查询、请求响应耗时等信息。
 
-To enable django-silk profiling, ensure that the `debug_silk` option is set to `True` in your [config file](../start/config.md#configuration-file). Alternative, you can set the `INVENTREE_DEBUG_SILK` environment variable to enable this feature.
+要启用 django-silk，需要在 [配置文件](../start/config.md#configuration-file) 中把 `debug_silk` 设为 `True`，或者设置环境变量 `INVENTREE_DEBUG_SILK`。
 
-Once enabled, you can access the silk interface at the `/silk/` endpoint of your InvenTree instance.
+启用后，可以通过 InvenTree 实例上的 `/silk/` 路径访问 Silk 界面。
 
-!!! tip "Run Migrations"
-    If you are enabling django-silk for the first time, you may need to run database migrations to create the necessary tables. You can do this by running `invoke migrate`.
+!!! tip "运行数据库迁移"
+    如果是第一次启用 django-silk，可能需要执行一次 `invoke migrate`，用于创建它所需的数据表。
 
-#### Detailed Profiling
+#### 详细分析
 
-To enable detailed profiling in django-silk, set the `INVENTREE_DEBUG_SILK_PROFILING` environment variable to `True`, or set the `debug_silk_profiling` option to `True` in your config file. This will enable more granular profiling features within django-silk. Refer to the [django-silk documentation](https://github.com/jazzband/django-silk#profiling) for more information.
+如果还想启用更细粒度的分析能力，可以把环境变量 `INVENTREE_DEBUG_SILK_PROFILING` 设为 `True`，或者在配置文件中把 `debug_silk_profiling` 设为 `True`。更多细节见 [django-silk 文档](https://github.com/jazzband/django-silk#profiling)。
 
-### Django QueryCount
+### Django QueryCount { #django-querycount }
 
-Enabling the `INVENTREE_DEBUG_QUERYCOUNT` setting will log (to the terminal) the number of database queries executed for each page load. This can be useful for identifying performance bottlenecks in the InvenTree server. Note that this setting is only available if `INVENTREE_DEBUG` is also enabled.
+启用 `INVENTREE_DEBUG_QUERYCOUNT` 后，服务端会把每次页面加载所执行的数据库查询数量输出到终端。这对排查后端查询过多的问题很有帮助。
 
-### Database Logging
+这个开关只有在 `INVENTREE_DEBUG` 同时开启时才可用。
 
-Enabling the `INVENTREE_DB_LOGGING` setting will log all database queries to the terminal. This can be useful for debugging database-related issues.
+### 数据库日志
 
-### Internal Profiling Tools
+启用 `INVENTREE_DB_LOGGING` 后，所有数据库查询都会被打印到终端。这个开关适合排查数据库相关问题。
 
-In addition to the above third-party tools, InvenTree includes some internal profiling tools that can be enabled in debug mode. These tools can be used to provide additional insights into the performance of various components of the InvenTree server.
+### 内部分析工具
 
-These profiling tools can be found in `./src/backend/InvenTree/profiling.py`.
+除了上面的第三方工具，InvenTree 自己也带了一些只能在调试模式下启用的内部分析工具，用来帮助开发者观察不同组件的性能表现。
+
+这些工具位于 `./src/backend/InvenTree/profiling.py`。

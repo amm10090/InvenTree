@@ -77,13 +77,13 @@ nav:
     - Troubleshooting: troubleshooting.md
     - Demo: demo.md
     - Release Notes: releases/release_notes.md
-    - Development:
-      - InvenTree Development: develop/index.md
-      - Contributing: develop/contributing.md
-      - Architecture: develop/architecture.md
-      - Roadmap: develop/roadmap.md
+    - 开发:
+      - InvenTree 开发: develop/index.md
+      - 贡献指南: develop/contributing.md
+      - 架构: develop/architecture.md
+      - 路线图: develop/roadmap.md
       - Devcontainer: develop/devcontainer.md
-      - React Frontend: develop/react-frontend.md
+      - React 前端开发: develop/react-frontend.md
     - Project Details:
       - Governance: project/governance.md
       - Project Security: security.md

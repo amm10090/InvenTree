@@ -1,4 +1,5 @@
 import { i18n } from '@lingui/core';
+import { t } from '@lingui/core/macro';
 import { I18nProvider } from '@lingui/react';
 import { LoadingOverlay, Text } from '@mantine/core';
 import { type JSX, useEffect, useRef, useState } from 'react';
@@ -11,6 +12,57 @@ import { useStoredTableState } from '../states/StoredTableState';
 import { fetchGlobalStates } from '../states/states';
 
 export const defaultLocale = 'en';
+const chineseLocale = 'zh_Hans';
+
+const localeLoaders = {
+  en: () => import('../locales/en/messages'),
+  zh_Hans: () => import('../locales/zh_Hans/messages')
+};
+
+const localeAliases: Record<string, keyof typeof localeLoaders> = {
+  en: 'en',
+  en_us: 'en',
+  zh: 'zh_Hans',
+  zh_cn: 'zh_Hans',
+  zh_hans: 'zh_Hans'
+};
+
+function normalizeLocale(
+  locale: string | null | undefined
+): keyof typeof localeLoaders {
+  const normalizedLocale = locale?.replaceAll('-', '_').toLowerCase();
+
+  if (!normalizedLocale) {
+    return defaultLocale;
+  }
+
+  if (normalizedLocale in localeAliases) {
+    return localeAliases[normalizedLocale];
+  }
+
+  const baseLocale = normalizedLocale.split('_')[0];
+
+  if (baseLocale in localeAliases) {
+    return localeAliases[baseLocale];
+  }
+
+  return defaultLocale;
+}
+
+function resolveLocale(
+  userLocale: string | null | undefined,
+  serverLocale: string | null | undefined
+): keyof typeof localeLoaders {
+  if (userLocale) {
+    return normalizeLocale(userLocale);
+  }
+
+  if (serverLocale) {
+    return normalizeLocale(serverLocale);
+  }
+
+  return defaultLocale;
+}
 
 /*
  * Function which returns a record of supported languages.
@@ -18,44 +70,8 @@ export const defaultLocale = 'en';
  */
 export const getSupportedLanguages = (): Record<string, string> => {
   return {
-    ar: 'العربية',
-    bg: 'Български',
-    cs: 'Čeština',
-    da: 'Dansk',
-    de: 'Deutsch',
-    el: 'Ελληνικά',
     en: 'English',
-    es: 'Español',
-    es_MX: 'Español (México)',
-    et: 'Eesti',
-    fa: 'فارسی',
-    fi: 'Suomi',
-    fr: 'Français',
-    he: 'עברית',
-    hi: 'हिन्दी',
-    hu: 'Magyar',
-    it: 'Italiano',
-    ja: '日本語',
-    ko: '한국어',
-    lt: 'Lietuvių',
-    lv: 'Latviešu',
-    nl: 'Nederlands',
-    no: 'Norsk',
-    pl: 'Polski',
-    pt: 'Português',
-    pt_BR: 'Português (Brasil)',
-    ro: 'Română',
-    ru: 'Русский',
-    sk: 'Slovenčina',
-    sl: 'Slovenščina',
-    sr: 'Српски',
-    sv: 'Svenska',
-    th: 'ไทย',
-    tr: 'Türkçe',
-    uk: 'Українська',
-    vi: 'Tiếng Việt',
-    zh_Hans: '中文（简体）',
-    zh_Hant: '中文（繁體）'
+    [chineseLocale]: '中文（简体）'
   };
 };
 
@@ -68,24 +84,11 @@ export function LanguageContext({
   const [activeLocale, setActiveLocale] = useState<string | null>(null);
 
   useEffect(() => {
-    // Update the locale based on prioritization:
-    // 1. Locally selected locale
-    // 2. Server default locale
-    // 3. English (fallback)
-
-    let locale: string | null = activeLocale;
-
-    if (!!language) {
-      locale = language;
-    } else if (!!server.default_locale) {
-      locale = server.default_locale;
-    } else {
-      locale = defaultLocale;
-    }
+    const locale = resolveLocale(language, server.default_locale);
 
     if (locale != activeLocale) {
       setActiveLocale(locale);
-      activateLocale(locale);
+      void activateLocale(locale);
     }
   }, [activeLocale, language, server.default_locale, defaultLocale]);
 
@@ -97,12 +100,7 @@ export function LanguageContext({
   useEffect(() => {
     isMounted.current = true;
 
-    let lang: string = language || defaultLocale;
-
-    // Ensure that the selected language is supported
-    if (!Object.keys(getSupportedLanguages()).includes(lang)) {
-      lang = defaultLocale;
-    }
+    const lang = resolveLocale(language, server.default_locale);
 
     activateLocale(lang)
       .then(() => {
@@ -114,24 +112,18 @@ export function LanguageContext({
          * - Server default locale
          * - en-us (backup)
          */
-        const locales: (string | undefined)[] = [];
+        const locales = [lang, server.default_locale]
+          .filter((locale): locale is string => !!locale)
+          .map((locale) =>
+            normalizeLocale(locale).replaceAll('_', '-').toLowerCase()
+          );
 
-        if (!!lang && lang != 'pseudo-LOCALE') {
-          locales.push(lang);
-        }
-
-        if (!!server.default_locale) {
-          locales.push(server.default_locale);
-        }
-
-        if (locales.indexOf('en-us') < 0) {
+        if (!locales.includes('en-us')) {
           locales.push('en-us');
         }
 
         // Ensure that the locales are properly formatted
-        const new_locales = locales
-          .map((locale) => locale?.replaceAll('_', '-').toLowerCase())
-          .join(', ');
+        const new_locales = [...new Set(locales)].join(', ');
 
         if (new_locales == api.defaults.headers.common['Accept-Language']) {
           return;
@@ -155,7 +147,7 @@ export function LanguageContext({
     return () => {
       isMounted.current = false;
     };
-  }, [language]);
+  }, [language, server.default_locale]);
 
   if (loadedState === 'loading') {
     return <LoadingOverlay visible={true} />;
@@ -165,8 +157,7 @@ export function LanguageContext({
   if (loadedState === 'error') {
     return (
       <Text>
-        An error occurred while loading translations, see browser console for
-        details.
+        {t`An error occurred while loading translations, see browser console for details.`}
       </Text>
     );
   }
@@ -181,21 +172,20 @@ export function getPriorityLocale(): string {
   const serverDefault = useServerApiState.getState().server.default_locale;
   const userDefault = useLocalState.getState().language;
 
-  return userDefault || serverDefault || defaultLocale;
+  return resolveLocale(userDefault, serverDefault);
 }
 
 export async function activateLocale(locale: string | null) {
   if (!locale) {
     locale = getPriorityLocale();
   }
-
-  const localeDir = locale.split('-')[0]; // Extract the base locale (e.g., 'en' from 'en-US')
+  const normalizedLocale = normalizeLocale(locale);
 
   try {
-    const { messages } = await import(`../locales/${localeDir}/messages.ts`);
-    i18n.load(locale, messages);
-    i18n.activate(locale);
+    const { messages } = await localeLoaders[normalizedLocale]();
+    i18n.load(normalizedLocale, messages);
+    i18n.activate(normalizedLocale);
   } catch (err) {
-    console.error(`Failed to load locale ${locale}:`, err);
+    console.error(`Failed to load locale ${normalizedLocale}:`, err);
   }
 }

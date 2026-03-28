@@ -10,9 +10,12 @@ import { TOTP } from 'otpauth';
  */
 test('Login - Failures', async ({ page }) => {
   const loginWithError = async () => {
-    await page.getByRole('button', { name: 'Log In' }).click();
-    await page.getByText('Login failed', { exact: true }).waitFor();
-    await page.getByText('Check your input and try again').first().waitFor();
+    await page.locator('form button[type="submit"]').click();
+    await page.getByText(/^(Login failed|登录失败)$/).waitFor();
+    await page
+      .getByText(/Check your input and try again|请检查您的输入并重试/)
+      .first()
+      .waitFor();
     await page.locator('#login').getByRole('button').click();
   };
 

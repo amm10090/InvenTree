@@ -542,6 +542,7 @@ msgstr "Selection Lists"
 
 #: lib/enums/ModelInformation.tsx:291
 #: src/components/barcodes/BarcodeInput.tsx:114
+#: src/components/buttons/StarredToggleButton.tsx:46
 #: src/components/dashboard/DashboardLayout.tsx:281
 #: src/components/editors/NotesEditor.tsx:74
 #: src/components/editors/TemplateEditor/TemplateEditor.tsx:158
@@ -872,6 +873,14 @@ msgstr "Open spotlight"
 #: src/components/buttons/StarredToggleButton.tsx:36
 msgid "Subscription Updated"
 msgstr "Subscription Updated"
+
+#: src/components/buttons/StarredToggleButton.tsx:38
+msgid "Subscription removed"
+msgstr "Subscription removed"
+
+#: src/components/buttons/StarredToggleButton.tsx:38
+msgid "Subscription added"
+msgstr "Subscription added"
 
 #: src/components/buttons/StarredToggleButton.tsx:57
 #~ msgid "Unsubscribe from part"
@@ -1290,32 +1299,36 @@ msgid "The image has been removed successfully"
 msgstr "The image has been removed successfully"
 
 #: src/components/details/DetailsImage.tsx:115
-msgid "Drag and drop to upload"
-msgstr "Drag and drop to upload"
+#~ msgid "Drag and drop to upload"
+#~ msgstr "Drag and drop to upload"
 
-#: src/components/details/DetailsImage.tsx:118
+#: src/components/details/DetailsImage.tsx:157
+msgid "Drag and drop to upload, or paste an image from the clipboard"
+msgstr "Drag and drop to upload, or paste an image from the clipboard"
+
+#: src/components/details/DetailsImage.tsx:162
 msgid "Click to select file(s)"
 msgstr "Click to select file(s)"
 
-#: src/components/details/DetailsImage.tsx:178
+#: src/components/details/DetailsImage.tsx:222
 msgid "Image uploaded"
 msgstr "Image uploaded"
 
-#: src/components/details/DetailsImage.tsx:179
+#: src/components/details/DetailsImage.tsx:223
 msgid "Image has been uploaded successfully"
 msgstr "Image has been uploaded successfully"
 
-#: src/components/details/DetailsImage.tsx:186
+#: src/components/details/DetailsImage.tsx:230
 #: src/tables/general/AttachmentTable.tsx:201
 msgid "Upload Error"
 msgstr "Upload Error"
 
-#: src/components/details/DetailsImage.tsx:256
+#: src/components/details/DetailsImage.tsx:300
 #: src/components/forms/fields/AutoFillRightSection.tsx:34
 msgid "Clear"
 msgstr "Clear"
 
-#: src/components/details/DetailsImage.tsx:262
+#: src/components/details/DetailsImage.tsx:306
 #: src/components/forms/ApiForm.tsx:696
 #: src/contexts/ThemeContext.tsx:56
 #: src/pages/Index/Settings/AccountSettings/MFASettings.tsx:151
@@ -1323,35 +1336,35 @@ msgstr "Clear"
 msgid "Submit"
 msgstr "Submit"
 
-#: src/components/details/DetailsImage.tsx:306
+#: src/components/details/DetailsImage.tsx:350
 msgid "Select from existing images"
 msgstr "Select from existing images"
 
-#: src/components/details/DetailsImage.tsx:314
+#: src/components/details/DetailsImage.tsx:358
 msgid "Select Image"
 msgstr "Select Image"
 
-#: src/components/details/DetailsImage.tsx:330
+#: src/components/details/DetailsImage.tsx:374
 msgid "Download remote image"
 msgstr "Download remote image"
 
-#: src/components/details/DetailsImage.tsx:345
+#: src/components/details/DetailsImage.tsx:389
 msgid "Upload new image"
 msgstr "Upload new image"
 
-#: src/components/details/DetailsImage.tsx:352
+#: src/components/details/DetailsImage.tsx:396
 msgid "Upload Image"
 msgstr "Upload Image"
 
-#: src/components/details/DetailsImage.tsx:365
+#: src/components/details/DetailsImage.tsx:409
 msgid "Delete image"
 msgstr "Delete image"
 
-#: src/components/details/DetailsImage.tsx:399
+#: src/components/details/DetailsImage.tsx:443
 msgid "Download Image"
 msgstr "Download Image"
 
-#: src/components/details/DetailsImage.tsx:404
+#: src/components/details/DetailsImage.tsx:448
 msgid "Image downloaded successfully"
 msgstr "Image downloaded successfully"
 
@@ -1648,7 +1661,7 @@ msgid "Or continue with other methods"
 msgstr "Or continue with other methods"
 
 #: src/components/forms/AuthenticationForm.tsx:136
-#: src/components/forms/AuthenticationForm.tsx:296
+#: src/components/forms/AuthenticationForm.tsx:310
 #: src/pages/Index/Settings/AccountSettings/AccountDetailPanel.tsx:64
 #: src/pages/core/UserDetail.tsx:48
 msgid "Username"
@@ -1659,45 +1672,37 @@ msgstr "Username"
 #~ msgstr "I will use username and password"
 
 #: src/components/forms/AuthenticationForm.tsx:138
-#: src/components/forms/AuthenticationForm.tsx:298
+#: src/components/forms/AuthenticationForm.tsx:312
 msgid "Your username"
 msgstr "Your username"
 
-#: src/components/forms/AuthenticationForm.tsx:143
-#: src/components/forms/AuthenticationForm.tsx:311
+#: src/components/forms/AuthenticationForm.tsx:145
+#: src/components/forms/AuthenticationForm.tsx:325
 #: src/pages/Auth/ResetPassword.tsx:34
 #: src/pages/Index/Settings/AccountSettings/MFASettings.tsx:195
 msgid "Password"
 msgstr "Password"
 
-#: src/components/forms/AuthenticationForm.tsx:145
-#: src/components/forms/AuthenticationForm.tsx:313
+#: src/components/forms/AuthenticationForm.tsx:147
+#: src/components/forms/AuthenticationForm.tsx:327
 msgid "Your password"
 msgstr "Your password"
 
-#: src/components/forms/AuthenticationForm.tsx:164
+#: src/components/forms/AuthenticationForm.tsx:168
 msgid "Reset password"
 msgstr "Reset password"
 
-#: src/components/forms/AuthenticationForm.tsx:173
-#: src/components/forms/AuthenticationForm.tsx:303
+#: src/components/forms/AuthenticationForm.tsx:177
+#: src/components/forms/AuthenticationForm.tsx:317
 #: src/pages/Auth/Reset.tsx:17
 #: src/pages/core/UserDetail.tsx:71
 msgid "Email"
 msgstr "Email"
 
-#: src/components/forms/AuthenticationForm.tsx:174
+#: src/components/forms/AuthenticationForm.tsx:178
 #: src/pages/Auth/Reset.tsx:18
 msgid "We will send you a link to login - if you are registered"
 msgstr "We will send you a link to login - if you are registered"
-
-#: src/components/forms/AuthenticationForm.tsx:190
-msgid "Send me an email"
-msgstr "Send me an email"
-
-#: src/components/forms/AuthenticationForm.tsx:192
-msgid "Use username and password"
-msgstr "Use username and password"
 
 #: src/components/forms/AuthenticationForm.tsx:201
 msgid "Log In"
@@ -1708,53 +1713,61 @@ msgstr "Log In"
 msgid "Send Email"
 msgstr "Send Email"
 
-#: src/components/forms/AuthenticationForm.tsx:239
+#: src/components/forms/AuthenticationForm.tsx:217
+msgid "Send me an email"
+msgstr "Send me an email"
+
+#: src/components/forms/AuthenticationForm.tsx:219
+msgid "Use username and password"
+msgstr "Use username and password"
+
+#: src/components/forms/AuthenticationForm.tsx:253
 msgid "Passwords do not match"
 msgstr "Passwords do not match"
 
-#: src/components/forms/AuthenticationForm.tsx:256
+#: src/components/forms/AuthenticationForm.tsx:270
 msgid "Registration successful"
 msgstr "Registration successful"
 
-#: src/components/forms/AuthenticationForm.tsx:257
+#: src/components/forms/AuthenticationForm.tsx:271
 msgid "Please confirm your email address to complete the registration"
 msgstr "Please confirm your email address to complete the registration"
 
-#: src/components/forms/AuthenticationForm.tsx:280
+#: src/components/forms/AuthenticationForm.tsx:294
 msgid "Input error"
 msgstr "Input error"
 
-#: src/components/forms/AuthenticationForm.tsx:281
+#: src/components/forms/AuthenticationForm.tsx:295
 msgid "Check your input and try again. "
 msgstr "Check your input and try again. "
 
-#: src/components/forms/AuthenticationForm.tsx:305
+#: src/components/forms/AuthenticationForm.tsx:319
 msgid "This will be used for a confirmation"
 msgstr "This will be used for a confirmation"
 
-#: src/components/forms/AuthenticationForm.tsx:318
+#: src/components/forms/AuthenticationForm.tsx:332
 msgid "Password repeat"
 msgstr "Password repeat"
 
-#: src/components/forms/AuthenticationForm.tsx:320
+#: src/components/forms/AuthenticationForm.tsx:334
 msgid "Repeat password"
 msgstr "Repeat password"
 
-#: src/components/forms/AuthenticationForm.tsx:332
-#: src/pages/Auth/Login.tsx:123
+#: src/components/forms/AuthenticationForm.tsx:346
+#: src/pages/Auth/Login.tsx:128
 #: src/pages/Auth/Register.tsx:13
 msgid "Register"
 msgstr "Register"
 
-#: src/components/forms/AuthenticationForm.tsx:338
+#: src/components/forms/AuthenticationForm.tsx:352
 msgid "Or use SSO"
 msgstr "Or use SSO"
 
-#: src/components/forms/AuthenticationForm.tsx:348
+#: src/components/forms/AuthenticationForm.tsx:362
 msgid "Registration not active"
 msgstr "Registration not active"
 
-#: src/components/forms/AuthenticationForm.tsx:349
+#: src/components/forms/AuthenticationForm.tsx:363
 msgid "This might be related to missing mail settings or could be a deliberate decision."
 msgstr "This might be related to missing mail settings or could be a deliberate decision."
 
@@ -1769,7 +1782,7 @@ msgstr "Host"
 
 #: src/components/forms/HostOptionsForm.tsx:42
 #: src/components/forms/HostOptionsForm.tsx:70
-#: src/components/forms/InstanceOptions.tsx:124
+#: src/components/forms/InstanceOptions.tsx:125
 #: src/components/plugins/PluginDrawer.tsx:68
 #: src/pages/Index/Settings/AdminCenter/UnitManagementPanel.tsx:19
 #: src/pages/part/CategoryDetail.tsx:91
@@ -1808,12 +1821,12 @@ msgstr "Save"
 #~ msgid "Select destination instance"
 #~ msgstr "Select destination instance"
 
-#: src/components/forms/InstanceOptions.tsx:58
+#: src/components/forms/InstanceOptions.tsx:59
 msgid "Select Server"
 msgstr "Select Server"
 
-#: src/components/forms/InstanceOptions.tsx:68
-#: src/components/forms/InstanceOptions.tsx:92
+#: src/components/forms/InstanceOptions.tsx:69
+#: src/components/forms/InstanceOptions.tsx:93
 msgid "Edit host options"
 msgstr "Edit host options"
 
@@ -1821,7 +1834,7 @@ msgstr "Edit host options"
 #~ msgid "Edit possible host options"
 #~ msgstr "Edit possible host options"
 
-#: src/components/forms/InstanceOptions.tsx:76
+#: src/components/forms/InstanceOptions.tsx:77
 msgid "Save host selection"
 msgstr "Save host selection"
 
@@ -1841,24 +1854,24 @@ msgstr "Save host selection"
 #~ msgid "State: <0>worker</0> ({0}), <1>plugins</1>{1}"
 #~ msgstr "State: <0>worker</0> ({0}), <1>plugins</1>{1}"
 
-#: src/components/forms/InstanceOptions.tsx:118
+#: src/components/forms/InstanceOptions.tsx:119
 #: src/pages/Index/Settings/SystemSettings.tsx:46
 msgid "Server"
 msgstr "Server"
 
-#: src/components/forms/InstanceOptions.tsx:130
+#: src/components/forms/InstanceOptions.tsx:131
 #: src/components/plugins/PluginDrawer.tsx:88
 #: src/tables/plugin/PluginListTable.tsx:127
 msgid "Version"
 msgstr "Version"
 
-#: src/components/forms/InstanceOptions.tsx:136
+#: src/components/forms/InstanceOptions.tsx:137
 #: src/components/modals/AboutInvenTreeModal.tsx:124
 #: src/components/modals/ServerInfoModal.tsx:34
 msgid "API Version"
 msgstr "API Version"
 
-#: src/components/forms/InstanceOptions.tsx:142
+#: src/components/forms/InstanceOptions.tsx:143
 #: src/components/nav/NavigationDrawer.tsx:197
 #: src/defaults/actions.tsx:173
 #: src/pages/Index/Settings/AdminCenter/Index.tsx:228
@@ -1866,7 +1879,7 @@ msgstr "API Version"
 msgid "Plugins"
 msgstr "Plugins"
 
-#: src/components/forms/InstanceOptions.tsx:143
+#: src/components/forms/InstanceOptions.tsx:144
 #: src/tables/general/ParameterTemplateTable.tsx:153
 #: src/tables/general/ParameterTemplateTable.tsx:188
 #: src/tables/part/PartTestTemplateTable.tsx:117
@@ -1876,20 +1889,20 @@ msgstr "Plugins"
 msgid "Enabled"
 msgstr "Enabled"
 
-#: src/components/forms/InstanceOptions.tsx:143
+#: src/components/forms/InstanceOptions.tsx:144
 msgid "Disabled"
 msgstr "Disabled"
 
-#: src/components/forms/InstanceOptions.tsx:149
+#: src/components/forms/InstanceOptions.tsx:150
 msgid "Worker"
 msgstr "Worker"
 
-#: src/components/forms/InstanceOptions.tsx:150
+#: src/components/forms/InstanceOptions.tsx:151
 #: src/tables/settings/FailedTasksTable.tsx:48
 msgid "Stopped"
 msgstr "Stopped"
 
-#: src/components/forms/InstanceOptions.tsx:150
+#: src/components/forms/InstanceOptions.tsx:151
 msgid "Running"
 msgstr "Running"
 
@@ -2220,8 +2233,8 @@ msgstr "Unknown error"
 msgid "None"
 msgstr "None"
 
-#: src/components/items/InvenTreeLogo.tsx:36
-#: src/components/items/InvenTreeLogo.tsx:40
+#: src/components/items/InvenTreeLogo.tsx:44
+#: src/components/items/InvenTreeLogo.tsx:54
 msgid "InvenTree Logo"
 msgstr "InvenTree Logo"
 
@@ -2229,6 +2242,7 @@ msgstr "InvenTree Logo"
 msgid "Default Language"
 msgstr "Default Language"
 
+#: src/components/items/LanguageSelect.tsx:52
 #: src/components/items/LanguageToggle.tsx:21
 msgid "Select language"
 msgstr "Select language"
@@ -4094,6 +4108,10 @@ msgstr "Order Parts"
 #~ msgid "Chinese (Traditional)"
 #~ msgstr "Chinese (Traditional)"
 
+#: src/contexts/LanguageContext.tsx:156
+msgid "An error occurred while loading translations, see browser console for details."
+msgstr "An error occurred while loading translations, see browser console for details."
+
 #: src/defaults/actions.tsx:41
 #: src/defaults/links.tsx:118
 #~ msgid "About this Inventree instance"
@@ -4222,13 +4240,17 @@ msgstr "Manage InvenTree plugins"
 #~ msgid "Current News"
 #~ msgstr "Current News"
 
-#: src/defaults/defaultHostList.tsx:8
-#~ msgid "InvenTree Demo"
-#~ msgstr "InvenTree Demo"
+#: src/defaults/defaultHostList.tsx:10
+msgid "Local Server"
+msgstr "Local Server"
 
-#: src/defaults/defaultHostList.tsx:16
-#~ msgid "Local Server"
-#~ msgstr "Local Server"
+#: src/defaults/defaultHostList.tsx:12
+msgid "InvenTree Demo"
+msgstr "InvenTree Demo"
+
+#: src/defaults/defaultHostList.tsx:14
+msgid "Current Server"
+msgstr "Current Server"
 
 #: src/defaults/links.tsx:17
 #~ msgid "GitHub"
@@ -5437,7 +5459,7 @@ msgstr "Confirm your new password"
 msgid "Confirm"
 msgstr "Confirm"
 
-#: src/pages/Auth/Layout.tsx:59
+#: src/pages/Auth/Layout.tsx:121
 msgid "Log off"
 msgstr "Log off"
 
@@ -5445,7 +5467,7 @@ msgstr "Log off"
 msgid "Checking if you are already logged in"
 msgstr "Checking if you are already logged in"
 
-#: src/pages/Auth/Login.tsx:32
+#: src/pages/Auth/Login.tsx:36
 msgid "No selection"
 msgstr "No selection"
 
@@ -5457,15 +5479,15 @@ msgstr "No selection"
 #~ msgid "Register below"
 #~ msgstr "Register below"
 
-#: src/pages/Auth/Login.tsx:102
+#: src/pages/Auth/Login.tsx:107
 msgid "Login"
 msgstr "Login"
 
-#: src/pages/Auth/Login.tsx:108
+#: src/pages/Auth/Login.tsx:113
 msgid "Logging you in"
 msgstr "Logging you in"
 
-#: src/pages/Auth/Login.tsx:115
+#: src/pages/Auth/Login.tsx:120
 msgid "Don't have an account?"
 msgstr "Don't have an account?"
 
@@ -6436,7 +6458,7 @@ msgstr "Remove Provider Link"
 #~ msgid "No tokens configured"
 #~ msgstr "No tokens configured"
 
-#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:61
+#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:60
 msgid "Display Settings"
 msgstr "Display Settings"
 
@@ -6445,66 +6467,66 @@ msgstr "Display Settings"
 #~ msgstr "bars"
 
 #: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:66
-#~ msgid "oval"
-#~ msgstr "oval"
-
-#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:67
 msgid "Language"
 msgstr "Language"
+
+#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:66
+#~ msgid "oval"
+#~ msgstr "oval"
 
 #: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:67
 #~ msgid "dots"
 #~ msgstr "dots"
 
+#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:75
+msgid "Color Mode"
+msgstr "Color Mode"
+
 #: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:78
-msgid "Use pseudo language"
-msgstr "Use pseudo language"
+#~ msgid "Use pseudo language"
+#~ msgstr "Use pseudo language"
 
 #: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:81
 #~ msgid "Theme"
 #~ msgstr "Theme"
 
-#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:85
-msgid "Color Mode"
-msgstr "Color Mode"
+#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:86
+msgid "Highlight color"
+msgstr "Highlight color"
 
 #: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:87
 #~ msgid "Primary color"
 #~ msgstr "Primary color"
 
-#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:96
-msgid "Highlight color"
-msgstr "Highlight color"
-
-#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:110
+#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:100
 msgid "Example"
 msgstr "Example"
 
-#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:116
+#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:106
 msgid "White color"
 msgstr "White color"
 
-#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:139
+#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:129
 msgid "Black color"
 msgstr "Black color"
 
-#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:162
+#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:152
 msgid "Border Radius"
 msgstr "Border Radius"
 
-#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:178
+#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:168
 msgid "Loader"
 msgstr "Loader"
 
-#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:185
+#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:175
 msgid "Bars"
 msgstr "Bars"
 
-#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:186
+#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:176
 msgid "Oval"
 msgstr "Oval"
 
-#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:187
+#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:177
 msgid "Dots"
 msgstr "Dots"
 
@@ -8722,8 +8744,14 @@ msgid "Action for stock items in this location"
 msgstr "Action for stock items in this location"
 
 #: src/pages/stock/LocationDetail.tsx:280
-msgid "Locations Action"
-msgstr "Locations Action"
+#: src/pages/stock/LocationDetail.tsx:407
+#: src/tables/stock/StockLocationTable.tsx:142
+msgid "Location Actions"
+msgstr "Location Actions"
+
+#: src/pages/stock/LocationDetail.tsx:280
+#~ msgid "Locations Action"
+#~ msgstr "Locations Action"
 
 #: src/pages/stock/LocationDetail.tsx:282
 msgid "Action for child locations in this location"
@@ -8755,10 +8783,21 @@ msgstr "Scanned stock location into location"
 msgid "Error scanning stock location"
 msgstr "Error scanning stock location"
 
-#: src/pages/stock/LocationDetail.tsx:407
-#: src/tables/stock/StockLocationTable.tsx:142
-msgid "Location Actions"
-msgstr "Location Actions"
+#: src/pages/stock/LocationDetail.tsx:384
+msgid "Scan in stock items"
+msgstr "Scan in stock items"
+
+#: src/pages/stock/LocationDetail.tsx:386
+msgid "Scan item into this location"
+msgstr "Scan item into this location"
+
+#: src/pages/stock/LocationDetail.tsx:390
+msgid "Scan in container"
+msgstr "Scan in container"
+
+#: src/pages/stock/LocationDetail.tsx:392
+msgid "Scan container into this location"
+msgstr "Scan container into this location"
 
 #: src/pages/stock/StockDetail.tsx:147
 msgid "Base Part"

@@ -33,3 +33,5 @@
 - 系统主配色已切换为 Santas Gray 调色板。14 阶色值定义在 `src/frontend/src/styles/overrides.css` 的 `:root` 变量，`theme.ts` 与 `main.css.ts` 已改为优先消费这些变量，后续视觉迭代按这套色阶推进。
 - `src/frontend/src/contexts/ThemeContext.tsx` 已将 `primaryColor` 固定为 `santasGray`，避免用户本地主题色把全局配色拉回蓝色，确保 Santas Gray 方案在实际界面稳定生效。
 - `InvenTreeTable` 默认 `minHeight` 已从 300 提升到 460（`src/frontend/src/tables/InvenTreeTable.tsx`），用于提升 PanelGroup 场景下的有效内容高度，减少大面积空白观感。
+- QC 工作流的 `web_ui` job 会在 `invoke update` 中执行 `compilemessages`，该链路依赖 `msgfmt`。`apt-dependency` 需要包含 `gettext`，否则会报 `Can't find msgfmt` 并在 `Environment Setup` 失败。当前已在 `.github/workflows/qc_checks.yaml` 补齐 `gettext`。
+- About 模态框的链接区已下线。`src/frontend/src/components/modals/AboutInvenTreeModal.tsx` 不再渲染 `Links` 标题和外链表格，`fillTable` 也已移除仅供链接区使用的 `alwaysLink` 分支。

@@ -67,7 +67,7 @@ const AboutContent = ({
     queryFn: () => api.get(apiUrl(ApiEndpoints.version)).then((res) => res.data)
   });
 
-  function fillTable(lookup: AboutLookupRef[], data: any, alwaysLink = false) {
+  function fillTable(lookup: AboutLookupRef[], data: any) {
     return lookup
       .filter((entry: AboutLookupRef) => !!data[entry.ref])
       .map((entry: AboutLookupRef, idx) => (
@@ -75,11 +75,7 @@ const AboutContent = ({
           <Table.Td>{entry.title}</Table.Td>
           <Table.Td>
             <Group justify='space-between' gap='xs'>
-              {alwaysLink ? (
-                <Anchor href={data[entry.ref]} target='_blank'>
-                  {data[entry.ref]}
-                </Anchor>
-              ) : entry.link ? (
+              {entry.link ? (
                 <Anchor href={entry.link} target='_blank'>
                   {data[entry.ref]}
                 </Anchor>
@@ -168,24 +164,6 @@ const AboutContent = ({
       </Group>
       <Table striped>
         <Table.Tbody>{fillTable(tableData, data.version)}</Table.Tbody>
-      </Table>
-      <Divider />
-      <StylishText size='lg'>
-        <Trans>Links</Trans>
-      </StylishText>
-      <Table striped>
-        <Table.Tbody>
-          {fillTable(
-            [
-              { ref: 'doc', title: <Trans>Documentation</Trans> },
-              { ref: 'code', title: <Trans>Source Code</Trans> },
-              { ref: 'app', title: <Trans>Mobile App</Trans> },
-              { ref: 'bug', title: <Trans>Submit Bug Report</Trans> }
-            ],
-            data.links,
-            true
-          )}
-        </Table.Tbody>
       </Table>
       <Divider />
       <Group justify='space-between'>

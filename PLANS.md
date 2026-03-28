@@ -7,6 +7,16 @@
 ## IN_PROGRESS
 
 ## DONE
+- [x] 2026-03-28 移除 About 模态框中的链接区域
+  - 完成时间：2026-03-28
+  - 验收结果：About 弹窗已仅保留版本信息区，不再渲染 `Links` 标题及 Documentation / Source Code / Mobile App / Submit Bug Report 链接表格
+  - 关联文件：`src/frontend/src/components/modals/AboutInvenTreeModal.tsx`
+  - 验证方式：`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过
+- [x] 2026-03-28 修复 QC 的 Tests - Web UI 在 Environment Setup 阶段失败
+  - 完成时间：2026-03-28
+  - 验收结果：`web_ui` 的环境安装已补齐 `gettext`，可提供 `msgfmt`，不再因 `Can't find msgfmt` 在 `invoke update` 阶段退出
+  - 关联文件：`.github/workflows/qc_checks.yaml`
+  - 验证方式：检查 workflow 变更，`web_ui` 的 `apt-dependency` 已从 `postgresql-client libpq-dev` 更新为 `postgresql-client libpq-dev gettext`
 - [x] 2026-03-28 提升 PanelGroup 内表格区域默认高度
   - 完成时间：2026-03-28
   - 验收结果：`part/category/index/parts` 等面板页的表格内容区默认高度已提升，不再只有较小固定空框

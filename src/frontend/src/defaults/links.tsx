@@ -86,21 +86,21 @@ export function DocumentationLinks(): MenuLinkItem[] {
       title: t`Getting Started`,
       link: docLinks.getting_started,
       external: true,
-      description: t`Getting started with InvenTree`
+      description: t`Getting started with 库存管理系统`
     },
     {
       id: 'api',
       title: t`API`,
       link: docLinks.api,
       external: true,
-      description: t`InvenTree API documentation`
+      description: t`库存管理系统 API documentation`
     },
     {
       id: 'developer',
       title: t`Developer Manual`,
       link: docLinks.developer,
       external: true,
-      description: t`InvenTree developer manual`
+      description: t`库存管理系统 developer manual`
     },
     {
       id: 'faq',
@@ -114,7 +114,7 @@ export function DocumentationLinks(): MenuLinkItem[] {
       title: t`GitHub Repository`,
       link: docLinks.github,
       external: true,
-      description: t`InvenTree source code on GitHub`
+      description: t`库存管理系统 source code on GitHub`
     }
   ];
 }
@@ -137,7 +137,7 @@ export function aboutInvenTree() {
     modal: 'about',
     title: (
       <StylishText size='xl'>
-        <Trans>About InvenTree</Trans>
+        <Trans>About 库存管理系统</Trans>
       </StylishText>
     ),
     size: 'xl',
@@ -166,14 +166,14 @@ export function AboutLinks(
     {
       id: 'instance',
       title: t`System Information`,
-      description: t`About this InvenTree instance`,
+      description: t`About this 库存管理系统 instance`,
       icon: 'info',
       action: serverInfo
     },
     {
       id: 'licenses',
       title: t`License Information`,
-      description: t`Licenses for dependencies of the InvenTree software`,
+      description: t`Licenses for dependencies of the 库存管理系统 software`,
       icon: 'license',
       action: licenseInfo
     }
@@ -183,8 +183,8 @@ export function AboutLinks(
   if (user.isSuperuser() || !settings.isSet('INVENTREE_RESTRICT_ABOUT')) {
     base_items.push({
       id: 'about',
-      title: t`About InvenTree`,
-      description: t`About the InvenTree Project`,
+      title: t`About 库存管理系统`,
+      description: t`About the 库存管理系统 Project`,
       icon: 'info',
       action: aboutInvenTree
     });

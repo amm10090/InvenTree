@@ -9,7 +9,8 @@ export function translateHostName(name: string | undefined): string {
     case 'Localhost':
       return t`Local Server`;
     case 'InvenTree Demo':
-      return t`InvenTree Demo`;
+    case '库存管理系统演示':
+      return t`库存管理系统演示`;
     case 'Current Server':
       return t`Current Server`;
     default:

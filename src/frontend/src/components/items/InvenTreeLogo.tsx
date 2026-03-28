@@ -41,7 +41,7 @@ export function InvenTreeLogo({
     return (
       <img
         src={server.customize.logo}
-        alt={t`InvenTree Logo`}
+        alt={t`库存管理系统 Logo`}
         height={height}
         className={className}
       />
@@ -51,7 +51,7 @@ export function InvenTreeLogo({
   return (
     <img
       src={InvenTreeIcon}
-      alt={t`InvenTree Logo`}
+      alt={t`库存管理系统 Logo`}
       height={height}
       className={className}
     />

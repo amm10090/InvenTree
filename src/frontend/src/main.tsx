@@ -78,7 +78,7 @@ window.INVENTREE_SETTINGS = {
       ? {
           'server-demo': {
             host: 'https://demo.inventree.org/',
-            name: 'InvenTree Demo'
+            name: '库存管理系统演示'
           }
         }
       : {}),

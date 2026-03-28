@@ -9,12 +9,23 @@ import {
 } from '../../contexts/LanguageContext';
 import { useLocalState } from '../../states/LocalState';
 
-export function LanguageSelect({ width = 80 }: Readonly<{ width?: number }>) {
+export function LanguageSelect({
+  width = 80,
+  onChange
+}: Readonly<{
+  width?: number | string;
+  onChange?: (value: string | null) => void;
+}>) {
   const [value, setValue] = useState<string | null>(null);
   const [locale, setLanguage] = useLocalState(
     useShallow((state) => [state.language, state.setLanguage])
   );
   const [langOptions, setLangOptions] = useState<any[]>([]);
+
+  function handleChange(newValue: string | null) {
+    setValue(newValue);
+    onChange?.(newValue);
+  }
 
   // change global language on change
   useEffect(() => {
@@ -47,7 +58,8 @@ export function LanguageSelect({ width = 80 }: Readonly<{ width?: number }>) {
       ]}
       value={value}
       defaultValue={''}
-      onChange={setValue}
+      onChange={handleChange}
+      nothingFoundMessage={t`No languages found`}
       searchable
       aria-label={t`Select language`}
     />

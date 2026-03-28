@@ -279,7 +279,8 @@ class InfoView(APIView):
     @extend_schema(
         responses={
             200: OpenApiResponse(
-                response=InfoApiSerializer, description='InvenTree server information'
+                response=InfoApiSerializer,
+                description='库存管理系统 server information',
             )
         }
     )
@@ -291,7 +292,7 @@ class InfoView(APIView):
             is_staff = self.check_auth_header(request)
 
         data = {
-            'server': 'InvenTree',
+            'server': '库存管理系统',
             'id': InvenTree.version.inventree_identifier(),
             'version': InvenTree.version.inventreeVersion(),
             'instance': InvenTree.version.inventreeInstanceName(),

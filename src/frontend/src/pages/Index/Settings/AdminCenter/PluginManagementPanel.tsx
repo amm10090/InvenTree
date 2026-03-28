@@ -35,7 +35,7 @@ export default function PluginManagementPanel() {
           color='blue'
         >
           <Trans>
-            External plugins are not enabled for this InvenTree installation.
+            External plugins are not enabled for this 库存管理系统 installation.
           </Trans>
         </Alert>
       )}

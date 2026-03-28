@@ -98,7 +98,7 @@ const AboutContent = ({
   const commit_set: boolean =
     data.version.commit_hash && data.version.commit_date;
 
-  const copyval = `InvenTree-Version: ${data.version.server}\nDjango Version: ${
+  const copyval = `库存管理系统-Version: ${data.version.server}\nDjango Version: ${
     data.version.django
   }\n${
     commit_set
@@ -115,7 +115,7 @@ const AboutContent = ({
   const tableData = [
     {
       ref: 'server',
-      title: <Trans>InvenTree Version</Trans>,
+      title: <Trans>库存管理系统 Version</Trans>,
       link: 'https://github.com/inventree/InvenTree/releases',
       copy: true
     },

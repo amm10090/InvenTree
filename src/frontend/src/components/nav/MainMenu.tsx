@@ -96,7 +96,7 @@ export function MainMenu() {
             onClick={() => aboutInvenTree()}
             leftSection={<IconInfoCircle />}
           >
-            <Trans>About InvenTree</Trans>
+            <Trans>About 库存管理系统</Trans>
           </Menu.Item>
           <Menu.Divider />
           <Menu.Item

@@ -16,7 +16,7 @@ export default function PageTitle({
   const pageTitle = useMemo(() => {
     const instanceName = globalSettings.getSetting(
       'INVENTREE_INSTANCE',
-      'InvenTree'
+      '库存管理系统'
     );
     const useInstanceName = globalSettings.isSet(
       'INVENTREE_INSTANCE_TITLE',

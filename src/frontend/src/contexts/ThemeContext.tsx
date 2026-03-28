@@ -3,7 +3,7 @@ import { Trans } from '@lingui/react';
 import {
   MantineProvider,
   type MantineThemeOverride,
-  createTheme
+  mergeThemeOverrides
 } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
@@ -14,6 +14,7 @@ import { LicenseModal } from '../components/modals/LicenseModal';
 import { QrModal } from '../components/modals/QrModal';
 import { ServerInfoModal } from '../components/modals/ServerInfoModal';
 import { useLocalState } from '../states/LocalState';
+import { baseThemeOverride, createAppTheme } from '../theme';
 import { LanguageContext } from './LanguageContext';
 import { colorSchema } from './colorSchema';
 
@@ -28,23 +29,25 @@ export function ThemeContext({
 
   // Theme
   try {
-    customUserTheme = createTheme({
-      primaryColor: userTheme.primaryColor,
-      white: userTheme.whiteColor,
-      black: userTheme.blackColor,
-      defaultRadius: userTheme.radius,
-      breakpoints: {
-        xs: '30em',
-        sm: '48em',
-        md: '64em',
-        lg: '74em',
-        xl: '90em'
-      }
-    });
+    customUserTheme = createAppTheme(
+      mergeThemeOverrides(baseThemeOverride, {
+        primaryColor: userTheme.primaryColor,
+        white: userTheme.whiteColor,
+        black: userTheme.blackColor,
+        defaultRadius: userTheme.radius,
+        breakpoints: {
+          xs: '30em',
+          sm: '48em',
+          md: '64em',
+          lg: '74em',
+          xl: '90em'
+        }
+      } satisfies MantineThemeOverride)
+    );
   } catch (error) {
     console.error('Error creating theme with user settings:', error);
     // Fallback to default theme if there's an error
-    customUserTheme = undefined;
+    customUserTheme = createAppTheme();
   }
 
   return (

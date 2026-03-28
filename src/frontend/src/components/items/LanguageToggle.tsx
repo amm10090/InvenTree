@@ -1,38 +1,46 @@
-import { ActionIcon, Group, Tooltip } from '@mantine/core';
+import { ActionIcon, Popover, Stack, Text, Tooltip } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconLanguage } from '@tabler/icons-react';
 
 import { t } from '@lingui/core/macro';
+import {
+  authOptionPopover,
+  authOptionPopoverLabel
+} from '../../pages/Auth/AuthLayout.css';
 import { LanguageSelect } from './LanguageSelect';
 
 export function LanguageToggle() {
   const [open, toggle] = useDisclosure();
 
   return (
-    <Group
-      justify='center'
-      style={{
-        border: open === true ? '1px dashed' : '',
-        margin: open === true ? 2 : 12,
-        padding: open === true ? 8 : 0
-      }}
-      aria-label='Open language options'
+    <Popover
+      opened={open}
+      onChange={(nextOpen) => (nextOpen ? toggle.open() : toggle.close())}
+      position='top'
+      shadow='md'
+      width={220}
+      offset={10}
+      trapFocus={false}
     >
-      <Tooltip label={t`Select language`}>
-        <ActionIcon
-          onClick={() => toggle.toggle()}
-          size='lg'
-          variant='transparent'
-          aria-label='Language toggle'
-        >
-          <IconLanguage />
-        </ActionIcon>
-      </Tooltip>
-      {open && (
-        <Group>
-          <LanguageSelect />
-        </Group>
-      )}
-    </Group>
+      <Popover.Target>
+        <Tooltip label={t`Select language`}>
+          <ActionIcon
+            onClick={toggle.toggle}
+            size='lg'
+            variant={open ? 'subtle' : 'transparent'}
+            radius='xl'
+            aria-label='Language toggle'
+          >
+            <IconLanguage />
+          </ActionIcon>
+        </Tooltip>
+      </Popover.Target>
+      <Popover.Dropdown className={authOptionPopover}>
+        <Stack gap={8}>
+          <Text className={authOptionPopoverLabel}>{t`Language`}</Text>
+          <LanguageSelect width='100%' onChange={() => toggle.close()} />
+        </Stack>
+      </Popover.Dropdown>
+    </Popover>
   );
 }

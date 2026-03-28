@@ -44,6 +44,10 @@ const authDefaultAcceptLanguage = 'zh-hans, en-us';
 export default function LoginLayoutComponent() {
   const [language] = useLocalState(useShallow((state) => [state.language]));
   const [server] = useServerApiState(useShallow((state) => [state.server]));
+  const brandName =
+    !server.instance || server.instance === 'InvenTree'
+      ? '库存管理系统'
+      : server.instance;
 
   useLayoutEffect(() => {
     if (language || server.default_locale) {
@@ -78,9 +82,7 @@ export default function LoginLayoutComponent() {
             <div className={authLogoFrame}>
               <InvenTreeLogo height={44} className={authLogoImage} />
             </div>
-            <Text className={authBrandName}>
-              {server.instance || 'InvenTree'}
-            </Text>
+            <Text className={authBrandName}>{brandName}</Text>
             {server.version && (
               <Text className={authBrandMeta}>{server.version}</Text>
             )}

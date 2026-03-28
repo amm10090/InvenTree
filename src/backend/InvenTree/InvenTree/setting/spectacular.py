@@ -6,14 +6,14 @@ from InvenTree.version import inventreeApiVersion
 def get_spectacular_settings():
     """Return configuration dictionary for drf-spectacular."""
     return {
-        'TITLE': 'InvenTree API',
-        'DESCRIPTION': 'API for InvenTree - the intuitive open source inventory management system',
+        'TITLE': '库存管理系统 API',
+        'DESCRIPTION': 'API for 库存管理系统 - the intuitive open source inventory management system',
         'LICENSE': {
             'name': 'MIT',
             'url': 'https://github.com/inventree/InvenTree/blob/master/LICENSE',
         },
         'EXTERNAL_DOCS': {
-            'description': 'More information about InvenTree in the official docs',
+            'description': 'More information about 库存管理系统 in the official docs',
             'url': 'https://docs.inventree.org',
         },
         'VERSION': str(inventreeApiVersion()),

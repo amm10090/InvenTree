@@ -44,7 +44,7 @@ msgstr "删除"
 #: src/components/editors/TemplateEditor/TemplateEditor.tsx:188
 #: src/components/items/ActionDropdown.tsx:277
 #: src/components/items/ActionDropdown.tsx:278
-#: src/contexts/ThemeContext.tsx:57
+#: src/contexts/ThemeContext.tsx:60
 #: src/hooks/UseForm.tsx:33
 #: src/pages/Index/Settings/AccountSettings/MFASettings.tsx:148
 #: src/pages/Index/Settings/AccountSettings/MFASettings.tsx:323
@@ -1170,8 +1170,13 @@ msgstr "快速上手"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:195
 #: src/defaults/links.tsx:89
-msgid "Getting started with InvenTree"
-msgstr "开始使用 InvenTree"
+msgid "Getting started with 库存管理系统"
+msgstr ""
+
+#: src/components/dashboard/DashboardWidgetLibrary.tsx:195
+#: src/defaults/links.tsx:89
+#~ msgid "Getting started with InvenTree"
+#~ msgstr "开始使用 InvenTree"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:202
 #: src/components/dashboard/widgets/NewsWidget.tsx:123
@@ -1179,8 +1184,12 @@ msgid "News Updates"
 msgstr "最新消息"
 
 #: src/components/dashboard/DashboardWidgetLibrary.tsx:203
-msgid "The latest news from InvenTree"
-msgstr "来自 InvenTree 的最新消息"
+msgid "The latest news from 库存管理系统"
+msgstr ""
+
+#: src/components/dashboard/DashboardWidgetLibrary.tsx:203
+#~ msgid "The latest news from InvenTree"
+#~ msgstr "来自 InvenTree 的最新消息"
 
 #: src/components/dashboard/widgets/ColorToggleWidget.tsx:18
 #: src/components/nav/MainMenu.tsx:93
@@ -1335,7 +1344,7 @@ msgstr "清除"
 
 #: src/components/details/DetailsImage.tsx:306
 #: src/components/forms/ApiForm.tsx:696
-#: src/contexts/ThemeContext.tsx:56
+#: src/contexts/ThemeContext.tsx:59
 #: src/pages/Index/Settings/AccountSettings/MFASettings.tsx:151
 #: src/pages/Index/Settings/AccountSettings/MFASettings.tsx:570
 msgid "Submit"
@@ -2240,17 +2249,31 @@ msgstr "无"
 
 #: src/components/items/InvenTreeLogo.tsx:44
 #: src/components/items/InvenTreeLogo.tsx:54
-msgid "InvenTree Logo"
-msgstr "InvenTree Logo"
+msgid "库存管理系统 Logo"
+msgstr ""
 
-#: src/components/items/LanguageSelect.tsx:44
+#: src/components/items/InvenTreeLogo.tsx:44
+#: src/components/items/InvenTreeLogo.tsx:54
+#~ msgid "InvenTree Logo"
+#~ msgstr "InvenTree Logo"
+
+#: src/components/items/LanguageSelect.tsx:55
 msgid "Default Language"
 msgstr "默认语言"
 
-#: src/components/items/LanguageSelect.tsx:52
-#: src/components/items/LanguageToggle.tsx:21
+#: src/components/items/LanguageSelect.tsx:62
+msgid "No languages found"
+msgstr "未找到语言"
+
+#: src/components/items/LanguageSelect.tsx:64
+#: src/components/items/LanguageToggle.tsx:26
 msgid "Select language"
 msgstr "选择语言"
+
+#: src/components/items/LanguageToggle.tsx:40
+#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:66
+msgid "Language"
+msgstr "语言"
 
 #: src/components/items/OnlyStaff.tsx:10
 #: src/components/modals/AboutInvenTreeModal.tsx:50
@@ -2343,8 +2366,12 @@ msgstr "已选"
 #~ msgstr "Your InvenTree version status is"
 
 #: src/components/modals/AboutInvenTreeModal.tsx:118
-msgid "InvenTree Version"
-msgstr "InvenTree 版本"
+msgid "库存管理系统 Version"
+msgstr ""
+
+#: src/components/modals/AboutInvenTreeModal.tsx:118
+#~ msgid "InvenTree Version"
+#~ msgstr "InvenTree 版本"
 
 #: src/components/modals/AboutInvenTreeModal.tsx:130
 msgid "Python Version"
@@ -2656,8 +2683,15 @@ msgstr "管理中心"
 #: src/defaults/actions.tsx:58
 #: src/defaults/links.tsx:140
 #: src/defaults/links.tsx:186
-msgid "About InvenTree"
-msgstr "关于 InvenTree"
+msgid "About 库存管理系统"
+msgstr ""
+
+#: src/components/nav/MainMenu.tsx:99
+#: src/defaults/actions.tsx:58
+#: src/defaults/links.tsx:140
+#: src/defaults/links.tsx:186
+#~ msgid "About InvenTree"
+#~ msgstr "关于 InvenTree"
 
 #: src/components/nav/MainMenu.tsx:108
 msgid "Logout"
@@ -4113,7 +4147,7 @@ msgstr "订购零件"
 #~ msgid "Chinese (Traditional)"
 #~ msgstr "Chinese (Traditional)"
 
-#: src/contexts/LanguageContext.tsx:156
+#: src/contexts/LanguageContext.tsx:160
 msgid "An error occurred while loading translations, see browser console for details."
 msgstr "加载翻译时发生错误，请查看浏览器控制台了解详情。"
 
@@ -4123,16 +4157,28 @@ msgstr "加载翻译时发生错误，请查看浏览器控制台了解详情。
 #~ msgstr "About this Inventree instance"
 
 #: src/defaults/actions.tsx:43
-msgid "Go to the InvenTree dashboard"
-msgstr "跳转到 InvenTree 仪表板"
+msgid "Go to the 库存管理系统 dashboard"
+msgstr ""
+
+#: src/defaults/actions.tsx:43
+#~ msgid "Go to the InvenTree dashboard"
+#~ msgstr "跳转到 InvenTree 仪表板"
 
 #: src/defaults/actions.tsx:50
-msgid "Visit the documentation to learn more about InvenTree"
-msgstr "访问文档以了解更多关于 InvenTree"
+msgid "Visit the documentation to learn more about 库存管理系统"
+msgstr ""
+
+#: src/defaults/actions.tsx:50
+#~ msgid "Visit the documentation to learn more about InvenTree"
+#~ msgstr "访问文档以了解更多关于 InvenTree"
 
 #: src/defaults/actions.tsx:59
-msgid "About the InvenTree org"
-msgstr "关于 InvenTree 组织"
+msgid "About the 库存管理系统 org"
+msgstr ""
+
+#: src/defaults/actions.tsx:59
+#~ msgid "About the InvenTree org"
+#~ msgstr "关于 InvenTree 组织"
 
 #: src/defaults/actions.tsx:65
 msgid "Server Information"
@@ -4140,8 +4186,13 @@ msgstr "服务器信息"
 
 #: src/defaults/actions.tsx:66
 #: src/defaults/links.tsx:169
-msgid "About this InvenTree instance"
-msgstr "关于 InvenTree 实例"
+msgid "About this 库存管理系统 instance"
+msgstr ""
+
+#: src/defaults/actions.tsx:66
+#: src/defaults/links.tsx:169
+#~ msgid "About this InvenTree instance"
+#~ msgstr "关于 InvenTree 实例"
 
 #: src/defaults/actions.tsx:72
 #: src/defaults/links.tsx:153
@@ -4202,8 +4253,12 @@ msgid "Go to the Admin Center"
 msgstr "转到管理中心"
 
 #: src/defaults/actions.tsx:174
-msgid "Manage InvenTree plugins"
-msgstr "管理InvenTree插件"
+msgid "Manage 库存管理系统 plugins"
+msgstr ""
+
+#: src/defaults/actions.tsx:174
+#~ msgid "Manage InvenTree plugins"
+#~ msgstr "管理InvenTree插件"
 
 #: src/defaults/dashboardItems.tsx:29
 #~ msgid "Latest Parts"
@@ -4250,10 +4305,14 @@ msgid "Local Server"
 msgstr "本地服务器"
 
 #: src/defaults/defaultHostList.tsx:12
-msgid "InvenTree Demo"
-msgstr "InvenTree 演示"
+#~ msgid "InvenTree Demo"
+#~ msgstr "InvenTree 演示"
 
-#: src/defaults/defaultHostList.tsx:14
+#: src/defaults/defaultHostList.tsx:13
+msgid "库存管理系统演示"
+msgstr ""
+
+#: src/defaults/defaultHostList.tsx:15
 msgid "Current Server"
 msgstr "当前服务器"
 
@@ -4284,16 +4343,24 @@ msgid "API"
 msgstr "API"
 
 #: src/defaults/links.tsx:96
-msgid "InvenTree API documentation"
-msgstr "InvenTree API 文档"
+msgid "库存管理系统 API documentation"
+msgstr ""
+
+#: src/defaults/links.tsx:96
+#~ msgid "InvenTree API documentation"
+#~ msgstr "InvenTree API 文档"
 
 #: src/defaults/links.tsx:100
 msgid "Developer Manual"
 msgstr "开发者手册"
 
 #: src/defaults/links.tsx:103
-msgid "InvenTree developer manual"
-msgstr "InvenTree 开发者手册"
+msgid "库存管理系统 developer manual"
+msgstr ""
+
+#: src/defaults/links.tsx:103
+#~ msgid "InvenTree developer manual"
+#~ msgstr "InvenTree 开发者手册"
 
 #: src/defaults/links.tsx:107
 msgid "FAQ"
@@ -4308,8 +4375,12 @@ msgid "GitHub Repository"
 msgstr "GitHub 存储库"
 
 #: src/defaults/links.tsx:117
-msgid "InvenTree source code on GitHub"
-msgstr "GitHub 上的 InvenTree 源代码"
+msgid "库存管理系统 source code on GitHub"
+msgstr ""
+
+#: src/defaults/links.tsx:117
+#~ msgid "InvenTree source code on GitHub"
+#~ msgstr "GitHub 上的 InvenTree 源代码"
 
 #: src/defaults/links.tsx:117
 #~ msgid "Licenses for packages used by InvenTree"
@@ -4325,12 +4396,20 @@ msgstr "系统信息"
 #~ msgstr "Licenses"
 
 #: src/defaults/links.tsx:176
-msgid "Licenses for dependencies of the InvenTree software"
-msgstr "InvenTree软件依赖许可"
+msgid "Licenses for dependencies of the 库存管理系统 software"
+msgstr ""
+
+#: src/defaults/links.tsx:176
+#~ msgid "Licenses for dependencies of the InvenTree software"
+#~ msgstr "InvenTree软件依赖许可"
 
 #: src/defaults/links.tsx:187
-msgid "About the InvenTree Project"
-msgstr "关于InvenTree项目"
+msgid "About the 库存管理系统 Project"
+msgstr ""
+
+#: src/defaults/links.tsx:187
+#~ msgid "About the InvenTree Project"
+#~ msgstr "关于InvenTree项目"
 
 #: src/defaults/menuItems.tsx:7
 #~ msgid "Open sourcea"
@@ -5464,7 +5543,7 @@ msgstr "确认您的新密码"
 msgid "Confirm"
 msgstr "确认"
 
-#: src/pages/Auth/Layout.tsx:121
+#: src/pages/Auth/Layout.tsx:127
 msgid "Log off"
 msgstr "注销登录"
 
@@ -6472,10 +6551,6 @@ msgstr "显示设置"
 #~ msgstr "bars"
 
 #: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:66
-msgid "Language"
-msgstr "语言"
-
-#: src/pages/Index/Settings/AccountSettings/UserThemePanel.tsx:66
 #~ msgid "oval"
 #~ msgstr "oval"
 
@@ -6774,8 +6849,12 @@ msgstr "信息"
 #~ msgstr "Plugin Error Stack"
 
 #: src/pages/Index/Settings/AdminCenter/PluginManagementPanel.tsx:37
-msgid "External plugins are not enabled for this InvenTree installation."
-msgstr "此 InvenTree 未启用外部插件。"
+msgid "External plugins are not enabled for this 库存管理系统 installation."
+msgstr ""
+
+#: src/pages/Index/Settings/AdminCenter/PluginManagementPanel.tsx:37
+#~ msgid "External plugins are not enabled for this InvenTree installation."
+#~ msgstr "此 InvenTree 未启用外部插件。"
 
 #: src/pages/Index/Settings/AdminCenter/PluginManagementPanel.tsx:45
 #~ msgid "Warning"

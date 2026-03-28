@@ -6,7 +6,38 @@
 
 ## IN_PROGRESS
 
+- [ ] 2026-03-28 配置 Cloudflare Tunnel 绑定域名 `gl.amoze.net` 到本机 `127.0.0.1:8000`
+  - 目标：创建并配置可持续运行的隧道，完成 DNS 绑定并验证公网访问
+  - 验收标准：`cloudflared tunnel list` 可见新隧道；`cloudflared tunnel route dns` 成功；访问 `https://gl.amoze.net` 返回有效响应
+  - 涉及文件：`PLANS.md`、`MEMORIES.md`、`~/.cloudflared/gl-amoze-net.yml`
+  - 进展：已确认本机安装 `cloudflared 2026.3.0` 且具备可用 Cloudflare 账户登录态
+
 ## DONE
+- [x] 2026-03-28 调整部署脚本为每次部署都清理历史镜像和缓存
+  - 完成时间：2026-03-28
+  - 验收结果：`deploy_inventree_remote.sh` 已改为无条件执行 `docker image prune -af` 与 `docker builder prune -af`，不再依赖低于阈值才触发清理，避免历史镜像持续堆积
+  - 关联文件：`.github/scripts/deploy_inventree_remote.sh`、`PLANS.md`、`MEMORIES.md`
+  - 验证方式：`bash -n .github/scripts/deploy_inventree_remote.sh` 通过；脚本内容确认清理逻辑位于 `docker compose pull` 前
+- [x] 2026-03-28 修复线上 GCE 磁盘打满导致部署失败与站点 502
+  - 完成时间：2026-03-28
+  - 验收结果：实例磁盘已从 `/mnt/docker-data` 100% 降到 27%，`inventree-db` 已恢复稳定运行，`inventree-server/worker` 已切回目标镜像 `ghcr.io/amm10090/inventree:sha-ea806da`，健康检查 `http://127.0.0.1:8086/api/system/health/` 返回 `200`
+  - 关联文件：`PLANS.md`、`MEMORIES.md`、`.github/scripts/deploy_inventree_remote.sh`
+  - 验证方式：`gcloud compute ssh --zone us-west1-a instance-20260310-032343 --project gen-lang-client-0984777924 --tunnel-through-iap --command 'df -h /mnt/docker-data; cd /mnt/docker-data/inventree && sudo docker compose ps; curl -sSI http://127.0.0.1:8086/api/system/health/ | head -n 1'`；`bash -n .github/scripts/deploy_inventree_remote.sh`
+- [x] 2026-03-28 排查 GitHub Actions 任务 23681917686/68995272150 失败并核查线上 GCE 实例状态
+  - 完成时间：2026-03-28
+  - 验收结果：失败步骤定位在 `Deploy over IAP SSH`，远端 `docker compose pull` 报错 `failed to extract layer ... no space left on device`；线上实例 `/mnt/docker-data` 已满（`30G` 用满），`containerd` 占用约 `28G`，导致 `inventree-db` 持续重启并触发 `/api/system/health/` 返回 `502`
+  - 关联文件：`PLANS.md`、`MEMORIES.md`、`.github/workflows/fork_deploy_gce.yaml`、`.github/scripts/deploy_inventree_remote.sh`
+  - 验证方式：`gh run view 23681917686 --repo amm10090/InvenTree --job 68995272150 --log`；`gcloud compute ssh --zone us-west1-a instance-20260310-032343 --project gen-lang-client-0984777924 --tunnel-through-iap --command 'df -h /mnt/docker-data; sudo docker compose -f /mnt/docker-data/inventree/docker-compose.yml ps; sudo docker logs --tail 120 inventree2-inventree-db-1'`
+- [x] 2026-03-28 修复 localhost:8000 无法访问
+  - 完成时间：2026-03-28
+  - 验收结果：容器内已执行 `invoke update` 并启动 `invoke dev.server --address 0.0.0.0:8000`；`curl --noproxy '*' -I http://127.0.0.1:8000` 返回 `HTTP/1.1 302 Found`，服务可达
+  - 关联文件：`PLANS.md`、`MEMORIES.md`
+  - 验证方式：`docker exec inventree-prod-dev_devcontainer-inventree-1 tail -n 120 /tmp/inventree-devserver.log` 显示 Django server 已启动
+- [x] 2026-03-28 使用远端最新 prod 代码重建本机 devcontainer 镜像并更新运行中的 Docker 服务
+  - 完成时间：2026-03-28
+  - 验收结果：`git pull --ff-only fork prod` 已确认本地与远端 `fork/prod` 同步在 `ea806da4a3`；`inventree` 镜像已重建并完成容器替换，当前服务状态为 `Up`
+  - 关联文件：`.devcontainer/docker-compose.yml`、`PLANS.md`、`MEMORIES.md`
+  - 验证方式：`docker compose -p inventree-prod-dev_devcontainer -f .devcontainer/docker-compose.yml up -d --build --force-recreate inventree` 成功；`docker compose -p inventree-prod-dev_devcontainer -f .devcontainer/docker-compose.yml -f /tmp/inventree-devcontainer-override.yml ps` 显示 `inventree` / `db` / `redis` 全部为 `Up`
 - [x] 2026-03-28 修复 QC 自定义开屏测试找不到自定义 splash 图
   - 完成时间：2026-03-28
   - 验收结果：登录页 `SplashScreen` 已恢复读取 `server.customize.splash` 并写入容器背景样式，`playwright_custom_splash.png` 可出现在页面样式中供定制化测试断言

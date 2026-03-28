@@ -30,6 +30,22 @@ fi
 
 grep '^INVENTREE_IMAGE=' .env
 
+echo "检查部署盘剩余空间..."
+${SUDO} df -h "${COMPOSE_DIR}" || true
+
+echo "清理历史镜像和构建缓存..."
+${SUDO} docker image prune -af || true
+${SUDO} docker builder prune -af || true
+${SUDO} docker system df || true
+
+MIN_FREE_GB="${MIN_FREE_GB:-6}"
+NEED_KB="$((MIN_FREE_GB * 1024 * 1024))"
+AVAIL_KB="$(${SUDO} df -Pk "${COMPOSE_DIR}" | awk 'NR==2 {print $4}')"
+if [[ -n "${AVAIL_KB}" && "${AVAIL_KB}" -lt "${NEED_KB}" ]]; then
+  echo "部署中止：清理后可用空间仍低于 ${MIN_FREE_GB}GiB，请扩容磁盘或进一步清理" >&2
+  exit 1
+fi
+
 ${SUDO} docker compose pull inventree-server inventree-worker
 
 # 在升级后先运行静态资源同步，避免前端哈希资源 404

@@ -36,3 +36,11 @@
 - QC 工作流的 `web_ui` job 会在 `invoke update` 中执行 `compilemessages`，该链路依赖 `msgfmt`。`apt-dependency` 需要包含 `gettext`，否则会报 `Can't find msgfmt` 并在 `Environment Setup` 失败。当前已在 `.github/workflows/qc_checks.yaml` 补齐 `gettext`。
 - About 模态框的链接区已下线。`src/frontend/src/components/modals/AboutInvenTreeModal.tsx` 不再渲染 `Links` 标题和外链表格，`fillTable` 也已移除仅供链接区使用的 `alwaysLink` 分支。
 - 登录页 `SplashScreen` 仍需兼容后端自定义开屏配置。`server.customize.splash` 现在会通过 `generateUrl` 注入到容器 `backgroundImage`，以保持 `INVENTREE_CUSTOM_SPLASH` 链路和 Playwright customization 用例可用。
+
+- 本机 devcontainer 栈若直接执行 `docker compose -p inventree-prod-dev_devcontainer -f .devcontainer/docker-compose.yml up -d inventree`，`inventree` 容器会因 `ENTRYPOINT ./init.sh` 未收到命令参数而 `Exited (129)`；需要额外覆写启动命令。
+- 已验证可用的重建与拉起流程是先 `git pull --ff-only fork prod`，再执行 `docker compose -p inventree-prod-dev_devcontainer -f .devcontainer/docker-compose.yml up -d --build --force-recreate inventree`，随后用临时 override 覆写 `entrypoint=/bin/sh -c` 与 `command=while sleep 1000; do :; done` 让 devcontainer 服务保持 `Up`。
+
+- 主机环境存在 `HTTP_PROXY=http://127.0.0.1:7890` 时，直接访问 `http://localhost:8000` 可能被本地代理转发并返回 `502`；本地排查建议使用 `http://127.0.0.1:8000` 并确保代理绕过本地地址（`NO_PROXY`）。
+- devcontainer 容器重建后要恢复 Web 访问，需要在容器内执行 `invoke update` 后再启动 `invoke dev.server --address 0.0.0.0:8000`。
+- `Fork Deploy GCE` 若在 `Deploy over IAP SSH` 失败并出现 `failed to extract layer ... no space left on device`，根因通常是实例磁盘 `/mnt/docker-data` 被 `containerd` 镜像快照占满。2026-03-28 实测该实例 `containerd` 占用约 `28G/30G`，同时触发 `inventree-db` 因 `No space left on device` 重启和站点 `502`。排查优先看 `gh run view <run_id> --job <job_id> --log`、实例内 `df -h /mnt/docker-data`、`docker system df`、`docker logs inventree2-inventree-db-1`。
+- `.github/scripts/deploy_inventree_remote.sh` 部署前会固定执行 `docker image prune -af` 与 `docker builder prune -af` 清理历史镜像和构建缓存，不再依赖空间阈值触发。清理后仍会校验可用空间是否低于 `MIN_FREE_GB`（默认 `6GiB`），不足则中止部署并报错。

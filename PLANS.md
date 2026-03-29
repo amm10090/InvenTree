@@ -19,6 +19,18 @@
   - 进展：已确认本机安装 `cloudflared 2026.3.0` 且具备可用 Cloudflare 账户登录态
 
 ## DONE
+- [x] 2026-03-29 为 GCE fork 部署工作流补充 IAP SSH 重试兜底
+  - 完成时间：2026-03-29
+  - 验收结果：`.github/workflows/fork_deploy_gce.yaml` 的 `Deploy over IAP SSH` 步骤已加入 `retry_gcloud_ssh` 包装，对 `gcloud compute scp` 与 `gcloud compute ssh` 分别执行最多 6 次退避重试，并显式加上 `--quiet`，降低 runner 新建临时 SSH key 后的传播抖动导致的首轮失败
+  - 关联文件：`.github/workflows/fork_deploy_gce.yaml`、`PLANS.md`、`MEMORIES.md`
+  - 验证方式：人工复核 workflow 逻辑；实例侧 IAP `scp/ssh` 已在修复后实测通过
+
+- [x] 2026-03-29 恢复 GCE 实例 IAP SSH 连通性并解除 GitHub Actions 部署阻塞
+  - 完成时间：2026-03-29
+  - 验收结果：已确认 GitHub Actions 这次失败不是 SSH key 传播问题，而是实例端 22 口握手阶段被关闭；通过 `awesome_gates` 容器为实例补上 `iap-ssh` tag、创建 `allow-iap-ssh` 与 `deny-public-ssh-iap-only` 防火墙规则，并用一次性 `startup-script` 在重启后重载 `ssh.service`。串口日志确认 `sshd` 重新监听 `0.0.0.0:22` / `[::]:22`，随后 IAP `gcloud compute ssh` 与 `gcloud compute scp` 已复测通过
+  - 关联文件：`PLANS.md`、`MEMORIES.md`
+  - 验证方式：`docker exec awesome_gates gcloud compute ssh ... --tunnel-through-iap --command 'echo ssh-ok'` 返回 `ssh-ok`；`docker exec awesome_gates gcloud compute scp ... --tunnel-through-iap` 成功；串口日志含 `Started ssh.service - OpenBSD Secure Shell server.` 与 `Server listening on 0.0.0.0 port 22.`
+
 - [x] 2026-03-29 停止线上实例 x-ui 运行
   - 完成时间：2026-03-29
   - 验收结果：已通过 `awesome_gates` 容器把实例 `instance-20260310-032343` 的 `x-ui.service` 禁用并停止。启动脚本执行日志明确显示 `Removed '/etc/systemd/system/multi-user.target.wants/x-ui.service'`、`Stopped x-ui.service - x-ui Service.`、`systemctl is-enabled x-ui => disabled`、`systemctl is-active x-ui => inactive`，随后已移除临时 `startup-script` 元数据，避免后续每次开机重复执行。

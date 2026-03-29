@@ -113,22 +113,49 @@ jobs:
 
           gcloud --quiet config set project "${PROJECT_ID}"
 
-          gcloud compute scp \
-            --project "${PROJECT_ID}" \
-            --zone "${ZONE}" \
-            --tunnel-through-iap \
-            .github/scripts/deploy_inventree_remote.sh \
-            "${INSTANCE}:/tmp/deploy_inventree_remote.sh"
+          retry_gcloud_ssh() {
+            local description="$1"
+            shift
+
+            local attempt=1
+            local max_attempts=6
+            local sleep_seconds=10
+
+            until "$@"; do
+              local exit_code=$?
+
+              if [[ ${attempt} -ge ${max_attempts} ]]; then
+                echo "${description} 失败，已达到最大重试次数 ${max_attempts}" >&2
+                return ${exit_code}
+              fi
+
+              echo "${description} 失败，${sleep_seconds}s 后重试（${attempt}/${max_attempts}）" >&2
+              sleep "${sleep_seconds}"
+              attempt=$((attempt + 1))
+              sleep_seconds=$((sleep_seconds + 10))
+            done
+          }
+
+          retry_gcloud_ssh "通过 IAP 上传部署脚本" \
+            gcloud compute scp \
+              --quiet \
+              --project "${PROJECT_ID}" \
+              --zone "${ZONE}" \
+              --tunnel-through-iap \
+              .github/scripts/deploy_inventree_remote.sh \
+              "${INSTANCE}:/tmp/deploy_inventree_remote.sh"
 
           REMOTE_CMD="$(printf "chmod +x /tmp/deploy_inventree_remote.sh && IMAGE_REF=%q COMPOSE_DIR=%q HEALTH_URL=%q /tmp/deploy_inventree_remote.sh" \
             "${IMAGE_REF}" "/mnt/docker-data/inventree" "http://127.0.0.1:8086/api/system/health/")"
 
-          gcloud compute ssh \
-            "${INSTANCE}" \
-            --project "${PROJECT_ID}" \
-            --zone "${ZONE}" \
-            --tunnel-through-iap \
-            --command "${REMOTE_CMD}"
+          retry_gcloud_ssh "通过 IAP 执行远端部署" \
+            gcloud compute ssh \
+              "${INSTANCE}" \
+              --quiet \
+              --project "${PROJECT_ID}" \
+              --zone "${ZONE}" \
+              --tunnel-through-iap \
+              --command "${REMOTE_CMD}"
 
       - name: Verify public endpoint
         shell: bash

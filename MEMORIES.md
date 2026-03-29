@@ -53,4 +53,7 @@
 - 首页 `News Updates` 组件已从前端组件库移除。`DashboardWidgetLibrary.tsx` 不再注册 `news`，`DashboardLayout.tsx` 默认示例布局也清空了 `news`，因此首页不会再显示最新消息区块。
 - 线上实例 `instance-20260310-032343` 当前规格是 `e2-small`（2 vCPU / 2GB RAM）。当同机并行运行 InvenTree、Vaultwarden、x-ui 等多组容器时，容易出现长期高 CPU + 内存压力。2026-03-28 的观测中，`compute.googleapis.com/instance/cpu/utilization` 在约 20 分钟内维持 `0.82~0.98`，并伴随 `snapd.service` watchdog/timeout 循环、`systemd-resolved` 报 `Under memory pressure`、Docker 健康检查超时。该类现象优先按资源瓶颈处理，而不是先判断为磁盘打满。
 - 2026-03-29 已在线上实例 `instance-20260310-032343` 下线 x-ui。可复用做法是临时写入 `startup-script` 执行 `systemctl disable --now x-ui`，重启实例后在串口日志确认 `is-enabled => disabled` 与 `is-active => inactive`，最后移除该 `startup-script` 元数据。这个流程适合 SSH 不可用时做一次性远程运维收敛。
+- 2026-03-29 已恢复 `instance-20260310-032343` 的 IAP SSH。可复用做法是给实例加 `iap-ssh` tag，创建 `allow-iap-ssh` 允许 `35.235.240.0/20` 访问 tcp:22，再加 `deny-public-ssh-iap-only` 拒绝公网直接打 22；若实例仍在握手阶段掉线，可临时写入 `startup-script` 执行 `systemctl restart ssh.service` 并重启实例，再从串口确认 `sshd` 已监听。
+- `Fork Deploy GCE` 工作流已在 `Deploy over IAP SSH` 步骤加上 `retry_gcloud_ssh`。当前会对 `gcloud compute scp` 和 `gcloud compute ssh` 做 6 次递增退避重试，避免 GitHub runner 每次新建临时 SSH key 后首轮就因为 metadata/guest-agent 同步抖动而失败。
+- GCP 项目 `gen-lang-client-0984777924` 的项目级 `ssh-keys` 元数据里曾堆积大量过期 `runner:` 条目。2026-03-29 已手工清理旧 runner key，只保留长期账号，再让新的 workflow 临时 key 重新进入，减少 guest agent 处理负担。
 - 2026-03-29 epdm.amoze.net 无法访问时，若 Cloudflare 已返回 301 或 502 且 Caddy 本地证书握手正常，优先检查 Caddy 到上游 inventree-server:8000。本次串口日志确认 dial tcp 172.20.0.5:8000 connect refused，说明外层网络与证书链路已恢复，真正阻塞点在 InvenTree 应用容器未监听或启动失败。

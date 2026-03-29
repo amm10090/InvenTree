@@ -221,22 +221,8 @@ export default function DashboardLayout() {
     setLayouts({});
   }, []);
 
-  const defaultLayouts = {
-    lg: [
-      {
-        w: 12,
-        h: 4,
-        x: 0,
-        y: 0,
-        i: 'news',
-        minW: 5,
-        minH: 4,
-        moved: false,
-        static: false
-      }
-    ]
-  };
-  const loadWigs = ['news'];
+  const defaultLayouts = { lg: [] };
+  const loadWigs: string[] = [];
   const defaultWidgets = useMemo(() => {
     return loadWigs
       .map((lwid: string) =>
@@ -278,7 +264,7 @@ export default function DashboardLayout() {
               <Center>
                 <Card shadow='xs' padding='xl' style={{ width: '100%' }}>
                   <Alert
-                    color='blue'
+                    color='earth'
                     title={t`No Widgets Selected`}
                     icon={<IconInfoCircle />}
                   >
@@ -286,7 +272,7 @@ export default function DashboardLayout() {
                   </Alert>
                 </Card>
               </Center>
-              {showSampleDashboard && (
+              {showSampleDashboard && defaultWidgets.length > 0 && (
                 <>
                   <Space h='lg' />
                   {WidgetGrid(

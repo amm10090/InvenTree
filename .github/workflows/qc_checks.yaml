@@ -667,7 +667,7 @@ jobs:
   web_ui:
     name: Tests - Web UI
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    timeout-minutes: 90
     needs: ["pre-commit", "paths-filter"]
     if: needs.paths-filter.outputs.frontend == 'true' || needs.paths-filter.outputs.force == 'true'
     services:
@@ -724,7 +724,7 @@ jobs:
           cp ./tests/fixtures/playwright_custom_splash.png ../backend/InvenTree/InvenTree/static/img/playwright_custom_splash.png
           invoke static
           env INVENTREE_CUSTOM_SPLASH="img/playwright_custom_splash.png" INVENTREE_CUSTOM_LOGO="img/playwright_custom_logo.png" npx nyc playwright test --project=customization
-          npx nyc playwright test --project=chromium --project=firefox
+          npx nyc playwright test --project=chromium --project=firefox --max-failures=10
       - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # pin@v7.0.0
         if: ${{ !cancelled() && steps.tests.outcome == 'failure' }}
         with:

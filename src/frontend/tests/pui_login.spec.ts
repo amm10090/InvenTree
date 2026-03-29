@@ -21,7 +21,7 @@ test('Login - Failures', async ({ page }) => {
 
   // Navigate to the 'login' page
   await navigate(page, logoutUrl);
-  await expect(page).toHaveTitle(/^InvenTree.*$/);
+  await expect(page).toHaveTitle(/^(InvenTree|库存管理系统).*/);
   await page.waitForURL('**/web/login');
 
   // Attempt login with invalid credentials

@@ -100,7 +100,12 @@ export function useStockAdjustActions(
     props.count != false &&
       menuActions.push({
         name: t`Count Stock`,
-        icon: <InvenTreeIcon icon='stocktake' iconProps={{ color: 'blue' }} />,
+        icon: (
+          <InvenTreeIcon
+            icon='stocktake'
+            iconProps={{ color: 'var(--ui-accent)' }}
+          />
+        ),
         tooltip: t`Count selected stock items`,
         onClick: () => {
           countStock.open();
@@ -130,7 +135,12 @@ export function useStockAdjustActions(
     props.transfer != false &&
       menuActions.push({
         name: t`Transfer Stock`,
-        icon: <InvenTreeIcon icon='transfer' iconProps={{ color: 'blue' }} />,
+        icon: (
+          <InvenTreeIcon
+            icon='transfer'
+            iconProps={{ color: 'var(--ui-accent)' }}
+          />
+        ),
         tooltip: t`Transfer selected stock items`,
         onClick: () => {
           transferStock.open();
@@ -150,7 +160,12 @@ export function useStockAdjustActions(
     props.changeStatus != false &&
       menuActions.push({
         name: t`Change Status`,
-        icon: <InvenTreeIcon icon='info' iconProps={{ color: 'blue' }} />,
+        icon: (
+          <InvenTreeIcon
+            icon='info'
+            iconProps={{ color: 'var(--ui-accent)' }}
+          />
+        ),
         tooltip: t`Change status of selected stock items`,
         onClick: () => {
           changeStatus.open();
@@ -160,7 +175,12 @@ export function useStockAdjustActions(
     props.changeBatch != false &&
       menuActions.push({
         name: t`Change Batch Code`,
-        icon: <InvenTreeIcon icon='batch' iconProps={{ color: 'blue' }} />,
+        icon: (
+          <InvenTreeIcon
+            icon='batch'
+            iconProps={{ color: 'var(--ui-accent)' }}
+          />
+        ),
         tooltip: t`Change batch code of selected stock items`,
         onClick: () => {
           changeBatch.open();
@@ -180,7 +200,12 @@ export function useStockAdjustActions(
     props.return === true &&
       menuActions.push({
         name: t`Return Stock`,
-        icon: <InvenTreeIcon icon='return' iconProps={{ color: 'blue' }} />,
+        icon: (
+          <InvenTreeIcon
+            icon='return'
+            iconProps={{ color: 'var(--ui-accent)' }}
+          />
+        ),
         tooltip: t`Return selected items into stock`,
         onClick: () => {
           returnStock.open();

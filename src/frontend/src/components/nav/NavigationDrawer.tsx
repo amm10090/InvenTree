@@ -1,11 +1,9 @@
 import { t } from '@lingui/core/macro';
 import { Container, Drawer, Flex, Group, Space } from '@mantine/core';
-import { useViewportSize } from '@mantine/hooks';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo } from 'react';
 
 import { ModelType } from '@lib/enums/ModelType';
 import { UserRoles } from '@lib/enums/Roles';
-import { AboutLinks, DocumentationLinks } from '../../defaults/links';
 import useInstanceName from '../../hooks/UseInstanceName';
 import * as classes from '../../main.css';
 import { useGlobalSettingsState } from '../../states/SettingsStates';
@@ -44,17 +42,7 @@ function DrawerContent({ closeFunc }: Readonly<{ closeFunc?: () => void }>) {
 
   const globalSettings = useGlobalSettingsState();
 
-  const [scrollHeight, setScrollHeight] = useState(0);
-  const ref = useRef(null);
-  const { height } = useViewportSize();
-
   const title = useInstanceName();
-
-  // update scroll height when viewport size changes
-  useEffect(() => {
-    if (ref.current == null) return;
-    setScrollHeight(height - ref.current['clientHeight'] - 65);
-  });
 
   // Construct menu items
   const menuItemsNavigate: MenuLinkItem[] = useMemo(() => {
@@ -158,16 +146,6 @@ function DrawerContent({ closeFunc }: Readonly<{ closeFunc?: () => void }>) {
     ];
   }, [user]);
 
-  const menuItemsDocumentation: MenuLinkItem[] = useMemo(
-    () => DocumentationLinks(),
-    []
-  );
-
-  const menuItemsAbout: MenuLinkItem[] = useMemo(
-    () => AboutLinks(globalSettings, user),
-    []
-  );
-
   return (
     <Flex direction='column' mih='100vh' p={16}>
       <Group wrap='nowrap'>
@@ -202,20 +180,6 @@ function DrawerContent({ closeFunc }: Readonly<{ closeFunc?: () => void }>) {
           <></>
         )}
       </Container>
-      <div ref={ref}>
-        <Space h='md' />
-        <MenuLinks
-          title={t`Documentation`}
-          links={menuItemsDocumentation}
-          beforeClick={closeFunc}
-        />
-        <Space h='md' />
-        <MenuLinks
-          title={t`About`}
-          links={menuItemsAbout}
-          beforeClick={closeFunc}
-        />
-      </div>
     </Flex>
   );
 }

@@ -283,7 +283,7 @@ function observeProfile() {
       showNotification({
         title: t`Language changed`,
         message: t`Your active language has been changed to the one set in your profile`,
-        color: 'blue',
+        color: 'earth',
         icon: 'language'
       });
       setLanguage(user.profile.language, true);
@@ -305,7 +305,7 @@ function observeProfile() {
         showNotification({
           title: t`Theme changed`,
           message: t`Your active theme has been changed to the one set in your profile`,
-          color: 'blue'
+          color: 'earth'
         });
         setTheme(newTheme);
       }

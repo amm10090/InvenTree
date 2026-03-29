@@ -106,7 +106,7 @@ export default function ImporterDrawer({
             >
               {t`Data has been imported successfully`}
             </Alert>
-            <Button color='blue' onClick={onClose}>{t`Close`}</Button>
+            <Button color='earth' onClick={onClose}>{t`Close`}</Button>
           </Stack>
         );
       default:

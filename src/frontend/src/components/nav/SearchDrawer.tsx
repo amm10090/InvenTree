@@ -580,7 +580,7 @@ export function SearchDrawer({
           !searchQuery.isError &&
           queryResults.length == 0 && (
             <Alert
-              color='blue'
+              color='earth'
               radius='sm'
               variant='light'
               title={t`No Results`}

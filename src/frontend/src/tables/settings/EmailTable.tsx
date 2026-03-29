@@ -22,9 +22,9 @@ function EmailStatusBadge({
 }): ReactNode {
   switch (status) {
     case 'A':
-      return <Badge color='blue'>{t`Announced`}</Badge>;
+      return <Badge color='earth'>{t`Announced`}</Badge>;
     case 'S':
-      return <Badge color='blue'>{t`Sent`}</Badge>;
+      return <Badge color='earth'>{t`Sent`}</Badge>;
     case 'F':
       return <Badge color='red'>{t`Failed`}</Badge>;
     case 'D':

@@ -175,7 +175,7 @@ export default function ImporterDataSelector({
         title: t`Importing Rows`,
         message: t`Please wait while the data is imported`,
         autoClose: false,
-        color: 'blue',
+        color: 'earth',
         id: 'importing-rows',
         icon: <IconArrowRight />
       });
@@ -286,7 +286,7 @@ export default function ImporterDataSelector({
               <Text size='sm'>{row.row_index}</Text>
               {row.complete && <IconCircleCheck color='green' size={16} />}
               {!row.complete && row.valid && (
-                <IconCircleDashedCheck color='blue' size={16} />
+                <IconCircleDashedCheck color='var(--ui-accent)' size={16} />
               )}
               {!row.complete && !row.valid && (
                 <HoverCard openDelay={50} closeDelay={100} position='top-start'>

@@ -6,7 +6,6 @@ import { useUserState } from '../../states/UserState';
 import type { DashboardWidgetProps } from './DashboardWidget';
 import ColorToggleDashboardWidget from './widgets/ColorToggleWidget';
 import LanguageSelectDashboardWidget from './widgets/LanguageSelectWidget';
-import NewsWidget from './widgets/NewsWidget';
 import QueryCountDashboardWidget from './widgets/QueryCountDashboardWidget';
 import StocktakeDashboardWidget from './widgets/StocktakeDashboardWidget';
 
@@ -186,19 +185,6 @@ function BuiltinQueryCountWidgets(): DashboardWidgetProps[] {
   });
 }
 
-function BuiltinGettingStartedWidgets(): DashboardWidgetProps[] {
-  return [
-    {
-      label: 'news',
-      title: t`News Updates`,
-      description: t`The latest news from 库存管理系统`,
-      minWidth: 5,
-      minHeight: 4,
-      render: () => <NewsWidget />
-    }
-  ];
-}
-
 function BuiltinSettingsWidgets(): DashboardWidgetProps[] {
   return [ColorToggleDashboardWidget(), LanguageSelectDashboardWidget()];
 }
@@ -214,7 +200,6 @@ function BuiltinActionWidgets(): DashboardWidgetProps[] {
 export default function DashboardWidgetLibrary(): DashboardWidgetProps[] {
   return [
     ...BuiltinQueryCountWidgets(),
-    ...BuiltinGettingStartedWidgets(),
     ...BuiltinSettingsWidgets(),
     ...BuiltinActionWidgets()
   ];

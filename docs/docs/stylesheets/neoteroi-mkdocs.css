@@ -6,15 +6,15 @@
 :root {
   --nt-color-0: #CD853F;
   --nt-color-1: #B22222;
-  --nt-color-2: #000080;
-  --nt-color-3: #4B0082;
+  --nt-color-2: #72604e;
+  --nt-color-3: #5d4f41;
   --nt-color-4: #3CB371;
   --nt-color-5: #D2B48C;
   --nt-color-6: #FF00FF;
   --nt-color-7: #98FB98;
   --nt-color-8: #FFEBCD;
   --nt-color-9: #2E8B57;
-  --nt-color-10: #6A5ACD;
+  --nt-color-10: #8c745f;
   --nt-color-11: #48D1CC;
   --nt-color-12: #FFA500;
   --nt-color-13: #F4A460;
@@ -607,19 +607,22 @@
   flex-direction: row-reverse;
 }
 .nt-timeline.horizontal.center .nt-timeline-before {
-  background-image: linear-gradient(rgba(252, 70, 107, 0) 0%, rgb(252, 70, 107) 100%);
+  background-image: none;
+  border-top: 2px solid #8c745f;
   background-repeat: no-repeat;
   background-size: 100% 2px;
   background-position: 0 center;
 }
 .nt-timeline.horizontal.center .nt-timeline-after {
-  background-image: linear-gradient(180deg, rgb(252, 70, 107) 0%, rgba(252, 70, 107, 0) 100%);
+  background-image: none;
+  border-top: 2px solid #8c745f;
   background-repeat: no-repeat;
   background-size: 100% 2px;
   background-position: 0 center;
 }
 .nt-timeline.horizontal.center .nt-timeline-items {
-  background-image: radial-gradient(circle, rgb(63, 94, 251) 0%, rgb(252, 70, 107) 100%);
+  background-image: none;
+  border-top: 2px solid #8c745f;
   background-repeat: no-repeat;
   background-size: 100% 2px;
   background-position: 0 center;
@@ -640,13 +643,16 @@
   flex-direction: column-reverse;
 }
 .nt-timeline.vertical.center .nt-timeline-before {
-  background: linear-gradient(rgba(252, 70, 107, 0) 0%, rgb(252, 70, 107) 100%) no-repeat center/2px 100%;
+  background: none;
+  border-left: 2px solid #8c745f;
 }
 .nt-timeline.vertical.center .nt-timeline-after {
-  background: linear-gradient(rgb(252, 70, 107) 0%, rgba(252, 70, 107, 0) 100%) no-repeat center/2px 100%;
+  background: none;
+  border-left: 2px solid #8c745f;
 }
 .nt-timeline.vertical.center .nt-timeline-items {
-  background: radial-gradient(circle, rgb(63, 94, 251) 0%, rgb(252, 70, 107) 100%) no-repeat center/2px 100%;
+  background: none;
+  border-left: 2px solid #8c745f;
 }
 .nt-timeline.vertical.center .nt-timeline-dot {
   left: calc(50% - 10px);
@@ -668,13 +674,16 @@
   width: 100px;
 }
 .nt-timeline.vertical.left .nt-timeline-before {
-  background: linear-gradient(rgba(252, 70, 107, 0) 0%, rgb(252, 70, 107) 100%) no-repeat 30px/2px 100%;
+  background: none;
+  border-left: 2px solid #8c745f;
 }
 .nt-timeline.vertical.left .nt-timeline-after {
-  background: linear-gradient(rgb(252, 70, 107) 0%, rgba(252, 70, 107, 0) 100%) no-repeat 30px/2px 100%;
+  background: none;
+  border-left: 2px solid #8c745f;
 }
 .nt-timeline.vertical.left .nt-timeline-items {
-  background: radial-gradient(circle, rgb(63, 94, 251) 0%, rgb(252, 70, 107) 100%) no-repeat 30px/2px 100%;
+  background: none;
+  border-left: 2px solid #8c745f;
 }
 .nt-timeline.vertical.left .nt-timeline-dot {
   left: 21px;
@@ -696,13 +705,16 @@
   padding-right: 70px;
 }
 .nt-timeline.vertical.right .nt-timeline-before {
-  background: linear-gradient(rgba(252, 70, 107, 0) 0%, rgb(252, 70, 107) 100%) no-repeat calc(100% - 30px)/2px 100%;
+  background: none;
+  border-right: 2px solid #8c745f;
 }
 .nt-timeline.vertical.right .nt-timeline-after {
-  background: linear-gradient(rgb(252, 70, 107) 0%, rgba(252, 70, 107, 0) 100%) no-repeat calc(100% - 30px)/2px 100%;
+  background: none;
+  border-right: 2px solid #8c745f;
 }
 .nt-timeline.vertical.right .nt-timeline-items {
-  background: radial-gradient(circle, rgb(63, 94, 251) 0%, rgb(252, 70, 107) 100%) no-repeat calc(100% - 30px)/2px 100%;
+  background: none;
+  border-right: 2px solid #8c745f;
 }
 .nt-timeline.vertical.right .nt-timeline-dot {
   right: 21px;

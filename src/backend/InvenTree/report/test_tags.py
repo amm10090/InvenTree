@@ -644,7 +644,7 @@ class BarcodeTagTest(TestCase):
         )
 
         datamatrix = barcode_tags.datamatrix(
-            'hello world', border=3, fill_color='red', back_color='blue'
+            'hello world', border=3, fill_color='red', back_color='#8c745f'
         )
         self.assertEqual(
             datamatrix,

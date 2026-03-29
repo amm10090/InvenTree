@@ -209,7 +209,7 @@ export default function PluginListTable() {
           hidden: !record.active || !record.is_package || !record.package_name,
           title: t`Update`,
           tooltip: t`Update selected plugin`,
-          color: 'blue',
+          color: 'earth',
           icon: <IconRefresh />,
           onClick: () => {
             setPluginPackage(record.package_name);

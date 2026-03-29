@@ -123,7 +123,7 @@ export default function PurchaseHistoryPanel({
           data={purchaseHistoryData}
           dataKey='name'
           series={[
-            { name: 'unit_price', label: t`Unit Price`, color: 'blue.5' }
+            { name: 'unit_price', label: t`Unit Price`, color: 'earth.5' }
           ]}
         />
       ) : (

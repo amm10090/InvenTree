@@ -9,62 +9,100 @@
 }
 
 :root {
-  --santas-gray-50: #eff1f4;
-  --santas-gray-100: #dde0e7;
-  --santas-gray-200: #c0c8d4;
-  --santas-gray-300: #a7b2c3;
-  --santas-gray-400: #909eb4;
-  --santas-gray-500: #8491a6;
-  --santas-gray-600: #748093;
-  --santas-gray-700: #626c7c;
-  --santas-gray-800: #4f5866;
-  --santas-gray-900: #3c434e;
-  --santas-gray-1000: #333942;
-  --santas-gray-1100: #292f37;
-  --santas-gray-1200: #20252b;
-  --santas-gray-1300: #181c21;
-  --santas-gray-1400: #0e1115;
+  --earth-50: #f7f4ef;
+  --earth-100: #ede6dc;
+  --earth-200: #ddd2c3;
+  --earth-300: #cab9a4;
+  --earth-400: #b7a08b;
+  --earth-500: #a38a73;
+  --earth-600: #8c745f;
+  --earth-700: #72604e;
+  --earth-800: #5d4f41;
+  --earth-900: #4b4034;
+  --earth-1000: #3f352b;
+  --earth-1100: #332b23;
+  --earth-1200: #28211b;
+  --earth-1300: #1d1814;
+  --earth-1400: #13100d;
 }
 
 [data-mantine-color-scheme='light'] {
-  --ui-surface: var(--santas-gray-50);
-  --ui-surface-muted: var(--santas-gray-100);
-  --ui-border: var(--santas-gray-200);
-  --ui-border-hover: var(--santas-gray-300);
-  --ui-focus: var(--santas-gray-600);
-  --ui-shadow-sm: 0 1px 2px color-mix(in srgb, var(--santas-gray-1100) 18%, transparent);
-  --ui-shadow-md: 0 12px 30px color-mix(in srgb, var(--santas-gray-1100) 24%, transparent);
-  --ui-shadow-focus: 0 0 0 3px color-mix(in srgb, var(--ui-focus) 24%, transparent);
+  --ui-page: var(--earth-50);
+  --ui-page-raised: #fffdfa;
+  --ui-surface: #fffaf4;
+  --ui-surface-muted: var(--earth-100);
+  --ui-border: var(--earth-200);
+  --ui-border-hover: var(--earth-300);
+  --ui-focus: var(--earth-600);
+  --ui-accent: var(--earth-800);
+  --ui-accent-strong: var(--earth-900);
+  --ui-on-accent: #fffaf2;
+  --ui-text-strong: var(--earth-1000);
+  --ui-text: var(--earth-900);
+  --ui-text-muted: var(--earth-700);
+  --ui-shadow-sm: 0 1px 2px color-mix(in srgb, var(--earth-1100) 10%, transparent);
+  --ui-shadow-md: 0 14px 36px color-mix(in srgb, var(--earth-1100) 16%, transparent);
+  --ui-shadow-focus: 0 0 0 3px color-mix(in srgb, var(--ui-focus) 18%, transparent);
 }
 
 [data-mantine-color-scheme='dark'] {
-  --ui-surface: var(--santas-gray-1200);
-  --ui-surface-muted: var(--santas-gray-1300);
-  --ui-border: var(--santas-gray-900);
-  --ui-border-hover: var(--santas-gray-800);
-  --ui-focus: var(--santas-gray-500);
-  --ui-shadow-sm: 0 1px 2px color-mix(in srgb, var(--santas-gray-1400) 72%, transparent);
-  --ui-shadow-md: 0 18px 42px rgba(0, 0, 0, 0.36);
-  --ui-shadow-focus: 0 0 0 3px color-mix(in srgb, var(--ui-focus) 28%, transparent);
+  --ui-page: var(--earth-1400);
+  --ui-page-raised: var(--earth-1300);
+  --ui-surface: var(--earth-1200);
+  --ui-surface-muted: var(--earth-1100);
+  --ui-border: color-mix(in srgb, var(--earth-900) 82%, transparent);
+  --ui-border-hover: var(--earth-700);
+  --ui-focus: var(--earth-400);
+  --ui-accent: var(--earth-300);
+  --ui-accent-strong: var(--earth-200);
+  --ui-on-accent: var(--earth-1400);
+  --ui-text-strong: var(--earth-50);
+  --ui-text: var(--earth-100);
+  --ui-text-muted: var(--earth-400);
+  --ui-shadow-sm: 0 1px 2px color-mix(in srgb, var(--earth-1400) 70%, transparent);
+  --ui-shadow-md: 0 18px 40px color-mix(in srgb, var(--earth-1400) 72%, transparent);
+  --ui-shadow-focus: 0 0 0 3px color-mix(in srgb, var(--ui-focus) 22%, transparent);
+}
+
+html,
+body,
+#root {
+  background: var(--ui-page);
+  color: var(--ui-text);
+}
+
+.mantine-AppShell-main,
+.mantine-Container-root {
+  color: var(--ui-text);
 }
 
 .mantine-Input-input,
 .mantine-Select-input,
 .mantine-Textarea-input,
 .mantine-MultiSelect-input,
-.mantine-DateInput-input {
+.mantine-DateInput-input,
+.mantine-ColorInput-input {
   border-radius: 14px;
   border: 1px solid var(--ui-border);
-  background: var(--ui-surface);
+  background: var(--ui-page-raised);
+  color: var(--ui-text-strong);
   box-shadow: var(--ui-shadow-sm);
   transition: border-color 140ms ease, box-shadow 140ms ease, background-color 140ms ease;
+}
+
+.mantine-Input-input::placeholder,
+.mantine-Textarea-input::placeholder,
+.mantine-ColorInput-input::placeholder {
+  color: var(--ui-text-muted);
+  opacity: 1;
 }
 
 .mantine-Input-input:hover,
 .mantine-Select-input:hover,
 .mantine-Textarea-input:hover,
 .mantine-MultiSelect-input:hover,
-.mantine-DateInput-input:hover {
+.mantine-DateInput-input:hover,
+.mantine-ColorInput-input:hover {
   border-color: var(--ui-border-hover);
 }
 
@@ -78,10 +116,12 @@
 .mantine-MultiSelect-input:focus-within,
 .mantine-DateInput-input:focus,
 .mantine-DateInput-input:focus-within,
+.mantine-ColorInput-input:focus,
+.mantine-ColorInput-input:focus-within,
 .mantine-Select-input[data-expanded],
 .mantine-MultiSelect-input[data-expanded] {
   border-color: var(--ui-focus);
-  box-shadow: var(--ui-shadow-focus), var(--ui-shadow-md);
+  box-shadow: var(--ui-shadow-focus), var(--ui-shadow-sm);
 }
 
 .mantine-Combobox-dropdown,
@@ -94,72 +134,92 @@
   box-shadow: var(--ui-shadow-md);
 }
 
-.mantine-Combobox-option {
+.mantine-Combobox-option,
+.mantine-Menu-item {
   border-radius: 10px;
   margin: 2px 0;
   transition: background-color 120ms ease, color 120ms ease;
 }
 
-.mantine-Combobox-option[data-combobox-hovered] {
+.mantine-Combobox-option[data-combobox-hovered],
+.mantine-Menu-item:hover {
   background: var(--ui-surface-muted);
 }
 
 .mantine-Combobox-option[data-combobox-selected] {
-  background: color-mix(in srgb, var(--ui-focus) 24%, var(--ui-surface));
-  color: var(--santas-gray-1300);
+  background: color-mix(in srgb, var(--ui-accent) 16%, var(--ui-surface));
+  color: var(--ui-text-strong);
   font-weight: 600;
 }
 
 .mantine-Button-root {
   border-radius: 12px;
-  transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+  transition: background-color 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
 }
 
 .mantine-Button-root:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 20px color-mix(in srgb, var(--santas-gray-1100) 24%, transparent);
-}
-
-.mantine-Button-root:active {
-  transform: translateY(0);
+  box-shadow: var(--ui-shadow-sm);
 }
 
 .mantine-ActionIcon-root {
   border-radius: 10px;
-  transition: transform 120ms ease, background-color 120ms ease;
-}
-
-.mantine-ActionIcon-root:hover {
-  transform: translateY(-1px);
+  transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
 }
 
 .mantine-Paper-root,
 .mantine-Card-root,
 .mantine-Modal-content,
 .mantine-Drawer-content {
-  border-radius: 16px;
+  border-radius: 18px;
   border: 1px solid var(--ui-border);
   background: var(--ui-surface);
   box-shadow: var(--ui-shadow-md);
 }
 
+.mantine-SegmentedControl-root {
+  padding: 4px;
+  border-radius: 16px;
+  border: 1px solid var(--ui-border);
+  background: var(--ui-surface-muted);
+}
+
+.mantine-SegmentedControl-indicator {
+  border-radius: 12px;
+  background: var(--ui-accent);
+  box-shadow: var(--ui-shadow-sm);
+}
+
+.mantine-SegmentedControl-label {
+  font-weight: 600;
+  color: var(--ui-text-muted);
+}
+
+.mantine-SegmentedControl-control[data-active] .mantine-SegmentedControl-label {
+  color: var(--ui-on-accent);
+}
+
 .mantine-Tabs-tab {
-  border-radius: 10px;
-  transition: background-color 120ms ease, color 120ms ease, transform 120ms ease;
+  border-radius: 12px;
+  transition: background-color 120ms ease, color 120ms ease;
 }
 
 .mantine-Tabs-tab:hover {
-  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--ui-surface-muted) 88%, transparent);
+}
+
+.mantine-Table-table {
+  color: var(--ui-text);
 }
 
 .mantine-Table-table thead th {
   background: color-mix(in srgb, var(--ui-surface-muted) 88%, transparent);
   border-bottom: 1px solid var(--ui-border);
+  color: var(--ui-text-strong);
   font-weight: 700;
 }
 
 .mantine-Table-table tbody td {
-  border-bottom: 1px solid color-mix(in srgb, var(--ui-border) 65%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--ui-border) 70%, transparent);
 }
 
 .mantine-Notification-root {

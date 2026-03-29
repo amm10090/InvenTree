@@ -419,7 +419,7 @@ function SelectPartsStep({
               icon={<IconShoppingCart />}
               tooltip={t`Add to selected purchase order`}
               tooltipAlignment='top-end'
-              color='blue'
+              color='earth'
             />
           </Group>
         )

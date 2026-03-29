@@ -105,7 +105,9 @@ export default function DashboardMenu({
 
               {!editing && !removing && (
                 <Menu.Item
-                  leftSection={<IconLayout2 color='blue' size={14} />}
+                  leftSection={
+                    <IconLayout2 color='var(--ui-accent)' size={14} />
+                  }
                   onClick={onStartEdit}
                 >
                   <Trans>Edit Layout</Trans>

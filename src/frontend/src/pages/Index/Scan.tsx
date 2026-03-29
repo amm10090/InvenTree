@@ -214,7 +214,7 @@ export default function Scan() {
               <StylishText size='lg'>{t`Action`}</StylishText>
               <Divider />
               {selection.length === 0 ? (
-                <Alert title={t`No Items Selected`} color='blue'>
+                <Alert title={t`No Items Selected`} color='earth'>
                   <Trans>Scan and select items to perform actions</Trans>
                 </Alert>
               ) : (

@@ -81,7 +81,7 @@ export function RoleTable({
       title: t`Updating`,
       message: t`Updating group roles`,
       loading: true,
-      color: 'blue',
+      color: 'earth',
       autoClose: false
     });
 

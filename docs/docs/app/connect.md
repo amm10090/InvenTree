@@ -19,7 +19,7 @@ Press on the server icon to navigate to the server selection view:
 !!! success "Server Profiles"
     The app supports multiple server profiles, providing simple switching between different InvenTree servers and/or account profiles.
 
-Press the {{ icon("circle-plus", color="blue") }} button in the bottom-right corner of the screen to create a new server profile.
+Press the {{ icon("circle-plus", color="#8c745f") }} button in the bottom-right corner of the screen to create a new server profile.
 
 {{ image("app/add_server_profile.png", "Add server profile") }}
 

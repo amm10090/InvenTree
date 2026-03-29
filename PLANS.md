@@ -6,6 +6,12 @@
 
 ## IN_PROGRESS
 
+- [ ] 2026-03-29 排查 `https://epdm.amoze.net/` 无法访问
+  - 目标：定位线上实例与域名链路的不可访问根因并恢复可用
+  - 验收标准：明确故障点并给出或执行修复动作，`https://epdm.amoze.net/` 恢复有效响应
+  - 涉及文件：`PLANS.md`、`MEMORIES.md`
+  - 进展：已确认根因从 DNS/证书链路转移到应用层。Cloudflare 解析与回源已恢复，Caddy 已签发 epdm.amoze.net 证书并可正常 TLS 握手，但代理到上游 inventree-server:8000 持续 connection refused，对外表现为 Cloudflare HTTP 502。
+
 - [ ] 2026-03-28 配置 Cloudflare Tunnel 绑定域名 `gl.amoze.net` 到本机 `127.0.0.1:8000`
   - 目标：创建并配置可持续运行的隧道，完成 DNS 绑定并验证公网访问
   - 验收标准：`cloudflared tunnel list` 可见新隧道；`cloudflared tunnel route dns` 成功；访问 `https://gl.amoze.net` 返回有效响应
@@ -13,6 +19,62 @@
   - 进展：已确认本机安装 `cloudflared 2026.3.0` 且具备可用 Cloudflare 账户登录态
 
 ## DONE
+- [x] 2026-03-29 停止线上实例 x-ui 运行
+  - 完成时间：2026-03-29
+  - 验收结果：已通过 `awesome_gates` 容器把实例 `instance-20260310-032343` 的 `x-ui.service` 禁用并停止。启动脚本执行日志明确显示 `Removed '/etc/systemd/system/multi-user.target.wants/x-ui.service'`、`Stopped x-ui.service - x-ui Service.`、`systemctl is-enabled x-ui => disabled`、`systemctl is-active x-ui => inactive`，随后已移除临时 `startup-script` 元数据，避免后续每次开机重复执行。
+  - 关联文件：`PLANS.md`、`MEMORIES.md`
+  - 验证方式：`docker exec awesome_gates gcloud compute instances add-metadata ... --metadata-from-file startup-script=...`、`docker exec awesome_gates gcloud compute instances reset ...`；`docker exec awesome_gates gcloud compute instances get-serial-port-output ...` 复核 `x-ui` 停止与禁用日志；`docker exec awesome_gates gcloud compute instances remove-metadata ... --keys startup-script` 清理临时脚本
+
+- [x] 2026-03-29 移除登录页图片背景并恢复纯样式登录体验
+  - 完成时间：2026-03-29
+  - 验收结果：认证页 `SplashScreen` 已不再读取 `server.customize.splash`，登录背景恢复为前端主题控制的纯样式层；`customization.spec.ts` 也已改成断言登录页不再出现自定义 splash 图片
+  - 关联文件：`src/frontend/src/components/SplashScreen.tsx`、`src/frontend/tests/customization/customization.spec.ts`、`PLANS.md`、`MEMORIES.md`
+  - 验证方式：`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过；使用 Playwright 直连 `http://127.0.0.1:5173/web/login` 验证 `playwright_custom_splash.png` 命中为 `0` 且计算样式 `backgroundImage` 为 `none`
+
+- [x] 2026-03-28 清理文档与仓库资源中的冷色残留
+  - 完成时间：2026-03-28
+  - 验收结果：README、文档示例、文档样式、后端测试与前端通用 `RowActions` 已同步去蓝紫；文档自定义样式与 bootstrap/neoteroi 覆盖也已改成暖中性且移除可控渐变。仓库中剩余相关命中仅在第三方 vendored 资源 `docs/docs/javascripts/mermaid.min.js` 与 `src/backend/InvenTree/InvenTree/static/tabler-icons/icons.json` 的上游内部数据，不属于项目定制层
+  - 关联文件：`README.md`、`docs/docs/**/*`、`docs/docs/stylesheets/*`、`src/frontend/lib/components/RowActions.tsx`、`src/backend/InvenTree/part/test_api.py`、`src/backend/InvenTree/report/test_tags.py`、`PLANS.md`、`MEMORIES.md`
+  - 验证方式：`python -m compileall src/backend/InvenTree/part/test_api.py src/backend/InvenTree/report/test_tags.py docs/main.py` 通过；`rg` 复查项目源码与文档层冷色/渐变命中为 `0`
+
+- [x] 2026-03-28 使用 `awesome_gates` 容器排查 GCE 实例 `instance-20260310-032343` 高占用率
+  - 完成时间：2026-03-28
+  - 验收结果：已通过 `awesome_gates` 容器完成远程证据采集并定位主因。Cloud Monitoring 显示该 `e2-small` 实例在 `2026-03-28T10:43Z` 到 `2026-03-28T11:02Z` 的 CPU 利用率长期维持 `0.82~0.98`，峰值 `1.603`；串口日志显示 `snapd.service` 自 `2026-03-28T10:48Z` 起反复 watchdog/timeout 重启，`systemd-resolved` 出现 `Under memory pressure`，且 Docker 对容器 `b7eb0c12e7cd...` 的健康检查持续超时。当前判断为 CPU 与内存资源饱和叠加后台服务抖动，不是磁盘打满。
+  - 关联文件：`PLANS.md`、`MEMORIES.md`
+  - 验证方式：`docker exec awesome_gates gcloud compute ssh --zone us-west1-a instance-20260310-032343 --project gen-lang-client-0984777924 --ssh-flag=-vvv --command "echo ok"`（复现 SSH 握手被远端关闭）；`python3` 调 Monitoring API 查询 `compute.googleapis.com/instance/cpu/utilization`（近 40 分钟持续高位）；`docker exec awesome_gates gcloud compute instances get-serial-port-output ... | grep -Ei "snapd|memory pressure|Health check"`（确认超时与内存压力日志）
+
+- [x] 2026-03-28 清理前端残留蓝色与紫色硬编码
+  - 完成时间：2026-03-28
+  - 验收结果：前端 `src/frontend/src` 内与业务 UI 直接相关的蓝紫硬编码已清零，状态映射、图表调色板、Alert/Badge/Button/RowAction/图标强调色均已切到 `earth` 或暖色语义方案；图标型 SVG 颜色已改为 `var(--ui-accent)`，不再误用主题名当 CSS 颜色
+  - 关联文件：`src/frontend/src/defaults/backendMappings.tsx`、`src/frontend/src/components/charts/colors.tsx`、`src/frontend/src/components/**/*`、`src/frontend/src/pages/**/*`、`PLANS.md`、`MEMORIES.md`
+  - 验证方式：`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过；使用临时 `vite.config.validation.ts` 指向 `/tmp/inventree-ui-build` 执行 `./node_modules/.bin/vite build --config vite.config.validation.ts --emptyOutDir` 通过；`rg` 检查前端源码剩余蓝紫关键字命中为 `0`
+
+- [x] 2026-03-28 优化前端整体布局与养生系配色
+  - 完成时间：2026-03-28
+  - 验收结果：全局主题已切到暖灰土色 `earth` 调色板，移除渐变标题与登录页渐变背景；用户设置页的标题区、左侧导航、账户详情、显示设置和设置项列表已重构为更简洁的卡片化布局，并收起高亮色/黑白色自定义入口，避免蓝紫色重新污染界面
+  - 关联文件：`src/frontend/src/theme.ts`、`src/frontend/src/styles/overrides.css`、`src/frontend/src/main.css.ts`、`src/frontend/src/components/items/StylishText.tsx`、`src/frontend/src/components/nav/SettingsHeader.tsx`、`src/frontend/src/components/nav/SettingsHeader.css.ts`、`src/frontend/src/components/panels/PanelGroup.tsx`、`src/frontend/src/components/panels/PanelGroup.css.ts`、`src/frontend/src/components/settings/SettingItem.tsx`、`src/frontend/src/components/settings/SettingList.tsx`、`src/frontend/src/pages/Index/Settings/UserSettings.tsx`、`src/frontend/src/pages/Index/Settings/AccountSettings/*`、`src/frontend/src/pages/Auth/AuthLayout.css.ts`、`src/frontend/src/contexts/ThemeContext.tsx`、`src/frontend/src/states/LocalState.tsx`、`PLANS.md`、`MEMORIES.md`
+  - 验证方式：`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过；使用临时 `vite.config.validation.ts` 将输出目录指向 `/tmp/inventree-ui-build` 后执行 `./node_modules/.bin/vite build --config vite.config.validation.ts --emptyOutDir` 通过
+
+- [x] 2026-03-28 修复 QC 工作流 `Tests - Web UI` 超时
+  - 完成时间：2026-03-28
+  - 验收结果：`pui_modals` 与 `pui_login` 中品牌与导航相关断言已改为兼容 `InvenTree/库存管理系统` 与新导航结构（`Navigation/Settings/Actions`）；`web_ui` 任务超时上限调整为 90 分钟并增加 `--max-failures=10` 失败快速终止保护
+  - 关联文件：`src/frontend/tests/pui_modals.spec.ts`、`src/frontend/tests/pui_login.spec.ts`、`.github/workflows/qc_checks.yaml`、`PLANS.md`、`MEMORIES.md`
+  - 验证方式：`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过；`cd src/frontend && npx playwright test tests/pui_modals.spec.ts tests/pui_login.spec.ts --project=chromium --list` 通过
+- [x] 2026-03-28 分析 QC 工作流 23681843928/68995000444 超时根因并给出修复方案
+  - 完成时间：2026-03-28
+  - 验收结果：已确认超时发生在 `Run Playwright tests`（步骤 7，执行约 53 分钟后被 `timeout-minutes: 60` 取消）；当前分叉仓库前端已做品牌文案与导航裁剪（如移除 `Documentation/About`、品牌改为“库存管理系统”），但 `src/frontend/tests/pui_modals.spec.ts`、`src/frontend/tests/pui_login.spec.ts` 等仍按上游文案与入口断言，导致大量 `waitFor`/重试耗时叠加，最终触发 1 小时超时
+  - 关联文件：`PLANS.md`、`MEMORIES.md`、`.github/workflows/qc_checks.yaml`、`src/frontend/tests/pui_modals.spec.ts`、`src/frontend/tests/pui_login.spec.ts`
+  - 验证方式：`Invoke-RestMethod https://api.github.com/repos/amm10090/InvenTree/actions/jobs/68995000444`（确认步骤时长与取消时间）；`Invoke-RestMethod https://api.github.com/repos/amm10090/InvenTree/check-runs/68995000444/annotations`（确认超时注解）；检查测试脚本中已失效断言（`pui_modals.spec.ts:95/108/109/145/155`，`pui_login.spec.ts:24`）
+- [x] 2026-03-28 移除首页最新消息组件
+  - 完成时间：2026-03-28
+  - 验收结果：首页 Dashboard 已不再注册 `news` 小组件，默认示例布局也不再包含 `news`，前端不再渲染最新消息区块
+  - 关联文件：`src/frontend/src/components/dashboard/DashboardWidgetLibrary.tsx`、`src/frontend/src/components/dashboard/DashboardLayout.tsx`、`PLANS.md`、`MEMORIES.md`
+  - 验证方式：`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过
+- [x] 2026-03-28 移除 NavigationDrawer 中文档和关于区块
+  - 完成时间：2026-03-28
+  - 验收结果：前端 `NavigationDrawer` 已移除底部 `Documentation` 与 `About` 两个分组，不再在抽屉内渲染相关入口
+  - 关联文件：`src/frontend/src/components/nav/NavigationDrawer.tsx`、`PLANS.md`、`MEMORIES.md`
+  - 验证方式：`cd src/frontend && ./node_modules/.bin/tsc --noEmit` 通过
 - [x] 2026-03-28 调整部署脚本为每次部署都清理历史镜像和缓存
   - 完成时间：2026-03-28
   - 验收结果：`deploy_inventree_remote.sh` 已改为无条件执行 `docker image prune -af` 与 `docker builder prune -af`，不再依赖低于阈值才触发清理，避免历史镜像持续堆积

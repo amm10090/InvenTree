@@ -43,7 +43,7 @@ export default function HomePanel(): JSX.Element {
     <Stack gap='xs'>
       {dismissed ? null : (
         <Alert
-          color='blue'
+          color='earth'
           title={t`Admin Center Information`}
           withCloseButton
           onClose={() => setDismissed(true)}

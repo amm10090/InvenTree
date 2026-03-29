@@ -102,7 +102,7 @@ export function BarcodeInput({
           <Divider />
           <Card p='sm' withBorder>
             {barcode ? (
-              <Alert color='blue' title={t`Barcode Data`} p='xs'>
+              <Alert color='earth' title={t`Barcode Data`} p='xs'>
                 {barcode}
               </Alert>
             ) : (

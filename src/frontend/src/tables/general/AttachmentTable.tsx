@@ -159,7 +159,7 @@ export function AttachmentTable({
         id: id,
         title: t`Uploading File`,
         message: <UploadProgress filename={name} progress={0} />,
-        color: 'blue',
+        color: 'earth',
         loading: true,
         autoClose: false
       });
@@ -172,7 +172,7 @@ export function AttachmentTable({
             notifications.update({
               id: id,
               title: t`Uploading File`,
-              color: 'blue',
+              color: 'earth',
               loading: true,
               autoClose: false,
               message: <UploadProgress filename={name} progress={progress} />
@@ -381,7 +381,7 @@ export function AttachmentTable({
               <Group justify='center' gap='lg' mih={100}>
                 <Dropzone.Accept>
                   <IconUpload
-                    style={{ color: 'var(--mantine-color-blue-6)' }}
+                    style={{ color: 'var(--ui-accent)' }}
                     stroke={1.5}
                   />
                 </Dropzone.Accept>

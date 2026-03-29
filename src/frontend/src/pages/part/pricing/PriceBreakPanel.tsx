@@ -168,7 +168,7 @@ export default function PriceBreakPanel({
           <BarChart
             dataKey='quantity'
             data={table.records}
-            series={[{ name: 'price', label: t`Price`, color: 'blue.6' }]}
+            series={[{ name: 'price', label: t`Price`, color: 'earth.6' }]}
             xAxisLabel={t`Quantity`}
             yAxisLabel={t`Unit Price`}
             valueFormatter={(value) => tooltipFormatter(value, currency)}

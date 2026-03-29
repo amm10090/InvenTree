@@ -115,7 +115,7 @@ There are several options to deploy InvenTree.
 <div align="center"><h4>
     <a href="https://docs.inventree.org/en/latest/start/docker/">Docker</a>
     <span> · </span>
-    <a href="https://inventree.org/digitalocean"><img src="https://www.deploytodo.com/do-btn-blue-ghost.svg" alt="Deploy to DO" width="auto" height="40" /></a>
+    <a href="https://inventree.org/digitalocean"><img src="https://img.shields.io/badge/Deploy-DigitalOcean-8c745f?style=for-the-badge" alt="Deploy to DO" width="auto" height="40" /></a>
     <span> · </span>
     <a href="https://docs.inventree.org/en/latest/start/install/">Bare Metal</a>
 </h4></div>

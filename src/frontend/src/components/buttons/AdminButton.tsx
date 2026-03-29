@@ -80,7 +80,7 @@ export default function AdminButton(props: Readonly<AdminButtonProps>) {
   return (
     <ActionButton
       icon={<IconUserStar />}
-      color='blue'
+      color='earth'
       size='lg'
       variant='filled'
       tooltip={t`Open in admin interface`}

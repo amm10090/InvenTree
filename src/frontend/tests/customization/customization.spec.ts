@@ -15,10 +15,10 @@ test('Customization - Splash', async ({ page }) => {
 
   await page.waitForLoadState('networkidle');
 
-  // Check for the custom splash screen
+  // 登录页不再使用自定义 splash 图片作为背景。
   await expect(
     page.locator('[style*="playwright_custom_splash.png"]')
-  ).toBeVisible();
+  ).toHaveCount(0);
 });
 
 test('Customization - Logo', async ({ page }) => {

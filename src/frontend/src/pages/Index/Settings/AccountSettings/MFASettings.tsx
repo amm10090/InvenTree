@@ -645,7 +645,7 @@ function RecoveryCodesModal({
         ) : unusedCodes.length > 0 ? (
           <Stack gap='xs'>
             <Alert
-              color='blue'
+              color='earth'
               icon={<IconInfoCircle />}
               title={t`Recovery Codes`}
             >

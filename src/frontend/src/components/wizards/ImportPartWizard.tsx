@@ -114,7 +114,7 @@ const SearchResult = ({
             )}
           {searchResult.existing_part_id && (
             <Link to={`/part/${searchResult.existing_part_id}`}>
-              <Badge size='sm' color='blue'>
+              <Badge size='sm' color='earth'>
                 <Trans>Already Imported</Trans>
               </Badge>
             </Link>
@@ -225,7 +225,7 @@ const SearchStep = ({
             }
           />
           <Button
-            color='blue'
+            color='earth'
             disabled={!searchValue || !supplier}
             type='submit'
             leftSection={<IconSearch />}

@@ -37,7 +37,7 @@ export default function StarredToggleButton({
           id: 'subscription-update',
           message: starred ? t`Subscription removed` : t`Subscription added`,
           autoClose: 5000,
-          color: 'blue'
+          color: 'earth'
         });
         successFunction();
       })

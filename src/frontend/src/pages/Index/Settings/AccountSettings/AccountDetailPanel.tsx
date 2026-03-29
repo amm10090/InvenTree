@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
-import { Badge, Group, Stack, Table } from '@mantine/core';
+import { Badge, Paper, Stack, Text } from '@mantine/core';
 import { IconEdit, IconKey, IconUser } from '@tabler/icons-react';
 import { useMemo } from 'react';
 
@@ -14,6 +14,7 @@ import { ActionDropdown } from '../../../../components/items/ActionDropdown';
 import { StylishText } from '../../../../components/items/StylishText';
 import { useEditApiFormModal } from '../../../../hooks/UseForm';
 import { useUserState } from '../../../../states/UserState';
+import * as classes from './AccountSettings.css';
 
 export function AccountDetailPanel() {
   const navigate = useNavigate();
@@ -87,7 +88,10 @@ export function AccountDetailPanel() {
       { label: t`Status`, value: user?.profile?.status },
       { label: t`Location`, value: user?.profile?.location },
       { label: t`Contact`, value: user?.profile?.contact },
-      { label: t`Type`, value: <Badge>{user?.profile?.type}</Badge> },
+      {
+        label: t`Type`,
+        value: user?.profile?.type ? <Badge>{user?.profile?.type}</Badge> : null
+      },
       { label: t`Organisation`, value: user?.profile?.organisation },
       { label: t`Primary Group`, value: user?.profile?.primary_group }
     ],
@@ -98,65 +102,92 @@ export function AccountDetailPanel() {
     <>
       {editAccount.modal}
       {editProfile.modal}
-      <Stack gap='xs'>
-        <Group justify='space-between'>
-          <StylishText size='lg'>
-            <Trans>Account Details</Trans>
-          </StylishText>
-          <ActionDropdown
-            tooltip={t`Account Actions`}
-            icon={<IconUser />}
-            actions={[
-              {
-                name: t`Edit Account`,
-                icon: <IconEdit />,
-                tooltip: t`Edit Account Information`,
-                onClick: editAccount.open
-              },
-              {
-                name: t`Change Password`,
-                icon: <IconKey />,
-                tooltip: t`Change User Password`,
-                onClick: () => {
-                  navigate('/change-password');
-                }
-              }
-            ]}
-          />
-        </Group>
-        {renderDetailTable(accountDetailFields)}
+      <Stack gap='lg'>
+        <Paper className={classes.sectionCard}>
+          <Stack gap='md'>
+            <div className={classes.sectionHeader}>
+              <Stack gap={4}>
+                <StylishText size='lg'>
+                  <Trans>Account Details</Trans>
+                </StylishText>
+                <Text className={classes.sectionLead}>
+                  {user?.username || '—'}
+                </Text>
+              </Stack>
+              <ActionDropdown
+                tooltip={t`Account Actions`}
+                icon={<IconUser />}
+                actions={[
+                  {
+                    name: t`Edit Account`,
+                    icon: <IconEdit />,
+                    tooltip: t`Edit Account Information`,
+                    onClick: editAccount.open
+                  },
+                  {
+                    name: t`Change Password`,
+                    icon: <IconKey />,
+                    tooltip: t`Change User Password`,
+                    onClick: () => {
+                      navigate('/change-password');
+                    }
+                  }
+                ]}
+              />
+            </div>
+            <div className={classes.detailGrid}>
+              {accountDetailFields.map((item) => (
+                <div className={classes.detailRow} key={item.label}>
+                  <Text className={classes.detailLabel}>{item.label}</Text>
+                  <div className={classes.detailValue}>
+                    {normalizeValue(item.value)}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Stack>
+        </Paper>
 
-        <Group justify='space-between'>
-          <StylishText size='lg'>
-            <Trans>Profile Details</Trans>
-          </StylishText>
-          <ActionButton
-            text={t`Edit Profile`}
-            icon={<IconEdit />}
-            tooltip={t`Edit Profile Information`}
-            onClick={editProfile.open}
-            variant='light'
-          />
-        </Group>
-        {renderDetailTable(profileDetailFields)}
+        <Paper className={classes.sectionCard}>
+          <Stack gap='md'>
+            <div className={classes.sectionHeader}>
+              <Stack gap={4}>
+                <StylishText size='lg'>
+                  <Trans>Profile Details</Trans>
+                </StylishText>
+                <Text className={classes.sectionLead}>
+                  {user?.profile?.displayname || user?.username || '—'}
+                </Text>
+              </Stack>
+              <ActionButton
+                text={t`Edit Profile`}
+                icon={<IconEdit />}
+                tooltip={t`Edit Profile Information`}
+                onClick={editProfile.open}
+                variant='light'
+              />
+            </div>
+            <div className={classes.detailGrid}>
+              {profileDetailFields.map((item) => (
+                <div className={classes.detailRow} key={item.label}>
+                  <Text className={classes.detailLabel}>{item.label}</Text>
+                  <div className={classes.detailValue}>
+                    {normalizeValue(item.value)}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Stack>
+        </Paper>
       </Stack>
     </>
   );
+}
 
-  function renderDetailTable(data: { label: string; value: any }[]) {
-    return (
-      <Table>
-        <Table.Tbody>
-          {data.map((item) => (
-            <Table.Tr key={item.label}>
-              <Table.Td>
-                <Trans>{item.label}</Trans>
-              </Table.Td>
-              <Table.Td>{item.value}</Table.Td>
-            </Table.Tr>
-          ))}
-        </Table.Tbody>
-      </Table>
-    );
+function normalizeValue(value: any) {
+  if (value === null || value === undefined || value === '') {
+    return '—';
   }
+
+  return value;
 }

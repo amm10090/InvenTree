@@ -65,7 +65,7 @@ class PartImageTestMixin:
 
         fn = get_testfolder_dir() / 'part_image_123abc.png'
 
-        img = Image.new('RGB', (128, 128), color='blue')
+        img = Image.new('RGB', (128, 128), color='#8c745f')
         img.save(fn)
 
         with open(fn, 'rb') as img_file:
@@ -1905,7 +1905,7 @@ class PartDetailTests(PartImageTestMixin, PartAPITestBase):
 
         fn = get_testfolder_dir() / 'part_image_123abc.png'
 
-        img = Image.new('RGB', (128, 128), color='blue')
+        img = Image.new('RGB', (128, 128), color='#8c745f')
         img.save(fn)
 
         # Upload the image to a part

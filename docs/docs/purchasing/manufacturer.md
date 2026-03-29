@@ -44,7 +44,7 @@ To edit a manufacturer part, first access the manufacturer part detail page with
 * Navigate to a Part detail page, click on the <span class="badge inventree nav side">{{ icon("building") }} Suppliers</span> tab then, in the <span class="badge inventree nav main">Part Manufacturers</span> table, click on the _MPN_ link
 * Navigate to a Manufacturer detail page, click on the <span class="badge inventree nav side">{{ icon("building-factory-2") }} Manufactured Parts</span> tab then click on the _MPN_ link.
 
-After the manufacturer part details are loaded, click on the {{ icon("edit", color="blue", title="Edit") }} icon next to the manufacturer part image. Edit the manufacturer part information then click on <span class="badge inventree confirm">Submit</span>
+After the manufacturer part details are loaded, click on the {{ icon("edit", color="#8c745f", title="Edit") }} icon next to the manufacturer part image. Edit the manufacturer part information then click on <span class="badge inventree confirm">Submit</span>
 
 #### Delete Manufacturer Part
 

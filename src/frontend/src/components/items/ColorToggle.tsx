@@ -7,7 +7,6 @@ import {
 import { IconMoonStars, IconSun } from '@tabler/icons-react';
 
 import { t } from '@lingui/core/macro';
-import { vars } from '../../theme';
 
 export function ColorToggle() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
@@ -21,8 +20,8 @@ export function ColorToggle() {
           style={{
             color:
               colorScheme === 'dark'
-                ? vars.colors.yellow[4]
-                : vars.colors.blue[6]
+                ? 'var(--ui-accent-strong)'
+                : 'var(--ui-accent)'
           }}
           variant='transparent'
         >

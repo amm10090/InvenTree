@@ -44,7 +44,7 @@ export function RowEditAction(props: RowAction): RowAction {
   return {
     ...props,
     title: t`Edit`,
-    color: 'blue',
+    color: 'earth',
     icon: <IconEdit />
   };
 }

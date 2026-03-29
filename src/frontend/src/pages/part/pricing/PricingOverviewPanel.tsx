@@ -285,7 +285,7 @@ export default function PricingOverviewPanel({
             <Paper p='xs'>
               <Group justify='space-between' wrap='nowrap'>
                 {pricing?.updated ? (
-                  <Alert color='blue' title={t`Last Updated`} flex={1}>
+                  <Alert color='earth' title={t`Last Updated`} flex={1}>
                     <Text>{formatDate(pricing.updated)}</Text>
                   </Alert>
                 ) : (
@@ -331,7 +331,7 @@ export default function PricingOverviewPanel({
             data={overviewData}
             title={t`Pricing Overview`}
             series={[
-              { name: 'min_value', label: t`Minimum Value`, color: 'blue.6' },
+              { name: 'min_value', label: t`Minimum Value`, color: 'earth.6' },
               { name: 'max_value', label: t`Maximum Value`, color: 'teal.6' }
             ]}
             valueFormatter={(value) =>

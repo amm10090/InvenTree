@@ -1,10 +1,11 @@
 import { t } from '@lingui/core/macro';
-import { Group, SegmentedControl, Stack, Text } from '@mantine/core';
+import { SegmentedControl, Stack, Text } from '@mantine/core';
 import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useUserState } from '../../states/UserState';
 import { StylishText } from '../items/StylishText';
+import * as classes from './SettingsHeader.css';
 
 interface SettingsHeaderInterface {
   label: string;
@@ -26,25 +27,28 @@ export function SettingsHeader({
   const navigate = useNavigate();
 
   return (
-    <Group justify='space-between'>
-      <Stack gap='0' ml={'sm'}>
-        <Group>
+    <div className={classes.shell}>
+      <Stack gap='xs' className={classes.content}>
+        <div className={classes.titleRow}>
           <StylishText size='xl'>{title}</StylishText>
-          {shorthand && <Text c='dimmed'>({shorthand})</Text>}
-        </Group>
-        <Group>{subtitle ? <Text c='dimmed'>{subtitle}</Text> : null}</Group>
+          {shorthand && <Text className={classes.shorthand}>{shorthand}</Text>}
+        </div>
+        {subtitle ? <Text className={classes.subtitle}>{subtitle}</Text> : null}
       </Stack>
       {user.isStaff() && (
-        <SegmentedControl
-          data={[
-            { value: 'user', label: t`User Settings` },
-            { value: 'system', label: t`System Settings` },
-            { value: 'admin', label: t`Admin Center` }
-          ]}
-          onChange={(value) => navigate(`/settings/${value}`)}
-          value={label}
-        />
+        <div className={classes.actions}>
+          <SegmentedControl
+            className={classes.segmented}
+            data={[
+              { value: 'user', label: t`User Settings` },
+              { value: 'system', label: t`System Settings` },
+              { value: 'admin', label: t`Admin Center` }
+            ]}
+            onChange={(value) => navigate(`/settings/${value}`)}
+            value={label}
+          />
+        </div>
       )}
-    </Group>
+    </div>
   );
 }

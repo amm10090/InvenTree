@@ -197,7 +197,7 @@ export default function UserDetail() {
       ? []
       : [
           instance.is_staff && (
-            <Badge key='is_staff' color='blue'>{t`Staff`}</Badge>
+            <Badge key='is_staff' color='earth'>{t`Staff`}</Badge>
           ),
           instance.is_superuser && (
             <Badge key='is_superuser' color='red'>{t`Superuser`}</Badge>

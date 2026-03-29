@@ -46,7 +46,7 @@ To edit a supplier part, first access the supplier part detail page with one of 
 0. navigate to a Supplier detail page, click on the <span class="badge inventree nav side">{{ icon("building") }} Supplied Parts</span> tab then click on the corresponding _Supplier Part_ link
 0. navigate to a Manufacturer detail page, click on the <span class="badge inventree nav side">{{ icon("building") }} Supplied Parts</span> tab then click on the corresponding _Supplier Part_ link.
 
-After the supplier part details are loaded, click on the {{ icon("edit", color="blue", title="Edit") }} icon next to the supplier part image. Edit the supplier part information then click on <span class="badge inventree confirm">Submit</span>
+After the supplier part details are loaded, click on the {{ icon("edit", color="#8c745f", title="Edit") }} icon next to the supplier part image. Edit the supplier part information then click on <span class="badge inventree confirm">Submit</span>
 
 #### Disable Supplier Part
 

@@ -241,7 +241,7 @@ function GeneralBarcodeAction({
 export function EditItemAction(props: ActionDropdownItem): ActionDropdownItem {
   return {
     ...props,
-    icon: <IconEdit color='blue' />,
+    icon: <IconEdit color='var(--ui-accent)' />,
     name: t`Edit`,
     tooltip: props.tooltip ?? t`Edit item`
   };

@@ -32,7 +32,7 @@ export default function PluginManagementPanel() {
         <Alert
           title={<Trans>Info</Trans>}
           icon={<IconInfoCircle />}
-          color='blue'
+          color='earth'
         >
           <Trans>
             External plugins are not enabled for this 库存管理系统 installation.

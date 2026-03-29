@@ -474,7 +474,7 @@ export default function PurchaseOrderDetail() {
         title={t`Issue Order`}
         icon='issue'
         hidden={!canIssue}
-        color='blue'
+        color='earth'
         onClick={issueOrder.open}
       />,
       <PrimaryActionButton

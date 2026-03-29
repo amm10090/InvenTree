@@ -350,7 +350,7 @@ export default function SalesOrderShipmentDetail() {
       <DetailsBadge
         key='delivered'
         label={t`Delivered`}
-        color='blue'
+        color='earth'
         visible={!!shipment.delivery_date}
       />
     ];

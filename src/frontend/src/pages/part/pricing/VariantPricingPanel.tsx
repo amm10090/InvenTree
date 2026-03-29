@@ -94,7 +94,7 @@ export default function VariantPricingPanel({
             xAxisLabel={t`Variant Part`}
             yAxisLabel={t`Price Range`}
             series={[
-              { name: 'pmin', label: t`Minimum Price`, color: 'blue.6' },
+              { name: 'pmin', label: t`Minimum Price`, color: 'earth.6' },
               { name: 'pmax', label: t`Maximum Price`, color: 'teal.6' }
             ]}
             valueFormatter={(value) =>

@@ -1,21 +1,15 @@
 import { t } from '@lingui/core/macro';
 import { Trans } from '@lingui/react/macro';
 import {
-  ActionIcon,
-  Button,
-  ColorInput,
-  ColorPicker,
-  Container,
-  DEFAULT_THEME,
   Group,
   Loader,
+  Paper,
   Select,
   Slider,
-  Table,
-  useMantineTheme
+  Stack,
+  Text
 } from '@mantine/core';
-import { IconRestore } from '@tabler/icons-react';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { useShallow } from 'zustand/react/shallow';
 import { ColorToggle } from '../../../../components/items/ColorToggle';
@@ -23,174 +17,104 @@ import { LanguageSelect } from '../../../../components/items/LanguageSelect';
 import { StylishText } from '../../../../components/items/StylishText';
 import { SizeMarks } from '../../../../defaults/defaults';
 import { useLocalState } from '../../../../states/LocalState';
+import * as classes from './AccountSettings.css';
 
-function getLkp(color: string) {
-  return { [DEFAULT_THEME.colors[color][6]]: color };
+function getRadiusFromValue(value: number) {
+  const target = SizeMarks.find((mark) => mark.value === value);
+  return target?.label ?? 'sm';
 }
-const LOOKUP = Object.assign(
-  {},
-  ...Object.keys(DEFAULT_THEME.colors).map((clr) => getLkp(clr))
-);
 
-export function UserTheme({ height }: Readonly<{ height: number }>) {
-  const theme = useMantineTheme();
+function getValueFromRadius(value: string | number) {
+  const target = SizeMarks.find((mark) => mark.label === value);
+  return target?.value ?? 50;
+}
+
+export function UserTheme() {
   const [userTheme, setTheme] = useLocalState(
     useShallow((state) => [state.userTheme, state.setTheme])
   );
 
-  // radius
-  function getRadiusFromValue(value: number) {
-    const obj = SizeMarks.find((mark) => mark.value === value);
-    if (obj) return obj.label;
-    return 'sm';
-  }
+  const [radius, setRadius] = useState(getValueFromRadius(userTheme.radius));
 
-  const [radius, setRadius] = useState(25);
+  useEffect(() => {
+    setRadius(getValueFromRadius(userTheme.radius));
+  }, [userTheme.radius]);
+
+  const loaderOptions = useMemo(
+    () => [
+      { value: 'bars', label: t`Bars` },
+      { value: 'oval', label: t`Oval` },
+      { value: 'dots', label: t`Dots` }
+    ],
+    []
+  );
 
   function changeRadius(value: number) {
-    const r = getRadiusFromValue(value);
+    const mappedRadius = getRadiusFromValue(value);
     setRadius(value);
-
-    setTheme([{ key: 'radius', value: r.toString() }]);
+    setTheme([{ key: 'radius', value: mappedRadius.toString() }]);
   }
 
   return (
-    <Container w='100%' mih={height} p={0}>
-      <StylishText size='lg'>
-        <Trans>Display Settings</Trans>
-      </StylishText>
-      <Table>
-        <Table.Tbody>
-          <Table.Tr>
-            <Table.Td>
-              <Trans>Language</Trans>
-            </Table.Td>
-            <Table.Td>
-              <LanguageSelect width={200} />
-            </Table.Td>
-            <Table.Td />
-          </Table.Tr>
-          <Table.Tr>
-            <Table.Td>
-              <Trans>Color Mode</Trans>
-            </Table.Td>
-            <Table.Td>
-              <Group justify='left'>
-                <ColorToggle />
-              </Group>
-            </Table.Td>
-            <Table.Td />
-          </Table.Tr>
-          <Table.Tr>
-            <Table.Td>
-              <Trans>Highlight color</Trans>
-            </Table.Td>
-            <Table.Td>
-              <ColorPicker
-                format='hex'
-                onChange={(v) =>
-                  setTheme([{ key: 'primaryColor', value: LOOKUP[v] }])
-                }
-                withPicker={false}
-                swatches={Object.keys(LOOKUP)}
+    <Paper className={classes.sectionCard}>
+      <Stack gap='md'>
+        <StylishText size='lg'>
+          <Trans>Display Settings</Trans>
+        </StylishText>
+
+        <div className={classes.settingRow}>
+          <Text className={classes.settingLabel}>
+            <Trans>Language</Trans>
+          </Text>
+          <div className={classes.settingControl}>
+            <LanguageSelect width={220} />
+          </div>
+        </div>
+
+        <div className={classes.settingRow}>
+          <Text className={classes.settingLabel}>
+            <Trans>Color Mode</Trans>
+          </Text>
+          <div className={classes.settingControl}>
+            <ColorToggle />
+          </div>
+        </div>
+
+        <div className={classes.settingRow}>
+          <Text className={classes.settingLabel}>
+            <Trans>Border Radius</Trans>
+          </Text>
+          <div className={classes.settingControl}>
+            <Slider
+              label={(value) => getRadiusFromValue(value)}
+              step={25}
+              marks={SizeMarks}
+              value={radius}
+              onChange={changeRadius}
+              mb={18}
+            />
+          </div>
+        </div>
+
+        <div className={classes.settingRow}>
+          <Text className={classes.settingLabel}>
+            <Trans>Loader</Trans>
+          </Text>
+          <div className={classes.settingControl}>
+            <Group className={classes.loaderPreview}>
+              <Select
+                aria-label='Loader Type Selector'
+                data={loaderOptions}
+                value={userTheme.loader}
+                onChange={(value) => {
+                  if (value != null) setTheme([{ key: 'loader', value }]);
+                }}
               />
-            </Table.Td>
-            <Table.Td>
-              <Button color={theme.primaryColor} variant='light'>
-                <Trans>Example</Trans>
-              </Button>
-            </Table.Td>
-          </Table.Tr>
-          <Table.Tr>
-            <Table.Td>
-              <Trans>White color</Trans>
-            </Table.Td>
-            <Table.Td>
-              <ColorInput
-                aria-label='Color Picker White'
-                value={userTheme.whiteColor}
-                onChange={(v) => setTheme([{ key: 'whiteColor', value: v }])}
-              />
-            </Table.Td>
-            <Table.Td>
-              <ActionIcon
-                variant='default'
-                aria-label='Reset White Color'
-                onClick={() =>
-                  setTheme([{ key: 'whiteColor', value: '#FFFFFF' }])
-                }
-              >
-                <IconRestore />
-              </ActionIcon>
-            </Table.Td>
-          </Table.Tr>
-          <Table.Tr>
-            <Table.Td>
-              <Trans>Black color</Trans>
-            </Table.Td>
-            <Table.Td>
-              <ColorInput
-                aria-label='Color Picker Black'
-                value={userTheme.blackColor}
-                onChange={(v) => setTheme([{ key: 'blackColor', value: v }])}
-              />
-            </Table.Td>
-            <Table.Td>
-              <ActionIcon
-                variant='default'
-                aria-label='Reset Black Color'
-                onClick={() =>
-                  setTheme([{ key: 'blackColor', value: '#000000' }])
-                }
-              >
-                <IconRestore />
-              </ActionIcon>
-            </Table.Td>
-          </Table.Tr>
-          <Table.Tr>
-            <Table.Td>
-              <Trans>Border Radius</Trans>
-            </Table.Td>
-            <Table.Td>
-              <Slider
-                label={(val) => getRadiusFromValue(val)}
-                defaultValue={50}
-                step={25}
-                marks={SizeMarks}
-                value={radius}
-                onChange={changeRadius}
-                mb={18}
-              />
-            </Table.Td>
-          </Table.Tr>
-          <Table.Tr>
-            <Table.Td>
-              <Trans>Loader</Trans>
-            </Table.Td>
-            <Table.Td>
-              <Group justify='left'>
-                <Select
-                  aria-label='Loader Type Selector'
-                  data={[
-                    { value: 'bars', label: t`Bars` },
-                    { value: 'oval', label: t`Oval` },
-                    { value: 'dots', label: t`Dots` }
-                  ]}
-                  value={userTheme.loader}
-                  onChange={(v) => {
-                    if (v != null) setTheme([{ key: 'loader', value: v }]);
-                  }}
-                />
-              </Group>
-            </Table.Td>
-            <Table.Td>
-              <Group justify='left'>
-                <Loader type={userTheme.loader} mah={16} size='sm' />
-              </Group>
-            </Table.Td>
-          </Table.Tr>
-        </Table.Tbody>
-      </Table>
-    </Container>
+              <Loader type={userTheme.loader} mah={16} size='sm' />
+            </Group>
+          </div>
+        </div>
+      </Stack>
+    </Paper>
   );
 }

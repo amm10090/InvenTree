@@ -193,7 +193,7 @@ export function UserDrawer({
                 postFormContent: isCurrentUser ? (
                   <Alert
                     title={<Trans>Info</Trans>}
-                    color='blue'
+                    color='earth'
                     icon={<IconInfoCircle />}
                   >
                     <Trans>
@@ -320,7 +320,7 @@ export function UserTable({
         {
           icon: <IconKey />,
           title: t`Change Password`,
-          color: 'blue',
+          color: 'earth',
           onClick: () => {
             setSelectedUser(record.pk);
             setPassword.open();
@@ -330,7 +330,7 @@ export function UserTable({
         {
           icon: <IconLock />,
           title: t`Lock user`,
-          color: 'blue',
+          color: 'earth',
           onClick: () => {
             setUserActiveState(record.pk, false);
             table.refreshTable();
@@ -340,7 +340,7 @@ export function UserTable({
         {
           icon: <IconLockOpen />,
           title: t`Unlock user`,
-          color: 'blue',
+          color: 'earth',
           onClick: () => {
             setUserActiveState(record.pk, true);
             table.refreshTable();

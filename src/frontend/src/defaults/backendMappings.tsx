@@ -24,9 +24,9 @@ export const statusColorMap: { [key: string]: string } = {
   dark: 'dark',
   warning: 'yellow',
   success: 'green',
-  info: 'cyan',
+  info: 'earth',
   danger: 'red',
-  primary: 'blue',
+  primary: 'earth',
   secondary: 'gray',
   default: 'gray'
 };

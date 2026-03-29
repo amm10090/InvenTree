@@ -84,7 +84,7 @@ export const useLocalState = create<LocalStateProps>()(
         if (!noPatch) patchUser('language', newLanguage);
       },
       userTheme: {
-        primaryColor: 'indigo',
+        primaryColor: 'earth',
         whiteColor: '#fff',
         blackColor: '#000',
         radius: 'xs',

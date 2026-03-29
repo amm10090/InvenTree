@@ -108,7 +108,7 @@ Here the details of the return order are available, and specific actions can be 
 
 ### Edit Return Order
 
-The Return Order can be edit by selecting the {{ icon("edit", color="blue", title="Edit") }} icon under the {{ icon("tools") }} actions menu.
+The Return Order can be edit by selecting the {{ icon("edit", color="#8c745f", title="Edit") }} icon under the {{ icon("tools") }} actions menu.
 
 ### Line Items
 

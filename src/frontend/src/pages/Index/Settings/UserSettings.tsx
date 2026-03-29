@@ -140,7 +140,7 @@ export default function UserSettings() {
   return (
     <>
       <PageTitle title={t`User Settings`} />
-      <Stack gap='xs'>
+      <Stack gap='md'>
         <SettingsHeader
           label='user'
           title={t`User Settings`}

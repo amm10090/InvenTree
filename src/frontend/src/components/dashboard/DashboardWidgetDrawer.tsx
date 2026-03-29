@@ -120,7 +120,7 @@ export default function DashboardWidgetDrawer({
           </Table.Tbody>
         </Table>
         {unusedWidgets.length === 0 && (
-          <Alert color='blue' title={t`No Widgets Available`}>
+          <Alert color='earth' title={t`No Widgets Available`}>
             <Text>{t`There are no more widgets available for the dashboard`}</Text>
           </Alert>
         )}

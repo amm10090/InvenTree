@@ -208,7 +208,7 @@ export default function SalesOrderShipmentTable({
           hidden:
             !!record.checked_by || !user.hasChangeRole(UserRoles.sales_order),
           title: t`Check Shipment`,
-          color: 'blue',
+          color: 'earth',
           icon: <IconCircleCheck />,
           onClick: () => {
             setSelectedShipment(record);

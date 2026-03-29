@@ -171,14 +171,14 @@ export default function StockItemTestResultTable({
                 <Group justify='right'>
                   {record.results && record.results.length > 1 && (
                     <Tooltip label={t`Test Results`}>
-                      <Badge color='lightblue' variant='filled'>
+                      <Badge color='earth' variant='filled'>
                         {record.results.length}
                       </Badge>
                     </Tooltip>
                   )}
                   {installed && (
                     <Tooltip label={t`Test result for installed stock item`}>
-                      <IconInfoCircle size={16} color='blue' />
+                      <IconInfoCircle size={16} color='var(--ui-accent)' />
                     </Tooltip>
                   )}
                 </Group>
@@ -194,7 +194,7 @@ export default function StockItemTestResultTable({
           render: (record: any) => {
             if (record.result === undefined) {
               return (
-                <Badge color='lightblue' variant='filled'>{t`No Result`}</Badge>
+                <Badge color='earth' variant='filled'>{t`No Result`}</Badge>
               );
             } else {
               return <PassFailButton value={record.result} />;

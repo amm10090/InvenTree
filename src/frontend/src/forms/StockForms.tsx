@@ -1294,7 +1294,7 @@ export function useAddStockItem(props: StockOperationProps) {
     title: t`Add Stock`,
     successMessage: t`Stock added`,
     preFormContent: (
-      <Alert color='blue'>
+      <Alert color='earth'>
         {t`Increase the quantity of the selected stock items by a given amount.`}
       </Alert>
     )
@@ -1309,7 +1309,7 @@ export function useRemoveStockItem(props: StockOperationProps) {
     title: t`Remove Stock`,
     successMessage: t`Stock removed`,
     preFormContent: (
-      <Alert color='blue'>
+      <Alert color='earth'>
         {t`Decrease the quantity of the selected stock items by a given amount.`}
       </Alert>
     )
@@ -1324,7 +1324,7 @@ export function useTransferStockItem(props: StockOperationProps) {
     title: t`Transfer Stock`,
     successMessage: t`Stock transferred`,
     preFormContent: (
-      <Alert color='blue'>
+      <Alert color='earth'>
         {t`Transfer selected items to the specified location.`}
       </Alert>
     )
@@ -1339,7 +1339,7 @@ export function useReturnStockItem(props: StockOperationProps) {
     title: t`Return Stock`,
     successMessage: t`Stock returned`,
     preFormContent: (
-      <Alert color='blue'>
+      <Alert color='earth'>
         {t`Return selected items into stock, to the specified location.`}
       </Alert>
     )
@@ -1354,7 +1354,7 @@ export function useCountStockItem(props: StockOperationProps) {
     title: t`Count Stock`,
     successMessage: t`Stock counted`,
     preFormContent: (
-      <Alert color='blue'>
+      <Alert color='earth'>
         {t`Count the selected stock items, and adjust the quantity accordingly.`}
       </Alert>
     )
@@ -1369,7 +1369,7 @@ export function useChangeStockStatus(props: StockOperationProps) {
     title: t`Change Stock Status`,
     successMessage: t`Stock status changed`,
     preFormContent: (
-      <Alert color='blue'>
+      <Alert color='earth'>
         {t`Change the status of the selected stock items.`}
       </Alert>
     )
@@ -1395,7 +1395,7 @@ export function useChangeStockBatchCode(props: StockOperationProps) {
     items: props.items?.map((item: any) => item.pk) ?? [],
     title: t`Change Batch Code`,
     preFormContent: (
-      <Alert color='blue'>
+      <Alert color='earth'>
         {t`Change batch code for the selected stock items`}
       </Alert>
     ),

@@ -398,7 +398,7 @@ export default function SupplierPartDetail() {
       />,
       <DetailsBadge
         label={`${t`On Order`}: ${formatDecimal(supplierPart.on_order)}`}
-        color='blue'
+        color='earth'
         visible={supplierPart.on_order > 0}
         key='on_order'
       />

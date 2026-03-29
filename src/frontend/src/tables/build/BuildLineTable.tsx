@@ -789,7 +789,7 @@ export default function BuildLineTable({
           icon: <IconShoppingCart />,
           title: t`Order Stock`,
           hidden: !canOrder,
-          color: 'blue',
+          color: 'earth',
           onClick: () => {
             setPartsToOrder([record.part_detail]);
             orderPartsWizard.openWizard();
@@ -799,7 +799,7 @@ export default function BuildLineTable({
           icon: <IconTool />,
           title: t`Build Stock`,
           hidden: !canBuild || !isActive,
-          color: 'blue',
+          color: 'earth',
           onClick: () => {
             setInitialData({
               part: record.part,
@@ -830,7 +830,7 @@ export default function BuildLineTable({
         icon={<IconWand />}
         tooltip={t`Auto Allocate Stock`}
         hidden={!visible || hasOutput}
-        color='blue'
+        color='earth'
         onClick={() => {
           autoAllocateStock.open();
         }}
@@ -840,7 +840,7 @@ export default function BuildLineTable({
         hidden={!user.hasAddRole(UserRoles.purchase_order)}
         disabled={!table.hasSelectedRecords}
         icon={<IconShoppingCart />}
-        color='blue'
+        color='earth'
         tooltip={t`Order Parts`}
         onClick={() => {
           setPartsToOrder(

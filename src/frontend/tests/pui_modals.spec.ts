@@ -3,6 +3,12 @@ import { adminuser } from './defaults.js';
 import { doCachedLogin } from './login.js';
 import { setPluginState } from './settings.js';
 
+const DASHBOARD_ACTION = /Dashboard Go to the .* dashboard/;
+const ABOUT_ACTION = /About .* About the .* (org|Project)/;
+const SERVER_INFO_ACTION = /Server Information About this .* instance/;
+const DOCUMENTATION_ACTION =
+  /Documentation Visit the documentation to learn more about .*/;
+
 test('Modals - Admin', async ({ browser }) => {
   const page = await doCachedLogin(browser, {
     user: adminuser
@@ -12,7 +18,7 @@ test('Modals - Admin', async ({ browser }) => {
   await page.getByLabel('open-spotlight').click();
   await page
     .getByRole('button', {
-      name: 'Server Information About this InvenTree instance'
+      name: SERVER_INFO_ACTION
     })
     .click();
   await page.getByRole('cell', { name: 'Instance Name' }).waitFor();
@@ -47,10 +53,10 @@ test('Modals - Admin', async ({ browser }) => {
 
   // use about
   await page.getByLabel('open-spotlight').click();
+  await page.getByRole('button', { name: ABOUT_ACTION }).click();
   await page
-    .getByRole('button', { name: 'About InvenTree About the InvenTree org' })
+    .getByRole('cell', { name: /(InvenTree|库存管理系统) Version/ })
     .click();
-  await page.getByRole('cell', { name: 'InvenTree Version' }).click();
 });
 
 test('Spotlight - Check Actions', async ({ browser }) => {
@@ -66,9 +72,7 @@ test('Spotlight - Check Actions', async ({ browser }) => {
   await page.waitForTimeout(200);
   await page.getByRole('textbox', { name: 'Search...' }).fill('Dashboard');
 
-  await page
-    .getByRole('button', { name: 'Dashboard Go to the InvenTree dashboard' })
-    .waitFor();
+  await page.getByRole('button', { name: DASHBOARD_ACTION }).waitFor();
 
   // User settings
   await page.getByRole('textbox', { name: 'Search...' }).fill('settings');
@@ -88,11 +92,9 @@ test('Spotlight - No Keys', async ({ browser }) => {
 
   // Open Spotlight with Button
   await page.getByLabel('open-spotlight').click();
-  await page
-    .getByRole('button', { name: 'Dashboard Go to the InvenTree' })
-    .click();
+  await page.getByRole('button', { name: DASHBOARD_ACTION }).click();
 
-  await page.getByText('InvenTree Demo Server - ').waitFor();
+  await page.waitForURL(/\/web\/home/);
 
   // Use navigation menu
   await page.getByLabel('open-spotlight').click();
@@ -105,8 +107,8 @@ test('Spotlight - No Keys', async ({ browser }) => {
 
   // assert the nav headers are visible
   await page.getByText('Navigation').first().waitFor();
-  await page.getByText('Documentation').first().waitFor();
-  await page.getByText('About').first().waitFor();
+  await page.getByText('Settings').first().waitFor();
+  await page.getByText('Actions').first().waitFor();
 
   await page
     .getByRole('button', { name: 'Notifications', exact: true })
@@ -120,7 +122,7 @@ test('Spotlight - No Keys', async ({ browser }) => {
   await page.getByLabel('open-spotlight').click();
   await page
     .getByRole('button', {
-      name: 'Server Information About this InvenTree instance'
+      name: SERVER_INFO_ACTION
     })
     .click();
   await page.getByRole('cell', { name: 'Instance Name' }).waitFor();
@@ -141,18 +143,19 @@ test('Spotlight - No Keys', async ({ browser }) => {
 
   // use about
   await page.getByLabel('open-spotlight').click();
-  await page
-    .getByRole('button', { name: 'About InvenTree About the InvenTree org' })
-    .click();
+  await page.getByRole('button', { name: ABOUT_ACTION }).click();
   await page.getByText('This information is only').waitFor();
 
-  await page.getByLabel('About InvenTree').getByRole('button').click();
+  await page
+    .getByLabel(/About (InvenTree|库存管理系统)/)
+    .getByRole('button')
+    .click();
 
   // use documentation
   await page.getByLabel('open-spotlight').click();
   await page
     .getByRole('button', {
-      name: 'Documentation Visit the documentation to learn more about InvenTree'
+      name: DOCUMENTATION_ACTION
     })
     .click();
   await page.waitForURL('https://docs.inventree.org/**');

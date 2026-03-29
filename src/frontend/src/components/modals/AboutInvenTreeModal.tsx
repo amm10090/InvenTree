@@ -190,7 +190,7 @@ const AboutContent = ({
 function renderVersionBadge(data: any) {
   const badgeType = () => {
     if (data.dev) {
-      return { color: 'blue', label: <Trans>Development Version</Trans> };
+      return { color: 'earth', label: <Trans>Development Version</Trans> };
     } else if (data.up_to_date) {
       return { color: 'green', label: <Trans>Up to Date</Trans> };
     } else {

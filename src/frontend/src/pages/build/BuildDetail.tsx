@@ -67,7 +67,7 @@ import { StockItemTable } from '../../tables/stock/StockItemTable';
 
 function NoItems() {
   return (
-    <Alert color='blue' icon={<IconInfoCircle />} title={t`No Required Items`}>
+    <Alert color='earth' icon={<IconInfoCircle />} title={t`No Required Items`}>
       <Stack gap='xs'>
         <Text>{t`This build order does not have any required items.`}</Text>
         <Text>{t`The assembled part may not have a Bill of Materials (BOM) defined, or the BOM is empty.`}</Text>
@@ -106,7 +106,7 @@ function BuildLinesPanel({
   return (
     <Stack gap='xs'>
       {buildLocation.instance.pk && (
-        <Alert color='blue' icon={<IconSitemap />} title={t`Source Location`}>
+        <Alert color='earth' icon={<IconSitemap />} title={t`Source Location`}>
           <RenderStockLocation instance={buildLocation.instance} />
         </Alert>
       )}
@@ -687,7 +687,7 @@ export default function BuildDetail() {
         title={t`Issue Order`}
         icon='issue'
         hidden={!canIssue}
-        color='blue'
+        color='earth'
         onClick={issueOrder.open}
       />,
       <PrimaryActionButton
@@ -748,7 +748,7 @@ export default function BuildDetail() {
           />,
           <DetailsBadge
             label={t`External`}
-            color='blue'
+            color='earth'
             key='external'
             visible={build.external}
           />

@@ -530,7 +530,7 @@ export function PartListTable({
           },
           {
             name: t`Order Parts`,
-            icon: <IconShoppingCart color='blue' />,
+            icon: <IconShoppingCart color='var(--ui-accent)' />,
             tooltip: t`Order selected parts`,
             hidden: !user.hasAddRole(UserRoles.purchase_order),
             onClick: () => {

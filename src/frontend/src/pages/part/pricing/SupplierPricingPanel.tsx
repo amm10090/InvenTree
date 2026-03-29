@@ -63,7 +63,7 @@ export default function SupplierPricingPanel({
           data={supplierPricingData}
           dataKey='name'
           series={[
-            { name: 'unit_price', label: t`Unit Price`, color: 'blue.6' },
+            { name: 'unit_price', label: t`Unit Price`, color: 'earth.6' },
             {
               name: 'supplier_price',
               label: t`Supplier Price`,

@@ -876,7 +876,12 @@ export default function StockDetail() {
               serialized ||
               stockitem?.quantity < 1 ||
               stockitem?.part_detail?.trackable != true,
-            icon: <InvenTreeIcon icon='serial' iconProps={{ color: 'blue' }} />,
+            icon: (
+              <InvenTreeIcon
+                icon='serial'
+                iconProps={{ color: 'var(--ui-accent)' }}
+              />
+            ),
             onClick: () => {
               serializeStockItem.open();
             }
@@ -888,7 +893,7 @@ export default function StockDetail() {
               !user.hasAddRole(UserRoles.purchase_order) ||
               !stockitem.part_detail?.active ||
               !stockitem.part_detail?.purchaseable,
-            icon: <IconShoppingCart color='blue' />,
+            icon: <IconShoppingCart color='var(--ui-accent)' />,
             onClick: () => {
               orderPartsWizard.openWizard();
             }
@@ -928,13 +933,13 @@ export default function StockDetail() {
             visible={stockitem.is_building}
           />,
           <DetailsBadge
-            color='blue'
+            color='earth'
             label={`${t`Serial Number`}: ${stockitem.serial}`}
             visible={!!stockitem.serial}
             key='serial'
           />,
           <DetailsBadge
-            color='blue'
+            color='earth'
             label={`${t`Quantity`}: ${formatDecimal(stockitem.quantity)}`}
             visible={!stockitem.serial}
             key='quantity'
@@ -950,7 +955,7 @@ export default function StockDetail() {
             key='available'
           />,
           <DetailsBadge
-            color='blue'
+            color='earth'
             label={`${t`Batch Code`}: ${stockitem.batch}`}
             visible={!!stockitem.batch}
             key='batch'

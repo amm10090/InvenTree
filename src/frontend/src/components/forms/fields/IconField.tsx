@@ -338,9 +338,7 @@ function DropdownList({
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              background: isSelected
-                ? 'var(--mantine-color-blue-filled)'
-                : 'unset',
+              background: isSelected ? 'var(--ui-accent)' : 'unset',
               borderRadius: 'var(--mantine-radius-default)',
               ...style
             }}

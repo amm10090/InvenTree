@@ -86,8 +86,8 @@ export function MainMenu() {
             }
             c={
               colorScheme === 'dark'
-                ? vars.colors.yellow[4]
-                : vars.colors.blue[6]
+                ? 'var(--ui-accent-strong)'
+                : 'var(--ui-accent)'
             }
           >
             <Trans>Change Color Mode</Trans>

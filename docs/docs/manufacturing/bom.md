@@ -98,7 +98,7 @@ At the top of the *BOM* panel, click on the {{ icon("file-arrow-left", color="gr
 
 ### Add BOM Item
 
-To manually add a BOM item, navigate to the part/assembly detail page then click on the *BOM* panel tab. On top of the *BOM* view, click on the {{ icon("edit", color="blue", title="Edit") }} icon then, after the page reloads, click on the {{ icon("plus-circle") }} icon.
+To manually add a BOM item, navigate to the part/assembly detail page then click on the *BOM* panel tab. On top of the *BOM* view, click on the {{ icon("edit", color="#8c745f", title="Edit") }} icon then, after the page reloads, click on the {{ icon("plus-circle") }} icon.
 
 The `Create BOM Item` form will be displayed:
 

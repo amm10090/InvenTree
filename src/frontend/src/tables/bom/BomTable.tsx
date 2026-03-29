@@ -602,7 +602,7 @@ export function BomTable({
         }),
         {
           title: t`Edit Substitutes`,
-          color: 'blue',
+          color: 'earth',
           hidden: partLocked || !user.hasAddRole(UserRoles.part),
           icon: <IconSwitch3 />,
           onClick: () => {

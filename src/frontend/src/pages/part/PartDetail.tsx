@@ -1033,19 +1033,19 @@ export default function PartDetail() {
       />,
       <DetailsBadge
         label={`${t`Required`}: ${formatDecimal(required)}`}
-        color='grape'
+        color='earth'
         visible={required > 0}
         key='required'
       />,
       <DetailsBadge
         label={`${t`On Order`}: ${formatDecimal(partRequirements.ordering)}`}
-        color='blue'
+        color='earth'
         visible={partRequirements.ordering > 0}
         key='on_order'
       />,
       <DetailsBadge
         label={`${t`In Production`}: ${formatDecimal(partRequirements.building)}`}
-        color='blue'
+        color='earth'
         visible={partRequirements.building > 0}
         key='in_production'
       />,
@@ -1063,7 +1063,7 @@ export default function PartDetail() {
       />,
       <DetailsBadge
         label={t`Virtual Part`}
-        color='cyan.4'
+        color='earth.4'
         visible={part.virtual}
         key='virtual'
       />
@@ -1182,7 +1182,7 @@ export default function PartDetail() {
               !user.hasAddRole(UserRoles.purchase_order) ||
               !part?.active ||
               !part?.purchaseable,
-            icon: <IconShoppingCart color='blue' />,
+            icon: <IconShoppingCart color='var(--ui-accent)' />,
             onClick: () => {
               orderPartsWizard.openWizard();
             }

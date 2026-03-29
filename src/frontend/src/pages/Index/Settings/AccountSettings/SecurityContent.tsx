@@ -224,7 +224,7 @@ function EmailSection() {
                     {email.email}
                     <Group justify='right'>
                       {email.primary && (
-                        <Badge color='blue'>
+                        <Badge color='earth'>
                           <Trans>Primary</Trans>
                         </Badge>
                       )}

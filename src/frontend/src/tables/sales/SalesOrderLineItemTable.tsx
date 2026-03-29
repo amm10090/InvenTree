@@ -364,7 +364,7 @@ export default function SalesOrderLineItemTable({
         disabled={!table.hasSelectedRecords}
         tooltip={t`Order Parts`}
         icon={<IconShoppingCart />}
-        color='blue'
+        color='earth'
         onClick={() => {
           setPartsToOrder(table.selectedRecords.map((r) => r.part_detail));
           orderPartsWizard.openWizard();
@@ -433,7 +433,7 @@ export default function SalesOrderLineItemTable({
             !record?.part_detail?.assembly,
           title: t`Build stock`,
           icon: <IconTools />,
-          color: 'blue',
+          color: 'earth',
           onClick: () => {
             setInitialData({
               part: record.part,
@@ -451,7 +451,7 @@ export default function SalesOrderLineItemTable({
             !record?.part_detail?.purchaseable,
           title: t`Order stock`,
           icon: <IconShoppingCart />,
-          color: 'blue',
+          color: 'earth',
           onClick: () => {
             setPartsToOrder([record.part_detail]);
             orderPartsWizard.openWizard();

@@ -7,8 +7,7 @@ import {
   Stack,
   Switch,
   Text,
-  Tooltip,
-  useMantineColorScheme
+  Tooltip
 } from '@mantine/core';
 import { IconEdit } from '@tabler/icons-react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -52,11 +51,9 @@ function SettingValue({
   onEdit: (setting: Setting, confirmed: boolean) => void;
   onToggle: (setting: Setting, value: boolean, confirmed: boolean) => void;
 }>) {
-  // Determine the text to display for the setting value
   const valueText: string = useMemo(() => {
     let value = setting.value;
 
-    // If the setting has a choice, display the choice label
     if (setting?.choices && setting?.choices?.length > 0) {
       const choice = setting.choices.find((c) => c.value == setting.value);
       value = choice?.display_name || setting.value;
@@ -71,7 +68,6 @@ function SettingValue({
 
   const [modelInstance, setModelInstance] = useState<any>(null);
 
-  // Launch the edit dialog for this setting
   const editSetting = useCallback(() => {
     if (!setting.read_only) {
       const confirm = confirmSettingChange(setting);
@@ -80,7 +76,6 @@ function SettingValue({
     }
   }, [setting, onEdit]);
 
-  // Toggle the setting value (if it is a boolean)
   const toggleSetting = useCallback(
     (event: any) => {
       if (!setting.read_only) {
@@ -92,7 +87,6 @@ function SettingValue({
     [setting, onToggle]
   );
 
-  // Does this setting map to an internal database model?
   const modelType: ModelType | null = useMemo(() => {
     if (setting.model_name) {
       const model = setting.model_name.split('.')[1];
@@ -116,13 +110,12 @@ function SettingValue({
             setModelInstance(null);
           }
         })
-        .catch((error) => {
+        .catch(() => {
           setModelInstance(null);
         });
     }
   }, [setting, modelType]);
 
-  // If a full model instance is available, render it
   if (modelInstance && modelType && setting.value) {
     return (
       <Group justify='right' gap='xs'>
@@ -144,16 +137,13 @@ function SettingValue({
       return (
         <Switch
           size='sm'
-          radius='lg'
+          radius='xl'
           aria-label={`toggle-setting-${setting.key}`}
           disabled={setting.read_only}
           checked={setting.value.toString().toLowerCase() == 'true'}
           onChange={toggleSetting}
           wrapperProps={{
             'aria-label': `setting-${setting.key}-wrapper`
-          }}
-          style={{
-            paddingRight: '20px'
           }}
         />
       );
@@ -197,26 +187,30 @@ export function SettingItem({
   onEdit: (setting: Setting, confirmed: boolean) => void;
   onToggle: (setting: Setting, value: boolean, confirmed: boolean) => void;
 }>) {
-  const { colorScheme } = useMantineColorScheme();
-
-  const style: Record<string, string> = { paddingLeft: '8px' };
-  if (shaded) {
-    style['backgroundColor'] =
-      colorScheme === 'light' ? vars.colors.gray[1] : vars.colors.gray[9];
-  }
+  const style: Record<string, string> = {
+    padding: '14px 16px',
+    borderRadius: '18px',
+    border: '1px solid var(--ui-border)',
+    backgroundColor: shaded
+      ? 'color-mix(in srgb, var(--ui-surface-muted) 68%, transparent)'
+      : 'var(--ui-page-raised)',
+    boxShadow: 'var(--ui-shadow-sm)'
+  };
 
   return (
     <Paper style={style}>
-      <Group justify='space-between' p='3'>
-        <Stack gap='2' p='4px'>
-          <Text>
+      <Group justify='space-between' align='flex-start' gap='md' wrap='wrap'>
+        <Stack gap={4} style={{ flex: 1, minWidth: '240px' }}>
+          <Text fw={600} c='var(--ui-text-strong)'>
             {setting.name}
             {setting.required ? ' *' : ''}
           </Text>
-          <Text size='xs'>{setting.description}</Text>
+          <Text size='sm' c='var(--ui-text-muted)' style={{ lineHeight: 1.5 }}>
+            {setting.description}
+          </Text>
         </Stack>
         <Boundary label={`setting-value-${setting.key}`}>
-          <Group gap='xs' justify='right'>
+          <Group gap='xs' justify='right' wrap='nowrap'>
             {setting.confirm && (
               <Tooltip label={t`This setting requires confirmation`}>
                 <IconEdit color={vars.colors.yellow[7]} size={16} />

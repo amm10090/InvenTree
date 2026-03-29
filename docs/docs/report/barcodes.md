@@ -112,7 +112,7 @@ To render a QR code, use the `qrcode` template tag:
 {% endblock style %}
 
 {% block content %}
-<img class='qr' src='{% qrcode "Hello world!" fill_color="white" back_color="blue" %}'>
+<img class='qr' src='{% qrcode "Hello world!" fill_color="white" back_color="#8c745f" %}'>
 {% endblock content %}
 {% endraw %}
 ```

@@ -7,19 +7,19 @@ const appFontFamily =
 export const baseThemeOverride = {
   cursorType: 'pointer',
   respectReducedMotion: true,
-  primaryColor: 'santasGray',
+  primaryColor: 'earth',
   colors: {
-    santasGray: [
-      '#eff1f4',
-      '#dde0e7',
-      '#c0c8d4',
-      '#a7b2c3',
-      '#909eb4',
-      '#8491a6',
-      '#748093',
-      '#626c7c',
-      '#4f5866',
-      '#3c434e'
+    earth: [
+      '#f7f4ef',
+      '#ede6dc',
+      '#ddd2c3',
+      '#cab9a4',
+      '#b7a08b',
+      '#a38a73',
+      '#8c745f',
+      '#72604e',
+      '#5d4f41',
+      '#4b4034'
     ]
   },
   fontFamily: appFontFamily,
@@ -33,44 +33,34 @@ export const baseThemeOverride = {
         size: 'md'
       }
     },
+    InputWrapper: {
+      defaultProps: {
+        inputWrapperOrder: ['label', 'description', 'input', 'error']
+      }
+    },
+    Textarea: {
+      defaultProps: {
+        radius: 'md',
+        size: 'md'
+      }
+    },
     Select: {
       defaultProps: {
-        checkIconPosition: 'right',
-        maxDropdownHeight: 280,
-        withScrollArea: true
-      },
-      styles: {
-        wrapper: {
-          minWidth: 0
-        },
-        input: {
-          minHeight: rem(42),
-          paddingInlineStart: rem(14),
-          paddingInlineEnd: rem(40),
-          borderRadius: rem(14),
-          border: '1px solid var(--ui-border)',
-          backgroundColor: 'var(--ui-surface)',
-          color: 'var(--mantine-color-text)',
-          boxShadow: 'var(--ui-shadow-sm)',
-          transition:
-            'border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease'
-        },
-        section: {
-          color: 'var(--mantine-color-dimmed)'
-        },
-        dropdown: {
-          marginTop: rem(6),
-          padding: rem(6),
-          borderRadius: rem(16),
-          border: '1px solid var(--ui-border)',
-          backgroundColor: 'var(--ui-surface)',
-          boxShadow: 'var(--ui-shadow-md)'
-        },
-        option: {
-          padding: `${rem(10)} ${rem(12)}`,
-          borderRadius: rem(10),
-          fontWeight: 500,
-          transition: 'background-color 120ms ease, color 120ms ease'
+        radius: 'md',
+        size: 'md',
+        comboboxProps: {
+          shadow: 'md',
+          withinPortal: true
+        }
+      }
+    },
+    MultiSelect: {
+      defaultProps: {
+        radius: 'md',
+        size: 'md',
+        comboboxProps: {
+          shadow: 'md',
+          withinPortal: true
         }
       }
     },
@@ -94,6 +84,16 @@ export const baseThemeOverride = {
         radius: 'md'
       }
     },
+    SegmentedControl: {
+      defaultProps: {
+        radius: 'xl'
+      }
+    },
+    Tabs: {
+      defaultProps: {
+        radius: 'md'
+      }
+    },
     Modal: {
       defaultProps: {
         radius: 'md',
@@ -107,3 +107,8 @@ export const theme = createTheme(baseThemeOverride);
 export const createAppTheme = (themeOverride = {}) =>
   createTheme(mergeThemeOverrides(baseThemeOverride, themeOverride));
 export const vars = themeToVars(theme);
+
+export const smallerFont = {
+  fontSize: rem(10),
+  padding: '3px 6px'
+};

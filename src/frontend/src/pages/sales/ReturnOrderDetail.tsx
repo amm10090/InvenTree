@@ -485,7 +485,7 @@ export default function ReturnOrderDetail() {
         title={t`Issue Order`}
         icon='issue'
         hidden={!canIssue}
-        color='blue'
+        color='earth'
         onClick={() => issueOrder.open()}
       />,
       <PrimaryActionButton

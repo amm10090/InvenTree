@@ -16,7 +16,7 @@ External companies are represented by the *Company* database model. Each company
 
 ### Edit Company
 
-To edit a company, click on the {{ icon("edit", color="blue", title="Edit Company") }} icon in the actions menu. Edit the company information, and then click on <span class='badge inventree confirm'>Submit</span>.
+To edit a company, click on the {{ icon("edit", color="#8c745f", title="Edit Company") }} icon in the actions menu. Edit the company information, and then click on <span class='badge inventree confirm'>Submit</span>.
 
 !!! warning "Permission Required"
     The edit button will not be available to users who do not have the required permissions to edit the company

@@ -177,7 +177,7 @@ export default function PartTestResultTable({
           if (!test || test.result === undefined) {
             return (
               <Group gap='xs' wrap='nowrap' justify='space-between'>
-                <Badge color='lightblue' variant='filled'>{t`No Result`}</Badge>
+                <Badge color='earth' variant='filled'>{t`No Result`}</Badge>
                 <Tooltip label={t`Add Test Result`}>
                   <ActionIcon
                     size='lg'

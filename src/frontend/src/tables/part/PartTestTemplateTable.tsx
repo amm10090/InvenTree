@@ -79,7 +79,7 @@ export default function PartTestTemplateTable({
         sortable: true,
         title: t`Results`,
         render: (record: any) => {
-          return record.results || <Badge color='blue'>{t`No Results`}</Badge>;
+          return record.results || <Badge color='earth'>{t`No Results`}</Badge>;
         }
       },
       DescriptionColumn({

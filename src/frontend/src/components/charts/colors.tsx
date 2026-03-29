@@ -1,12 +1,12 @@
 export const CHART_COLORS: string[] = [
-  'blue',
-  'teal',
-  'lime',
-  'yellow',
-  'grape',
-  'red',
+  'earth',
   'orange',
+  'yellow',
+  'lime',
   'green',
-  'indigo',
-  'pink'
+  'teal',
+  'red',
+  'pink',
+  'gray',
+  'dark'
 ];

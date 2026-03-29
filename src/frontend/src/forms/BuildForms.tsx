@@ -719,7 +719,7 @@ export function useAllocateStockToBuildForm({
         {output?.pk && (
           <Stack gap='xs'>
             <Alert
-              color='blue'
+              color='earth'
               icon={<IconInfoCircle />}
               title={t`Build Output`}
             >

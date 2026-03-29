@@ -31,9 +31,7 @@ export function ThemeContext({
   try {
     customUserTheme = createAppTheme(
       mergeThemeOverrides(baseThemeOverride, {
-        primaryColor: 'santasGray',
-        white: userTheme.whiteColor,
-        black: userTheme.blackColor,
+        primaryColor: 'earth',
         defaultRadius: userTheme.radius,
         breakpoints: {
           xs: '30em',

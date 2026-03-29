@@ -84,7 +84,7 @@ export default function SaleHistoryPanel({
           data={saleHistoryData}
           dataKey='name'
           series={[
-            { name: 'sale_price', label: t`Sale Price`, color: 'blue.6' }
+            { name: 'sale_price', label: t`Sale Price`, color: 'earth.6' }
           ]}
         />
       ) : (

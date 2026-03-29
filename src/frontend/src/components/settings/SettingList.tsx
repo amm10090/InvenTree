@@ -154,7 +154,7 @@ export function SettingList({
 
   if ((keys || allKeys).length === 0) {
     return (
-      <Alert color='blue' icon={<IconInfoCircle />} title={t`No Settings`}>
+      <Alert color='earth' icon={<IconInfoCircle />} title={t`No Settings`}>
         <Text>{t`There are no configurable settings available`}</Text>
       </Alert>
     );
@@ -163,7 +163,7 @@ export function SettingList({
   return (
     <>
       {editSettingModal.modal}
-      <Stack gap='xs'>
+      <Stack gap='sm'>
         {heading && <Title order={4}>{heading}</Title>}
         {heading && <Divider />}
         {(keys || allKeys)?.map((key, i) => {

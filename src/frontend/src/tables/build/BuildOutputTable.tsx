@@ -478,7 +478,7 @@ export default function BuildOutputTable({
       <ActionButton
         key='allocate-stock'
         icon={<IconWand />}
-        color='blue'
+        color='earth'
         tooltip={t`Auto Allocate Stock`}
         hidden={!hasTrackedItems}
         onClick={() => {
@@ -542,7 +542,7 @@ export default function BuildOutputTable({
         {
           title: t`Allocate`,
           tooltip: t`Allocate stock to build output`,
-          color: 'blue',
+          color: 'earth',
           hidden:
             !production ||
             !hasTrackedItems ||
@@ -570,7 +570,7 @@ export default function BuildOutputTable({
         {
           title: t`Serialize`,
           tooltip: t`Serialize build output`,
-          color: 'blue',
+          color: 'earth',
           hidden: !record.part_detail?.trackable || !!record.serial,
           icon: <InvenTreeIcon icon='serial' />,
           onClick: () => {
@@ -746,7 +746,7 @@ export default function BuildOutputTable({
       <Stack gap='xs'>
         {build.external && (
           <Alert
-            color='blue'
+            color='earth'
             icon={<IconBuildingFactory2 />}
             title={t`External Build`}
           >

@@ -263,7 +263,7 @@ export function PartStocktakePanel({ partId }: Readonly<{ partId: number }>) {
               {
                 name: 'quantity',
                 label: t`Quantity`,
-                color: 'blue.6',
+                color: 'earth.6',
                 yAxisId: 'left'
               },
               {

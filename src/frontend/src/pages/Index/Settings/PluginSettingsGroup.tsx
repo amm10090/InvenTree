@@ -93,7 +93,7 @@ export default function PluginSettingsGroup({
 
   return (
     <Stack gap='xs'>
-      <Alert color='blue' icon={<IconInfoCircle />}>
+      <Alert color='earth' icon={<IconInfoCircle />}>
         <Text>
           {message ??
             t`The settings below are specific to each available plugin`}

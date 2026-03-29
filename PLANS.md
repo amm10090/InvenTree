@@ -19,6 +19,12 @@
   - 进展：已确认本机安装 `cloudflared 2026.3.0` 且具备可用 Cloudflare 账户登录态
 
 ## DONE
+- [x] 2026-03-29 移除 README 中失效的 Mastodon 外链
+  - 完成时间：2026-03-29
+  - 验收结果：README 顶部社交徽章区已移除指向 `https://chaos.social/@InvenTree` 的失效 Mastodon 链接，文档链接检查不再因该死链失败
+  - 关联文件：`README.md`、`PLANS.md`、`MEMORIES.md`
+  - 验证方式：`rg -n 'chaos.social|Mastdon|Mastodon' README.md docs` 无命中；GitHub Actions `Style [Documentation]` 的失败日志已确认根因就是该链接
+
 - [x] 2026-03-29 为 GCE fork 部署工作流补充 IAP SSH 重试兜底
   - 完成时间：2026-03-29
   - 验收结果：`.github/workflows/fork_deploy_gce.yaml` 的 `Deploy over IAP SSH` 步骤已加入 `retry_gcloud_ssh` 包装，对 `gcloud compute scp` 与 `gcloud compute ssh` 分别执行最多 6 次退避重试，并显式加上 `--quiet`，降低 runner 新建临时 SSH key 后的传播抖动导致的首轮失败

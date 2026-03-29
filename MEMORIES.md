@@ -3,6 +3,7 @@
 记录项目长期有效的自定义改动与协作记忆，避免知识随会话丢失。
 
 ## 2026-03-28
+- README 社交徽章区不再保留 `chaos.social/@InvenTree` 这个失效 Mastodon 外链。2026-03-29 的 `Style [Documentation]` 失败已确认根因就是它，当前直接移除以保证 markdown-link-check 稳定通过。
 - 2026-03-28 的 UI 收敛已将前端主主题从冷灰 Santas Gray 调整为暖中性色 `earth`。入口在 `src/frontend/src/theme.ts` 与 `src/frontend/src/styles/overrides.css`，`ThemeContext` 不再消费用户自定义 `whiteColor` / `blackColor`，避免个人主题把系统重新拉回蓝紫或高对比失控状态。
 - `StylishText` 已改为纯色强调文本，不再使用渐变；登录页 `src/frontend/src/pages/Auth/AuthLayout.css.ts` 也已移除全部渐变背景，改成暖中性色平面层次。
 - 用户设置页的结构入口已重做。`SettingsHeader` 新增独立样式文件 `src/frontend/src/components/nav/SettingsHeader.css.ts`，`PanelGroup` 在 `src/frontend/src/components/panels/PanelGroup.tsx` / `PanelGroup.css.ts` 中改成左侧导航卡 + 右侧内容卡的布局，移动端自动纵向堆叠。

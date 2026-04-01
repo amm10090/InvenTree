@@ -6,12 +6,6 @@
 
 ## IN_PROGRESS
 
-- [ ] 2026-04-01 合并上游 `origin/master` 到本地 `prod` 并保留自定义开发内容
-  - 目标：在不丢失现有 `prod` 自定义提交的前提下吸收官方上游最新变更，并保持可回滚
-  - 验收标准：完成备份分支或标签、完成上游合并与冲突处理、关键验证通过，最终形成可推送到 `fork/prod` 的结果
-  - 涉及文件：`PLANS.md`、`MEMORIES.md`、合并过程中涉及的冲突文件
-  - 进展：已确认当前 `origin` 为官方上游、`fork` 为自有仓库，`prod` 相对 `origin/master` 领先 24 个提交、落后 8 个提交；准备进入实际合并流程
-
 - [ ] 2026-03-29 排查 `https://epdm.amoze.net/` 无法访问
   - 目标：定位线上实例与域名链路的不可访问根因并恢复可用
   - 验收标准：明确故障点并给出或执行修复动作，`https://epdm.amoze.net/` 恢复有效响应
@@ -25,6 +19,12 @@
   - 进展：已确认本机安装 `cloudflared 2026.3.0` 且具备可用 Cloudflare 账户登录态
 
 ## DONE
+- [x] 2026-04-01 合并上游 `origin/master` 到本地 `prod` 并保留自定义开发内容
+  - 完成时间：2026-04-01
+  - 验收结果：已先提交当前协作记录并创建 `backup/prod-2026-04-01` 分支与 `backup-prod-2026-04-01` 标签，再基于 `prod` 创建 `merge/upstream-2026-04-01` 集成分支并合入官方上游 `origin/master`；冲突已处理，继续保留仅 `en` / `zh_Hans` 语言收敛、自定义品牌映射和暖色主题，最终生成合并提交 `2a148504aa`
+  - 关联文件：`PLANS.md`、`MEMORIES.md`、`.github/workflows/qc_checks.yaml`、`src/frontend/src/defaults/defaultHostList.tsx`、`src/frontend/src/pages/part/PartDetail.tsx`、`src/frontend/src/locales/en/messages.po`、`src/frontend/src/locales/zh_Hans/messages.po`
+  - 验证方式：`yarn run extract`、`yarn run compile`、`cd src/frontend && ./node_modules/.bin/tsc --noEmit`、Python `compile(..., 'exec')` 语法检查 16 个已暂存 `.py` 文件、`git diff --name-only --diff-filter=U` 为空、`git rev-list --left-right --count HEAD...origin/master` 返回 `26 0`
+
 - [x] 2026-04-01 梳理上游 InvenTree 更新与本地 `prod` 自定义分支的安全合并流程
   - 完成时间：2026-04-01
   - 验收结果：已核对当前 work tree 的远程与分支状态，确认 `origin` 指向官方上游、`fork` 指向自有仓库，`prod` 相对 `origin/master` 已分叉；整理出以备份分支 + 集成分支 + 合并上游 + 冲突核对为核心的安全同步流程，确保自定义提交不被覆盖

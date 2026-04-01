@@ -3,6 +3,8 @@
 记录项目长期有效的自定义改动与协作记忆，避免知识随会话丢失。
 
 ## 2026-03-28
+- 2026-04-01 已在 `merge/upstream-2026-04-01` 完成一次正式上游同步，合并提交是 `2a148504aa`。这次先把协作记录提交到 `prod`，再创建 `backup/prod-2026-04-01` 分支和 `backup-prod-2026-04-01` 标签，然后执行 `git merge origin/master`。后续若继续同步上游，可以沿用这组备份命名方式。
+- 2026-04-01 这次上游合并的主要冲突集中在三类。第一类是前后端多语言目录，当前策略仍然是只保留 `en` 和 `zh_Hans`，其余 locale 继续删除。第二类是品牌与主题定制，`translateHostName` 继续兼容 `InvenTree Demo -> 库存管理系统演示`，上游新引入的蓝色状态色需要改回 `earth`。第三类是前端文案目录，优先保留现有中文定制，再执行 `yarn extract` 和 `yarn compile` 重新生成 catalog，避免手工改 `.po` 后引用行号漂移。
 - 2026-04-01 已确认当前仓库远程分工是 `origin -> 官方 InvenTree`、`fork -> 自有仓库`。后续同步上游时，不要在脏工作区直接拉取。标准做法是先处理 `PLANS.md`、`MEMORIES.md` 这类未提交改动，再给 `prod` 打本地备份分支或 tag，基于 `prod` 切一个临时集成分支，把 `origin/master` 合并进来，解决冲突并验证后再回推 `fork/prod`。这样能完整保留自定义提交历史，也方便回滚。
 - README 社交徽章区不再保留 `chaos.social/@InvenTree` 这个失效 Mastodon 外链。2026-03-29 的 `Style [Documentation]` 失败已确认根因就是它，当前直接移除以保证 markdown-link-check 稳定通过。
 - 2026-03-28 的 UI 收敛已将前端主主题从冷灰 Santas Gray 调整为暖中性色 `earth`。入口在 `src/frontend/src/theme.ts` 与 `src/frontend/src/styles/overrides.css`，`ThemeContext` 不再消费用户自定义 `whiteColor` / `blackColor`，避免个人主题把系统重新拉回蓝紫或高对比失控状态。

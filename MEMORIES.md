@@ -3,6 +3,7 @@
 记录项目长期有效的自定义改动与协作记忆，避免知识随会话丢失。
 
 ## 2026-03-28
+- 2026-04-01 已确认当前仓库远程分工是 `origin -> 官方 InvenTree`、`fork -> 自有仓库`。后续同步上游时，不要在脏工作区直接拉取。标准做法是先处理 `PLANS.md`、`MEMORIES.md` 这类未提交改动，再给 `prod` 打本地备份分支或 tag，基于 `prod` 切一个临时集成分支，把 `origin/master` 合并进来，解决冲突并验证后再回推 `fork/prod`。这样能完整保留自定义提交历史，也方便回滚。
 - README 社交徽章区不再保留 `chaos.social/@InvenTree` 这个失效 Mastodon 外链。2026-03-29 的 `Style [Documentation]` 失败已确认根因就是它，当前直接移除以保证 markdown-link-check 稳定通过。
 - 2026-03-28 的 UI 收敛已将前端主主题从冷灰 Santas Gray 调整为暖中性色 `earth`。入口在 `src/frontend/src/theme.ts` 与 `src/frontend/src/styles/overrides.css`，`ThemeContext` 不再消费用户自定义 `whiteColor` / `blackColor`，避免个人主题把系统重新拉回蓝紫或高对比失控状态。
 - `StylishText` 已改为纯色强调文本，不再使用渐变；登录页 `src/frontend/src/pages/Auth/AuthLayout.css.ts` 也已移除全部渐变背景，改成暖中性色平面层次。
@@ -55,6 +56,8 @@
 - 线上实例 `instance-20260310-032343` 当前规格是 `e2-small`（2 vCPU / 2GB RAM）。当同机并行运行 InvenTree、Vaultwarden、x-ui 等多组容器时，容易出现长期高 CPU + 内存压力。2026-03-28 的观测中，`compute.googleapis.com/instance/cpu/utilization` 在约 20 分钟内维持 `0.82~0.98`，并伴随 `snapd.service` watchdog/timeout 循环、`systemd-resolved` 报 `Under memory pressure`、Docker 健康检查超时。该类现象优先按资源瓶颈处理，而不是先判断为磁盘打满。
 - 2026-03-29 已在线上实例 `instance-20260310-032343` 下线 x-ui。可复用做法是临时写入 `startup-script` 执行 `systemctl disable --now x-ui`，重启实例后在串口日志确认 `is-enabled => disabled` 与 `is-active => inactive`，最后移除该 `startup-script` 元数据。这个流程适合 SSH 不可用时做一次性远程运维收敛。
 - 2026-03-29 已恢复 `instance-20260310-032343` 的 IAP SSH。可复用做法是给实例加 `iap-ssh` tag，创建 `allow-iap-ssh` 允许 `35.235.240.0/20` 访问 tcp:22，再加 `deny-public-ssh-iap-only` 拒绝公网直接打 22；若实例仍在握手阶段掉线，可临时写入 `startup-script` 执行 `systemctl restart ssh.service` 并重启实例，再从串口确认 `sshd` 已监听。
+- 2026-03-29 已下线并清空 `instance-20260310-032343` 上的 InvenTree 部署。当前 `/mnt/docker-data` 下已不再保留 `inventree`、`inventree-data`、`inventree-src` 目录，`inventree2_*` 容器和 `inventree2_default` 网络也已移除。若后续要重新上线，需要重新准备 compose 目录与持久化数据。
+- 仓库里的 `Fork Deploy GCE` 工作流当前状态是 `disabled_manually`，并且本轮还手工取消了当时排队和运行中的部署 run，避免实例被重新拉起。
 - `Fork Deploy GCE` 工作流已在 `Deploy over IAP SSH` 步骤加上 `retry_gcloud_ssh`。当前会对 `gcloud compute scp` 和 `gcloud compute ssh` 做 6 次递增退避重试，避免 GitHub runner 每次新建临时 SSH key 后首轮就因为 metadata/guest-agent 同步抖动而失败。
 - GCP 项目 `gen-lang-client-0984777924` 的项目级 `ssh-keys` 元数据里曾堆积大量过期 `runner:` 条目。2026-03-29 已手工清理旧 runner key，只保留长期账号，再让新的 workflow 临时 key 重新进入，减少 guest agent 处理负担。
 - 2026-03-29 epdm.amoze.net 无法访问时，若 Cloudflare 已返回 301 或 502 且 Caddy 本地证书握手正常，优先检查 Caddy 到上游 inventree-server:8000。本次串口日志确认 dial tcp 172.20.0.5:8000 connect refused，说明外层网络与证书链路已恢复，真正阻塞点在 InvenTree 应用容器未监听或启动失败。

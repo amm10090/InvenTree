@@ -6,6 +6,12 @@
 
 ## IN_PROGRESS
 
+- [ ] 2026-04-01 合并上游 `origin/master` 到本地 `prod` 并保留自定义开发内容
+  - 目标：在不丢失现有 `prod` 自定义提交的前提下吸收官方上游最新变更，并保持可回滚
+  - 验收标准：完成备份分支或标签、完成上游合并与冲突处理、关键验证通过，最终形成可推送到 `fork/prod` 的结果
+  - 涉及文件：`PLANS.md`、`MEMORIES.md`、合并过程中涉及的冲突文件
+  - 进展：已确认当前 `origin` 为官方上游、`fork` 为自有仓库，`prod` 相对 `origin/master` 领先 24 个提交、落后 8 个提交；准备进入实际合并流程
+
 - [ ] 2026-03-29 排查 `https://epdm.amoze.net/` 无法访问
   - 目标：定位线上实例与域名链路的不可访问根因并恢复可用
   - 验收标准：明确故障点并给出或执行修复动作，`https://epdm.amoze.net/` 恢复有效响应
@@ -19,6 +25,18 @@
   - 进展：已确认本机安装 `cloudflared 2026.3.0` 且具备可用 Cloudflare 账户登录态
 
 ## DONE
+- [x] 2026-04-01 梳理上游 InvenTree 更新与本地 `prod` 自定义分支的安全合并流程
+  - 完成时间：2026-04-01
+  - 验收结果：已核对当前 work tree 的远程与分支状态，确认 `origin` 指向官方上游、`fork` 指向自有仓库，`prod` 相对 `origin/master` 已分叉；整理出以备份分支 + 集成分支 + 合并上游 + 冲突核对为核心的安全同步流程，确保自定义提交不被覆盖
+  - 关联文件：`PLANS.md`、`MEMORIES.md`
+  - 验证方式：`git status --short --branch`、`git remote -v`、`git branch -vv`、`git log --oneline origin/master..prod`、`git log --oneline prod..origin/master`、`git merge-base prod origin/master`
+
+- [x] 2026-03-29 下线 GCE 实例上的 InvenTree 部署并清理相关资源
+  - 完成时间：2026-03-29
+  - 验收结果：已取消进行中的 `Fork Deploy GCE` 运行，实例 `instance-20260310-032343` 上的 InvenTree 容器、网络、相关镜像、`/mnt/docker-data/inventree`、`/mnt/docker-data/inventree-data`、`/mnt/docker-data/inventree-src` 均已删除；串口日志确认 `inventree2_*` 容器和 `inventree2_default` 网络已移除，远端复查 `docker ps/volume ls/network ls/images` 与 `ls -d /mnt/docker-data/inventree*` 均为空
+  - 关联文件：`PLANS.md`、`MEMORIES.md`
+  - 验证方式：通过一次性 `startup-script` 执行 `docker compose down -v --remove-orphans --rmi all` 与目录删除；串口日志含 `Container inventree2-inventree-server-1 Removed`、`Network inventree2_default Removed`、`ls: cannot access '/mnt/docker-data/inventree': No such file or directory`；IAP SSH 复查相关容器/卷/网络/镜像和目录命中为空
+
 - [x] 2026-03-29 移除 README 中失效的 Mastodon 外链
   - 完成时间：2026-03-29
   - 验收结果：README 顶部社交徽章区已移除指向 `https://chaos.social/@InvenTree` 的失效 Mastodon 链接，文档链接检查不再因该死链失败
